@@ -11,6 +11,29 @@
 #import <objc/runtime.h>
 
 #define PlaceholderColor [UIColor colorWithRed:0.7333 green:0.7294 blue:0.7608 alpha:1.0]
+/**
+ 布局方向
+ */
+typedef enum : NSUInteger {
+    horizontallyLayout = 0,//水平方向
+    verticalLayout//垂直方向
+} LayoutDirection;
+
+/**
+ *  获取布局方向的宏（默认水平方向horizontallyLayout）
+ */
+#define ViewLayoutDirection(info) ({\
+                                LayoutDirection theDirectionLayout = horizontallyLayout;\
+                                NSString *directionString = (info[@"layoutDirection"] && [info[@"layoutDirection"] length]>0)?info[@"layoutDirection"]:@"horizontally";\
+                                if ([directionString isEqualToString:@"horizontally"]) {\
+                                    theDirectionLayout = horizontallyLayout;\
+                                }else if ([directionString isEqualToString:@"vertical"]) {\
+                                    theDirectionLayout = verticalLayout;\
+                                }else{\
+                                    theDirectionLayout = horizontallyLayout;\
+                                }\
+                                theDirectionLayout;\
+                            })
 
 @implementation AutoBaseTableViewCell
 
@@ -43,23 +66,24 @@
     NSArray *subviews = info[@"subviews"];
     for (NSInteger i = 0; i < subviews.count; i++) {
         CGFloat childViewHeight = 0;
-        height = height + [self handleChildViewHeight:subviews[i] withHeight:childViewHeight];
+        height = height + [self handleHorizontallyLayoutChildViewHeight:subviews[i] withSuperViewHeight:childViewHeight];
     }
 //    NSLog(@"cell height = %@",@(height));
     return height;
 }
 
-//获取每一行子view的最大高度
-+ (CGFloat)handleChildViewHeight:(NSDictionary *)info withHeight:(CGFloat)height {
-    height = (info[@"height"]&&[info[@"height"] floatValue]>height)?[info[@"height"] floatValue]:height;
+//获取水平方向，每行view的最大高度
++ (CGFloat)handleHorizontallyLayoutChildViewHeight:(NSDictionary *)info withSuperViewHeight:(CGFloat)superViewHeight
+{
+    superViewHeight = (info[@"height"]&&[info[@"height"] floatValue]>superViewHeight)?[info[@"height"] floatValue]:superViewHeight;
     NSArray *subviews = info[@"subviews"];
     if (subviews || subviews.count > 0) {
         for (NSInteger i = 0; i < subviews.count; i++) {
-            height = [self handleChildViewHeight:subviews[i] withHeight:height];
+            superViewHeight = [self handleHorizontallyLayoutChildViewHeight:subviews[i] withSuperViewHeight:superViewHeight];
         }
     }
-//    NSLog(@"childViewHeight = %@",@(height));
-    return height;
+//    NSLog(@"childViewHeight = %@",@(superViewHeight));
+    return superViewHeight;
 }
 
 - (void)cellInfo:(NSDictionary *)info {
@@ -67,13 +91,17 @@
     NSArray *subviews = info[@"subviews"];
     for (NSInteger i = 0; i < subviews.count; i++) {
         self.contentView.tag = 0;
-        [self initializeCellView:subviews[i] superView:self.contentView withIndex:i withSuperViewWidth:ScreenWidth];
+        [self initializeCellViewInfo:subviews[i] superView:self.contentView withIndex:i withSuperViewWidth:ScreenWidth layoutDirection:ViewLayoutDirection(info)];
     }
 
 }
 
-- (void)initializeCellView:(NSDictionary *)info superView:(UIView *)superView withIndex:(NSInteger)index withSuperViewWidth:(CGFloat)superViewWidth {
-    
+- (void)initializeCellViewInfo:(NSDictionary *)info
+                     superView:(UIView *)superView
+                     withIndex:(NSInteger)index
+            withSuperViewWidth:(CGFloat)superViewWidth
+               layoutDirection:(LayoutDirection)direction
+{
     NSString *viewClass = info[@"viewType"];//view类型
     
     CGFloat xSpacing = (info[@"xSpacing"])?[info[@"xSpacing"] floatValue]:0;
@@ -115,98 +143,53 @@
     view.translatesAutoresizingMaskIntoConstraints = NO;
 
     [self handleView:view withInfo:info];
+    
+    if ([view isMemberOfClass:[UIImageView class]]) {
+        UIImageView *textView = (UIImageView *)view;
+        textView.backgroundColor = [UIColor redColor];
+    }
 
-    NSDictionary *views = NSDictionaryOfVariableBindings(view);
     NSDictionary *metrics = @{@"ySpacing":@(ySpacing),
                               @"height":@(height),
                               @"xSpacing":@(xSpacing),
                               @"width":@(width)};
     
-    if ((superView == self.contentView && index == 0) || (superView != self.contentView)) {
-        //垂直方向约束
-        if ([verticalAlignment isEqualToString:@"top"]) {
-            if (height == 0) {
-                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:1 constant:ySpacing]];
-                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-            }else{
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(ySpacing)-[view(==height)]" options:0 metrics:metrics views:views]];
-            }
-        }else if ([verticalAlignment isEqualToString:@"center"]){
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(==height)]" options:0 metrics:metrics views:views]];
-            
-        }else if ([verticalAlignment isEqualToString:@"bottom"]){
-            if (height == 0) {
-                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeBottom multiplier:1 constant:ySpacing]];
-            }else{
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(==height)]-(ySpacing)-|" options:0 metrics:metrics views:views]];
-            }
-        }
-    }else if (superView == self.contentView){
-        UIView *lastChildView = [superView.subviews objectAtIndex:index-1];
-        NSDictionary *views = NSDictionaryOfVariableBindings(view,lastChildView);
-        if ([verticalAlignment isEqualToString:@"top"]) {
-            if (height == 0) {
-                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:lastChildView attribute:NSLayoutAttributeBottom multiplier:1 constant:ySpacing]];
-                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-            }else{
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[lastChildView]-(ySpacing)-[view(==height)]" options:0 metrics:metrics views:views]];
-            }
-        }else if ([verticalAlignment isEqualToString:@"center"]){
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(==height)]" options:0 metrics:metrics views:views]];
-            
-        }else if ([verticalAlignment isEqualToString:@"bottom"]){
-            if (height == 0) {
-                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:lastChildView attribute:NSLayoutAttributeTop multiplier:1 constant:ySpacing]];
-            }else{
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(==height)]-(ySpacing)-[lastChildView]" options:0 metrics:metrics views:views]];
-            }
-        }
-    }
-    
     UIView *lastView = nil;
-    //水平方向约束
-    if (index == 0 || (superView == self.contentView)) {//当是第一个子view时，相对位置的view取superView
+    if (index == 0) {
         lastView = superView;
-        if ([horizontallyAlignment isEqualToString:@"left"]) {
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeLeading multiplier:1 constant:xSpacing]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
-        }else if ([horizontallyAlignment isEqualToString:@"center"]){
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
-        }else if ([horizontallyAlignment isEqualToString:@"right"]){
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeTrailing multiplier:1 constant:xSpacing]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
-        }
-    }else{//不是第一个子view时，相对位置的view取上一个子view
-        lastView = [superView.subviews objectAtIndex:index-1];
-        if ([horizontallyAlignment isEqualToString:@"left"]) {
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeTrailing multiplier:1 constant:xSpacing]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
-        }else if ([horizontallyAlignment isEqualToString:@"center"]){
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
-        }else if ([horizontallyAlignment isEqualToString:@"right"]){
-            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeLeading multiplier:1 constant:xSpacing]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
-        }
-    }
-    
-    
-    if ([self.cellStyle isEqualToString:@"scrollView"]) {
-        //当view是UIScrollView时立即刷新，以便能够在后面获取准确的contentSize
-        [self layoutIfNeeded];
     }else{
-        [self setNeedsLayout];
+        @try {
+            lastView = [superView.subviews objectAtIndex:index-1];
+        } @catch (NSException *exception) {
+            lastView = superView;
+            NSString *errorStr = [NSString stringWithFormat:@"获取lastView出错，superView :%@\n currentVIew :%@",superView.description,view.description];
+            [[NSException exceptionWithName:@"lastView error" reason:errorStr userInfo:nil] raise];
+        }
     }
+    
+    //垂直布局
+    if (direction == verticalLayout) {
+        [self verticalAddVerticalLayoutConstraint:view lastView:lastView superView:superView index:index verticalAlignment:verticalAlignment ySpacing:ySpacing height:height metrics:metrics];
+        [self verticalAddHorizontallyLayoutConstraint:view superView:superView horizontallyAlignment:horizontallyAlignment xSpacing:xSpacing width:width metrics:metrics];
+        
+    }else if (direction == horizontallyLayout) {//水平布局
+        [self horizontallyAddVerticalLayoutConstraint:view superView:superView verticalAlignment:verticalAlignment ySpacing:ySpacing height:height metrics:metrics];
+        [self horizontallyAddHorizontallyLayoutConstraint:view lastView:lastView superView:superView index:index horizontallyAlignment:horizontallyAlignment xSpacing:xSpacing width:width metrics:metrics];
+    }
+    
+//    if ([self.cellStyle isEqualToString:@"scrollView"]) {
+//        //当view是UIScrollView时立即刷新，以便能够在后面获取准确的contentSize
+//        [self layoutIfNeeded];
+//    }else{
+//        [self setNeedsLayout];
+//    }
+    [self layoutIfNeeded];
+    [self updateConstraints];
     
     NSArray *subviews = info[@"subviews"];
     if (subviews || subviews.count > 0) {
         for (NSInteger i = 0; i < subviews.count; i++) {
-            [self initializeCellView:subviews[i] superView:view withIndex:i withSuperViewWidth:width];
+            [self initializeCellViewInfo:subviews[i] superView:view withIndex:i withSuperViewWidth:width layoutDirection:ViewLayoutDirection(info)];
             if (([view isKindOfClass:[UIScrollView class]])&&(i == subviews.count-1)) {
                 UIView *childView = view.subviews[view.subviews.count-1];
                 UIScrollView *scrollView = (UIScrollView *)view;
@@ -223,8 +206,157 @@
     
 }
 
+/**
+ *  子View垂直方向布局时添加垂直方向的约束
+ *
+ *  @param view              当前view
+ *  @param lastView          当前view的前一个view
+ *  @param superView
+ *  @param index
+ *  @param verticalAlignment 布局位置（top，center，bottom）
+ *  @param ySpacing          view之间的间隔
+ *  @param height            当前view高度
+ *  @param metrics
+ */
+- (void)verticalAddVerticalLayoutConstraint:(UIView *)view
+                                   lastView:(UIView *)lastView
+                                  superView:(UIView *)superView
+                                      index:(NSInteger)index
+                          verticalAlignment:(NSString*)verticalAlignment
+                                   ySpacing:(CGFloat)ySpacing
+                                     height:(CGFloat)height
+                                    metrics:(NSDictionary *)metrics
+{
+    NSDictionary *views = NSDictionaryOfVariableBindings(view,lastView);
+    if ([verticalAlignment isEqualToString:@"top"]) {
+        if (height == 0) {
+            if (index == 0) {
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:1 constant:ySpacing]];
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+            }else{
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeBottom multiplier:1 constant:ySpacing]];
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+            }
+        }else{
+            if (index == 0) {
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(ySpacing)-[view(==height)]" options:0 metrics:metrics views:views]];
+            }else{
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[lastView]-(ySpacing)-[view(==height)]" options:0 metrics:metrics views:views]];
+            }
+        }
+    }else if ([verticalAlignment isEqualToString:@"center"]){
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(==height)]" options:0 metrics:metrics views:views]];
+        
+    }else if ([verticalAlignment isEqualToString:@"bottom"]){
+        if (height == 0) {
+            if (index == 0) {
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeBottom multiplier:1 constant:ySpacing]];
+            }else{
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+                [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeTop multiplier:1 constant:ySpacing]];
+            }
+        }else{
+            if (index == 0) {
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(==height)]-(ySpacing)-|" options:0 metrics:metrics views:views]];
+            }else{
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(==height)]-(ySpacing)-[lastView]" options:0 metrics:metrics views:views]];
+            }
+            
+        }
+    }
+}
+
+/**
+ *  子View垂直方向布局时添加水平方向的约束
+ */
+- (void)verticalAddHorizontallyLayoutConstraint:(UIView *)view
+                                      superView:(UIView *)superView
+                          horizontallyAlignment:(NSString*)horizontallyAlignment
+                                       xSpacing:(CGFloat)xSpacing
+                                          width:(CGFloat)width
+                                        metrics:(NSDictionary *)metrics
+{
+    NSDictionary *views = NSDictionaryOfVariableBindings(view);
+    if ([horizontallyAlignment isEqualToString:@"left"]) {
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeLeading multiplier:1 constant:xSpacing]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
+    }else if ([horizontallyAlignment isEqualToString:@"center"]){
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
+    }else if ([horizontallyAlignment isEqualToString:@"right"]){
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTrailing multiplier:1 constant:xSpacing]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
+    }
+}
+
+//子View水平方向布局时添加垂直方向的约束
+- (void)horizontallyAddVerticalLayoutConstraint:(UIView *)view
+                                  superView:(UIView *)superView
+                          verticalAlignment:(NSString*)verticalAlignment
+                                   ySpacing:(CGFloat)ySpacing
+                                     height:(CGFloat)height
+                                    metrics:(NSDictionary *)metrics
+{
+    NSDictionary *views = NSDictionaryOfVariableBindings(view);
+    if ([verticalAlignment isEqualToString:@"top"]) {
+        if (height == 0) {
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:1 constant:ySpacing]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+        }else{
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(ySpacing)-[view(==height)]" options:0 metrics:metrics views:views]];
+        }
+    }else if ([verticalAlignment isEqualToString:@"center"]){
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(==height)]" options:0 metrics:metrics views:views]];
+        
+    }else if ([verticalAlignment isEqualToString:@"bottom"]){
+        if (height == 0) {
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeBottom multiplier:1 constant:ySpacing]];
+        }else{
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[view(==height)]-(ySpacing)-|" options:0 metrics:metrics views:views]];
+        }
+    }
+}
+
+//子View水平方向布局时添加水平方向的约束
+- (void)horizontallyAddHorizontallyLayoutConstraint:(UIView *)view
+                                           lastView:(UIView *)lastView
+                                          superView:(UIView *)superView
+                                              index:(NSInteger)index
+                              horizontallyAlignment:(NSString*)horizontallyAlignment
+                                           xSpacing:(CGFloat)xSpacing
+                                              width:(CGFloat)width
+                                            metrics:(NSDictionary *)metrics
+{
+    NSDictionary *views = NSDictionaryOfVariableBindings(view,lastView);
+    if ([horizontallyAlignment isEqualToString:@"left"]) {
+        if (index == 0) {
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeLeading multiplier:1 constant:xSpacing]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
+        }else{
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeTrailing multiplier:1 constant:xSpacing]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
+        }
+    }else if ([horizontallyAlignment isEqualToString:@"center"]){
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
+    }else if ([horizontallyAlignment isEqualToString:@"right"]){
+        if (index == 0) {
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTrailing multiplier:1 constant:xSpacing]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
+        }else{
+            [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeLeading multiplier:1 constant:xSpacing]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(==width)]" options:0 metrics:metrics views:views]];
+        }
+    }
+}
+
+
 - (void)handleView:(UIView *)view withInfo:(NSDictionary *)info {
-    
+    //绑定点击控件
     if (view.userInteractionEnabled == YES && ![view isMemberOfClass:[UIView class]]) {
         UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapping:)];
         singleTap.delegate = self;

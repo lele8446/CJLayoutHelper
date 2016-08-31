@@ -6,6 +6,7 @@
       "cellStyle": "scrollView",
       "titleFont": 14,
       "titleColor": "blackColor",
+      "layoutDirection": "vertical",
       "subviews": [
         {
           "viewType": "UIView",
@@ -15,6 +16,7 @@
           "ySpacing": 0,
           "verticalAlignment": "top",
           "height": 44,
+          "aspectRatio": false,
           "subviews": [
             {
               "viewType": "UILabel",
@@ -23,7 +25,7 @@
               "width": 0.28,
               "ySpacing": 0,
               "verticalAlignment": "top",
-              "height": 0,
+              "height": 44,
               "title": "资质类型:"
             },
             {
@@ -34,7 +36,7 @@
               "width": 0.72,
               "ySpacing": 0,
               "verticalAlignment": "top",
-              "height": 0,
+              "height": 44,
               "subviews": [
                 {
                   "viewType": "UIButton",
@@ -84,25 +86,6 @@
               ]
             }
           ]
-        },
-        {
-          "viewType": "UIImageView",
-          "xSpacing": 20,
-          "horizontallyAlignment": "left",
-          "width": 1,
-          "ySpacing": 0,
-          "verticalAlignment": "top",
-          "height": 1
-        },
-        {
-          "viewType": "UILabel",
-          "xSpacing": 20,
-          "horizontallyAlignment": "center",
-          "width": 60,
-          "ySpacing": 0,
-          "verticalAlignment": "top",
-          "height": 20,
-          "title": "哈哈哈"
         }
       ]
     },
@@ -225,8 +208,8 @@
               "verticalAlignment": "center",
               "height": 44,
               "title": " 永久",
-              "image": "222",
-              "selectImage": "sss"
+              "image": "xxx",
+              "selectImage": "xxx"
             }
           ]
         }
@@ -264,6 +247,78 @@
               "verticalAlignment": "top",
               "height": 50,
               "placeholder": "请输入地址"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cellStyle": "towLableView",
+      "titleFont": 14,
+      "titleColor": "blackColor",
+      "subviews": [
+        {
+          "viewType": "UIView",
+          "xSpacing": 12,
+          "horizontallyAlignment": "left",
+          "width": 1,
+          "ySpacing": 0,
+          "verticalAlignment": "top",
+          "height": 80,
+          "subviews": [
+            {
+              "viewType": "UILabel",
+              "xSpacing": 0,
+              "horizontallyAlignment": "left",
+              "width": 0.28,
+              "verticalAlignment": "center",
+              "height": 44,
+              "title": "测试label"
+            },
+            {
+              "viewType": "UIImageView",
+              "xSpacing": 0,
+              "horizontallyAlignment": "left",
+              "width": 1.0001,
+              "ySpacing": 0,
+              "verticalAlignment": "top",
+              "height": 80
+            },
+            {
+              "viewType": "UIView",
+              "horizontallyAlignment": "left",
+              "width": 0.72,
+              "verticalAlignment": "top",
+              "height": 80,
+              "layoutDirection": "vertical",
+              "subviews": [
+                {
+                  "viewType": "UILabel",
+                  "xSpacing": 0,
+                  "horizontallyAlignment": "left",
+                  "width": 1,
+                  "verticalAlignment": "top",
+                  "height": 40,
+                  "title": "label一"
+                },
+                {
+                  "viewType": "UIImageView",
+                  "xSpacing": 0,
+                  "horizontallyAlignment": "left",
+                  "width": 1,
+                  "ySpacing": 0,
+                  "verticalAlignment": "top",
+                  "height": 1
+                },
+                {
+                  "viewType": "UIButton",
+                  "horizontallyAlignment": "left",
+                  "width": 1,
+                  "verticalAlignment": "top",
+                  "height": 40,
+                  "title": "label二"
+                }
+              ]
             }
           ]
         }

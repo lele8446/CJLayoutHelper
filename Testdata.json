@@ -3,322 +3,271 @@
   "operation": "ok",
   "data": [
     {
-      "modelID": "",
-      "modelType": "qualificationsType",
       "cellStyle": "scrollView",
-      "viewSpacing": 10,
       "titleFont": 14,
-      "height": 44,
+      "titleColor": "blackColor",
+      "layoutDirection":"vertical",
       "subviews": [
         {
-          "viewType": "UILabel",
+          "viewType": "UIView",
+          "xSpacing": 12,
           "horizontallyAlignment": "left",
-          "width": 0.28,
+          "width": 1,
+          "ySpacing": 0,
           "verticalAlignment": "top",
-          "height": 0,
-          "title": "资质类型:"
-        },
-        {
-          "viewType": "UIScrollView",
-          "horizontallyAlignment": "left",
-          "viewSpacing": 2,
-          "width": 0.7,
-          "verticalAlignment": "top",
-          "height": 0,
+          "height": 44,
+          "aspectRatio":false,
           "subviews": [
             {
-              "viewType": "UIButton",
+              "viewType": "UILabel",
+              "xSpacing": 0,
               "horizontallyAlignment": "left",
-              "width": 0,
+              "width": 0.28,
+              "ySpacing": 0,
               "verticalAlignment": "top",
-              "height": 44,
-              "title": "◉营业执照"
+              "height": 0,
+              "title": "资质类型:"
             },
             {
-              "viewType": "UIButton",
+              "viewType": "UIScrollView",
+              "xSpacing": 0,
               "horizontallyAlignment": "left",
-              "width": 0,
+              "viewSpacing": 2,
+              "width": 0.72,
+              "ySpacing": 0,
+              "verticalAlignment": "top",
+              "height": 0,
+              "subviews": [
+                {
+                  "viewType": "UIButton",
+                  "xSpacing": 10,
+                  "horizontallyAlignment": "left",
+                  "width": 0,
+                  "verticalAlignment": "top",
+                  "height": 44,
+                  "title": "◉营业执照"
+                },
+                {
+                  "viewType": "UIButton",
+                  "xSpacing": 10,
+                  "horizontallyAlignment": "left",
+                  "width": 0,
+                  "verticalAlignment": "top",
+                  "height": 44,
+                  "title": "〇品牌授权书"
+                },
+                {
+                  "viewType": "UIButton",
+                  "xSpacing": 10,
+                  "horizontallyAlignment": "left",
+                  "width": 0,
+                  "verticalAlignment": "top",
+                  "height": 44,
+                  "title": "〇纳税资质"
+                },
+                {
+                  "viewType": "UIButton",
+                  "xSpacing": 10,
+                  "horizontallyAlignment": "left",
+                  "width": 0,
+                  "verticalAlignment": "top",
+                  "height": 44,
+                  "title": "〇店头照"
+                },
+                {
+                  "viewType": "UIButton",
+                  "xSpacing": 10,
+                  "horizontallyAlignment": "left",
+                  "width": 0,
+                  "verticalAlignment": "top",
+                  "height": 44,
+                  "title": "〇身份证"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "viewType": "UIImageView",
+          "xSpacing": 20,
+          "horizontallyAlignment": "left",
+          "width": 1,
+          "ySpacing": 0,
+          "verticalAlignment": "top",
+          "height": 1
+        },
+        {
+          "viewType": "UILabel",
+          "xSpacing": 20,
+          "horizontallyAlignment": "center",
+          "width": 60,
+          "ySpacing": 0,
+          "verticalAlignment": "top",
+          "height": 20,
+          "title": "哈哈哈"
+        }
+      ]
+    },
+    {
+      "cellStyle": "TextField",
+      "titleFont": 14,
+      "titleColor": "blackColor",
+      "subviews": [
+        {
+          "viewType": "UIView",
+          "xSpacing": 12,
+          "horizontallyAlignment": "left",
+          "width": 1,
+          "ySpacing": 0,
+          "verticalAlignment": "top",
+          "height": 44,
+          "subviews": [
+            {
+              "viewType": "UILabel",
+              "xSpacing": 0,
+              "horizontallyAlignment": "left",
+              "width": 0.28,
+              "ySpacing": 0,
               "verticalAlignment": "top",
               "height": 44,
-              "title": "〇品牌授权书"
+              "title": "社会信用代码:"
             },
             {
-              "viewType": "UIButton",
+              "viewType": "UITextField",
               "horizontallyAlignment": "left",
-              "width": 0,
+              "width": 0.72,
               "verticalAlignment": "top",
               "height": 44,
-              "title": "〇纳税资质"
-            },
-            {
-              "viewType": "UIButton",
-              "horizontallyAlignment": "left",
-              "width": 0,
-              "verticalAlignment": "top",
-              "height": 44,
-              "title": "〇店头照"
-            },
-            {
-              "viewType": "UIButton",
-              "horizontallyAlignment": "left",
-              "width": 0,
-              "verticalAlignment": "top",
-              "height": 44,
-              "title": "〇身份证"
+              "placeholder": "请输入社会信用代码"
             }
           ]
         }
       ]
     },
     {
-      "modelID": "",
-      "modelType": "qualificationsType",
-      "cellStyle": "TextField",
-      "viewSpacing": 10,
-      "titleFont": 14,
-      "height": 44,
-      "subviews": [
-        {
-          "viewType": "UILabel",
-          "horizontallyAlignment": "left",
-          "width": 0.28,
-          "verticalAlignment": "top",
-          "height": 44,
-          "title": "社会信用代码:"
-        },
-        {
-          "viewType": "UITextField",
-          "horizontallyAlignment": "left",
-          "width": 0.72,
-          "verticalAlignment": "top",
-          "height": 44,
-          "placeholder": "请输入社会信用代码"
-        }
-      ]
-    },
-    {
-      "modelID": "",
-      "modelType": "qualificationsType",
       "cellStyle": "TextFieldAndLabel",
-      "viewSpacing": 10,
       "titleFont": 14,
-      "height": 44,
+      "titleColor": "blackColor",
       "subviews": [
         {
-          "viewType": "UILabel",
+          "viewType": "UIView",
+          "xSpacing": 12,
           "horizontallyAlignment": "left",
-          "width": 0.28,
+          "width": 1,
+          "ySpacing": 0,
           "verticalAlignment": "top",
           "height": 44,
-          "title": "注册资本:"
-        },
-        {
-          "viewType": "UITextField",
-          "horizontallyAlignment": "left",
-          "width": 0.60,
-          "verticalAlignment": "top",
-          "height": 44,
-          "placeholder": "请输入注册资本"
-        },
-        {
-          "viewType": "UILabel",
-          "horizontallyAlignment": "left",
-          "width": 0.12,
-          "verticalAlignment": "top",
-          "height": 44,
-          "title": "万元"
+          "subviews": [
+            {
+              "viewType": "UILabel",
+              "xSpacing": 0,
+              "horizontallyAlignment": "left",
+              "width": 0.28,
+              "ySpacing": 0,
+              "verticalAlignment": "top",
+              "height": 44,
+              "title": "注册资本:"
+            },
+            {
+              "viewType": "UITextField",
+              "horizontallyAlignment": "left",
+              "width": 0.60,
+              "verticalAlignment": "top",
+              "height": 44,
+              "placeholder": "请输入注册资本"
+            },
+            {
+              "viewType": "UILabel",
+              "horizontallyAlignment": "left",
+              "width": 0.12,
+              "verticalAlignment": "top",
+              "height": 44,
+              "title": "万元"
+            }
+          ]
         }
       ]
     },
     {
-      "modelID": "",
-      "modelType": "qualificationsType",
       "cellStyle": "datePickerAndSelectButton",
-      "viewSpacing": 10,
       "titleFont": 14,
-      "height": 44,
+      "titleColor": "blackColor",
       "subviews": [
         {
-          "viewType": "UILabel",
+          "viewType": "UIView",
+          "xSpacing": 12,
           "horizontallyAlignment": "left",
-          "width": 0.28,
+          "width": 1,
+          "ySpacing": 0,
           "verticalAlignment": "top",
           "height": 44,
-          "title": "营业期限:"
-        },
-        {
-          "viewType": "UIButton",
-          "horizontallyAlignment": "left",
-          "width": 0.55,
-          "verticalAlignment": "top",
-          "placeholder": "请选择营业期限",
-          "height": 44
-        },
-        {
-          "viewType": "UIButton",
-          "horizontallyAlignment": "left",
-          "width": 0.18,
-          "verticalAlignment": "center",
-          "height": 44,
-          "title": " 永久",
-          "image":"222",
-          "selectImage":"sss"
+          "subviews": [
+            {
+              "viewType": "UILabel",
+              "xSpacing": 0,
+              "horizontallyAlignment": "left",
+              "width": 0.28,
+              "ySpacing": 0,
+              "verticalAlignment": "top",
+              "height": 44,
+              "title": "营业期限:"
+            },
+            {
+              "viewType": "UIButton",
+              "horizontallyAlignment": "left",
+              "width": 0.55,
+              "verticalAlignment": "top",
+              "placeholder": "请选择营业期限",
+              "height": 44
+            },
+            {
+              "viewType": "UIButton",
+              "horizontallyAlignment": "left",
+              "width": 0.18,
+              "verticalAlignment": "center",
+              "height": 44,
+              "title": " 永久",
+              "image": "222",
+              "selectImage": "sss"
+            }
+          ]
         }
       ]
     },
     {
-      "modelID": "",
-      "modelType": "qualificationsType",
-      "cellStyle": "datePicker",
-      "viewSpacing": 10,
+      "cellStyle": "CJUITextView",
       "titleFont": 14,
-      "height": 44,
+      "titleColor": "blackColor",
       "subviews": [
         {
-          "viewType": "UILabel",
+          "viewType": "UIView",
+          "xSpacing": 12,
           "horizontallyAlignment": "left",
-          "width": 0.28,
+          "width": 1,
+          "ySpacing": 0,
           "verticalAlignment": "top",
-          "height": 44,
-          "title": "成立日期:"
-        },
-        {
-          "viewType": "UIButton",
-          "horizontallyAlignment": "left",
-          "width": 0.60,
-          "verticalAlignment": "top",
-          "placeholder": "请选择成立日期",
-          "height": 44
-        }
-      ]
-    },
-    {
-      "modelID": "",
-      "modelType": "qualificationsType",
-      "cellStyle": "TextField",
-      "viewSpacing": 10,
-      "titleFont": 14,
-      "height": 44,
-      "subviews": [
-        {
-          "viewType": "UILabel",
-          "horizontallyAlignment": "left",
-          "width": 0.28,
-          "verticalAlignment": "top",
-          "height": 44,
-          "title": "法定代表人:"
-        },
-        {
-          "viewType": "UITextField",
-          "horizontallyAlignment": "left",
-          "width": 0.60,
-          "verticalAlignment": "top",
-          "height": 44,
-          "placeholder": "请输入法定代表人"
-        }
-      ]
-    },
-    {
-      "modelID": "",
-      "modelType": "qualificationsType",
-      "cellStyle": "TextField",
-      "viewSpacing": 10,
-      "titleFont": 14,
-      "height": 44,
-      "subviews": [
-        {
-          "viewType": "UILabel",
-          "horizontallyAlignment": "left",
-          "width": 0.28,
-          "verticalAlignment": "top",
-          "height": 44,
-          "title": "经营住所:"
-        },
-        {
-          "viewType": "CJUITextView",
-          "horizontallyAlignment": "left",
-          "width": 0.60,
-          "verticalAlignment": "center",
-          "height": 50,
-          "placeholder": "请输入地址"
-        }
-      ]
-    },
-    {
-      "modelID": "",
-      "modelType": "qualificationsType",
-      "cellStyle": "TextField",
-      "viewSpacing": 10,
-      "titleFont": 14,
-      "height": 44,
-      "subviews": [
-        {
-          "viewType": "UILabel",
-          "horizontallyAlignment": "left",
-          "width": 0.28,
-          "verticalAlignment": "top",
-          "height": 44,
-          "title": "经营住所:"
-        },
-        {
-          "viewType": "UITextField",
-          "horizontallyAlignment": "left",
-          "width": 0.60,
-          "verticalAlignment": "top",
-          "height": 0,
-          "placeholder": "请输入地址"
-        }
-      ]
-    },
-    {
-      "modelID": "",
-      "modelType": "qualificationsType",
-      "cellStyle": "TextField",
-      "viewSpacing": 10,
-      "titleFont": 14,
-      "height": 44,
-      "subviews": [
-        {
-          "viewType": "UILabel",
-          "horizontallyAlignment": "left",
-          "width": 0.28,
-          "verticalAlignment": "top",
-          "height": 44,
-          "title": "经营住所:"
-        },
-        {
-          "viewType": "UITextField",
-          "horizontallyAlignment": "left",
-          "width": 0.60,
-          "verticalAlignment": "top",
-          "height": 0,
-          "placeholder": "请输入地址"
-        }
-      ]
-    },
-    {
-      "modelID": "",
-      "modelType": "qualificationsType",
-      "cellStyle": "TextField",
-      "viewSpacing": 10,
-      "titleFont": 14,
-      "height": 44,
-      "subviews": [
-        {
-          "viewType": "UILabel",
-          "horizontallyAlignment": "left",
-          "width": 0.28,
-          "verticalAlignment": "top",
-          "height": 44,
-          "title": "啊啊啊啊:"
-        },
-        {
-          "viewType": "UITextField",
-          "horizontallyAlignment": "left",
-          "width": 0.60,
-          "verticalAlignment": "top",
-          "height": 0,
-          "placeholder": "测试测试"
+          "height": 60,
+          "subviews": [
+            {
+              "viewType": "UILabel",
+              "xSpacing": 0,
+              "horizontallyAlignment": "left",
+              "width": 0.28,
+              "verticalAlignment": "top",
+              "height": 44,
+              "title": "经营住所:"
+            },
+            {
+              "viewType": "CJUITextView",
+              "xSpacing": -4,
+              "horizontallyAlignment": "left",
+              "width": 0.72,
+              "ySpacing": 4,
+              "verticalAlignment": "top",
+              "height": 50,
+              "placeholder": "请输入地址"
+            }
+          ]
         }
       ]
     }
