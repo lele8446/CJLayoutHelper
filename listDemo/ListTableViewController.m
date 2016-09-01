@@ -102,7 +102,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return 44;
     NSDictionary *info = self.dataArray[indexPath.row];
     return [AutoBaseTableViewCell cellHeightWithInfo:info];
 }

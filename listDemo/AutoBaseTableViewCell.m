@@ -61,15 +61,7 @@ typedef enum : NSUInteger {
 }
 
 + (CGFloat)cellHeightWithInfo:(NSDictionary *)info {
-    CGFloat height = 0;
-    
-    NSArray *subviews = info[@"subviews"];
-    for (NSInteger i = 0; i < subviews.count; i++) {
-        CGFloat childViewHeight = 0;
-        height = height + [self handleHorizontallyLayoutChildViewHeight:subviews[i] withSuperViewHeight:childViewHeight];
-    }
-//    NSLog(@"cell height = %@",@(height));
-    return height;
+    return [self handleHorizontallyLayoutChildViewHeight:info withSuperViewHeight:0];
 }
 
 //获取水平方向，每行view的最大高度
@@ -87,12 +79,8 @@ typedef enum : NSUInteger {
 }
 
 - (void)cellInfo:(NSDictionary *)info {
-
-    NSArray *subviews = info[@"subviews"];
-    for (NSInteger i = 0; i < subviews.count; i++) {
-        self.contentView.tag = 0;
-        [self initializeCellViewInfo:subviews[i] superView:self.contentView withIndex:i withSuperViewWidth:ScreenWidth layoutDirection:ViewLayoutDirection(info)];
-    }
+    self.contentView.tag = 0;
+    [self initializeCellViewInfo:info superView:self.contentView withIndex:0 withSuperViewWidth:ScreenWidth layoutDirection:ViewLayoutDirection(info)];
 
 }
 
@@ -102,97 +90,103 @@ typedef enum : NSUInteger {
             withSuperViewWidth:(CGFloat)superViewWidth
                layoutDirection:(LayoutDirection)direction
 {
+    UIView *currentVIew = nil;
+    CGFloat width = 0;
     NSString *viewClass = info[@"viewType"];//view类型
-    
-    CGFloat xSpacing = (info[@"xSpacing"])?[info[@"xSpacing"] floatValue]:0;
-    NSString *horizontallyAlignment = info[@"horizontallyAlignment"];//水平方向
-    CGFloat width = [info[@"width"] floatValue];//宽度
-    width = width <= 1?(superViewWidth-2*xSpacing)*width:width;
-//    NSLog(@"superView is %@, superViewWidth = %@",NSStringFromClass([superView class]),@(superViewWidth));
-    
-    CGFloat ySpacing = (info[@"ySpacing"])?[info[@"ySpacing"] floatValue]:0;
-    NSString *verticalAlignment = info[@"verticalAlignment"];//垂直方向
-    CGFloat height = [info[@"height"] floatValue];//高度
-    
-    self.titleFont = (info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0))?[UIFont systemFontOfSize:[info[@"titleFont"] floatValue]]:self.titleFont;
-    
-    self.titleString = info[@"title"];
-    if (self.titleString && self.titleString.length >0) {
-        NSMutableDictionary *attDic = [NSMutableDictionary dictionary];
-        [attDic setObject:self.titleFont forKey:NSFontAttributeName];
-        CGSize strSize = [self.titleString boundingRectWithSize:CGSizeMake(MAXFLOAT, height)
-                                                        options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                                     attributes:attDic
-                                                        context:nil].size;
-        if (width == 0) {
-            width = strSize.width+6;
-        }
-        if (strSize.width+6 > width) {
-            width = strSize.width+6;
-        }
-    }
-    
-    NSInteger tag = superView.tag;
-    NSString *tagStr = [NSString stringWithFormat:@"%@_%@_%@",self.cellStyle,@(tag),@(index)];
-    UIView *view = [superView viewWithTag:[tagStr hash]];
-    if (nil == view) {
-        view = [[NSClassFromString(viewClass) alloc]init];
-        view.tag = [tagStr hash];
-        [superView addSubview:view];
-    }
-    view.translatesAutoresizingMaskIntoConstraints = NO;
-
-    [self handleView:view withInfo:info];
-    
-    if ([view isMemberOfClass:[UIImageView class]]) {
-        UIImageView *textView = (UIImageView *)view;
-        textView.backgroundColor = [UIColor redColor];
-    }
-
-    NSDictionary *metrics = @{@"ySpacing":@(ySpacing),
-                              @"height":@(height),
-                              @"xSpacing":@(xSpacing),
-                              @"width":@(width)};
-    
-    UIView *lastView = nil;
-    if (index == 0) {
-        lastView = superView;
-    }else{
-        @try {
-            lastView = [superView.subviews objectAtIndex:index-1];
-        } @catch (NSException *exception) {
-            lastView = superView;
-            NSString *errorStr = [NSString stringWithFormat:@"获取lastView出错，superView :%@\n currentVIew :%@",superView.description,view.description];
-            [[NSException exceptionWithName:@"lastView error" reason:errorStr userInfo:nil] raise];
-        }
-    }
-    
-    //垂直布局
-    if (direction == verticalLayout) {
-        [self verticalAddVerticalLayoutConstraint:view lastView:lastView superView:superView index:index verticalAlignment:verticalAlignment ySpacing:ySpacing height:height metrics:metrics];
-        [self verticalAddHorizontallyLayoutConstraint:view superView:superView horizontallyAlignment:horizontallyAlignment xSpacing:xSpacing width:width metrics:metrics];
+    id theViewClass = NSClassFromString(viewClass);
+    if (!viewClass || viewClass.length <= 0 || !theViewClass || nil == theViewClass) {
+        NSString *errorStr = [NSString stringWithFormat:@"viewType类型出错，viewType :%@",info[@"viewType"]];
+        NSLog(@"errorStr = %@",errorStr);
+        NSLog(@"errorInfo = %@",info);
+    }else {
+        CGFloat xSpacing = (info[@"xSpacing"])?[info[@"xSpacing"] floatValue]:0;
+        NSString *horizontallyAlignment = info[@"horizontallyAlignment"];//水平方向
+        width = [info[@"width"] floatValue];//宽度
+        width = width <= 1?(superViewWidth-2*xSpacing)*width:width;
+//        NSLog(@"superView is %@, superViewWidth = %@",NSStringFromClass([superView class]),@(superViewWidth));
         
-    }else if (direction == horizontallyLayout) {//水平布局
-        [self horizontallyAddVerticalLayoutConstraint:view superView:superView verticalAlignment:verticalAlignment ySpacing:ySpacing height:height metrics:metrics];
-        [self horizontallyAddHorizontallyLayoutConstraint:view lastView:lastView superView:superView index:index horizontallyAlignment:horizontallyAlignment xSpacing:xSpacing width:width metrics:metrics];
+        CGFloat ySpacing = (info[@"ySpacing"])?[info[@"ySpacing"] floatValue]:0;
+        NSString *verticalAlignment = info[@"verticalAlignment"];//垂直方向
+        CGFloat height = [info[@"height"] floatValue];//高度
+        
+        self.titleFont = (info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0))?[UIFont systemFontOfSize:[info[@"titleFont"] floatValue]]:self.titleFont;
+        
+        self.titleString = info[@"title"];
+        if (self.titleString && self.titleString.length >0) {
+            NSMutableDictionary *attDic = [NSMutableDictionary dictionary];
+            [attDic setObject:self.titleFont forKey:NSFontAttributeName];
+            CGSize strSize = [self.titleString boundingRectWithSize:CGSizeMake(MAXFLOAT, height)
+                                                            options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                         attributes:attDic
+                                                            context:nil].size;
+            if (width == 0) {
+                width = strSize.width+6;
+            }
+            if (strSize.width+6 > width) {
+                width = strSize.width+6;
+            }
+        }
+        
+        NSInteger tag = superView.tag;
+        NSString *tagStr = [NSString stringWithFormat:@"%@_%@_%@_%@",self.cellStyle,@(tag),@(index),viewClass];
+        currentVIew = [superView viewWithTag:[tagStr hash]];
+        if (nil == currentVIew) {
+            currentVIew = [[NSClassFromString(viewClass) alloc]init];
+            currentVIew.tag = [tagStr hash];
+            [superView addSubview:currentVIew];
+        }
+        currentVIew.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        [self handleView:currentVIew withInfo:info];
+        
+        NSDictionary *metrics = @{@"ySpacing":@(ySpacing),
+                                  @"height":@(height),
+                                  @"xSpacing":@(xSpacing),
+                                  @"width":@(width)};
+        
+        UIView *lastView = nil;
+        if (index == 0) {
+            lastView = superView;
+        }else{
+            @try {
+                lastView = [superView.subviews objectAtIndex:index-1];
+            } @catch (NSException *exception) {
+                lastView = superView;
+                NSString *errorStr = [NSString stringWithFormat:@"获取lastView出错，superView :%@\n currentVIew :%@",superView.description,currentVIew.description];
+                NSLog(@"lastView error =%@",errorStr);
+            }
+        }
+        
+        //垂直布局
+        if (direction == verticalLayout) {
+            [self verticalAddVerticalLayoutConstraint:currentVIew lastView:lastView superView:superView index:index verticalAlignment:verticalAlignment ySpacing:ySpacing height:height metrics:metrics];
+            [self verticalAddHorizontallyLayoutConstraint:currentVIew superView:superView horizontallyAlignment:horizontallyAlignment xSpacing:xSpacing width:width metrics:metrics];
+            
+        }else if (direction == horizontallyLayout) {//水平布局
+            [self horizontallyAddVerticalLayoutConstraint:currentVIew superView:superView verticalAlignment:verticalAlignment ySpacing:ySpacing height:height metrics:metrics];
+            [self horizontallyAddHorizontallyLayoutConstraint:currentVIew lastView:lastView superView:superView index:index horizontallyAlignment:horizontallyAlignment xSpacing:xSpacing width:width metrics:metrics];
+        }
+        
+        if ([self.cellStyle isEqualToString:@"scrollView"]) {
+            //当view是UIScrollView时立即刷新，以便能够在后面获取准确的contentSize
+            [self layoutIfNeeded];
+        }else{
+            [self setNeedsLayout];
+        }
+        [self updateConstraints];
     }
-    
-//    if ([self.cellStyle isEqualToString:@"scrollView"]) {
-//        //当view是UIScrollView时立即刷新，以便能够在后面获取准确的contentSize
-//        [self layoutIfNeeded];
-//    }else{
-//        [self setNeedsLayout];
-//    }
-    [self layoutIfNeeded];
-    [self updateConstraints];
     
     NSArray *subviews = info[@"subviews"];
     if (subviews || subviews.count > 0) {
         for (NSInteger i = 0; i < subviews.count; i++) {
-            [self initializeCellViewInfo:subviews[i] superView:view withIndex:i withSuperViewWidth:width layoutDirection:ViewLayoutDirection(info)];
-            if (([view isKindOfClass:[UIScrollView class]])&&(i == subviews.count-1)) {
-                UIView *childView = view.subviews[view.subviews.count-1];
-                UIScrollView *scrollView = (UIScrollView *)view;
+            if (!currentVIew || nil == currentVIew) {
+                currentVIew = superView;
+                width = superViewWidth;
+            }
+            [self initializeCellViewInfo:subviews[i] superView:currentVIew withIndex:i withSuperViewWidth:width layoutDirection:ViewLayoutDirection(info)];
+            if (([currentVIew isKindOfClass:[UIScrollView class]])&&(i == subviews.count-1)) {
+                UIView *childView = currentVIew.subviews[currentVIew.subviews.count-1];
+                UIScrollView *scrollView = (UIScrollView *)currentVIew;
                 
                 if ((CGRectGetMaxX(childView.frame) >= CGRectGetWidth(scrollView.frame)) && (CGRectGetMaxY(childView.frame) <= CGRectGetHeight(scrollView.frame))) {
                     scrollView.contentSize = CGSizeMake(CGRectGetMaxX(childView.frame), 0);
@@ -229,11 +223,11 @@ typedef enum : NSUInteger {
 {
     NSDictionary *views = NSDictionaryOfVariableBindings(view,lastView);
     if ([verticalAlignment isEqualToString:@"top"]) {
-        if (height == 0) {
-            if (index == 0) {
+        if (height == 0) {//不确定高度
+            if (index == 0) {//第一个子view，垂直方向相对位置的view取superView
                 [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTop multiplier:1 constant:ySpacing]];
                 [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
-            }else{
+            }else{//不是第一个子view时，垂直方向相对位置的view取前一个子view
                 [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:lastView attribute:NSLayoutAttributeBottom multiplier:1 constant:ySpacing]];
                 [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
             }
@@ -278,6 +272,7 @@ typedef enum : NSUInteger {
                                           width:(CGFloat)width
                                         metrics:(NSDictionary *)metrics
 {
+    //垂直方向布局时水平方向相对位置的view都取superView
     NSDictionary *views = NSDictionaryOfVariableBindings(view);
     if ([horizontallyAlignment isEqualToString:@"left"]) {
         [self addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeLeading multiplier:1 constant:xSpacing]];
@@ -357,7 +352,7 @@ typedef enum : NSUInteger {
 
 - (void)handleView:(UIView *)view withInfo:(NSDictionary *)info {
     //绑定点击控件
-    if (view.userInteractionEnabled == YES && ![view isMemberOfClass:[UIView class]]) {
+    if (![view isMemberOfClass:[UIView class]] && view.userInteractionEnabled == YES ) {
         UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapping:)];
         singleTap.delegate = self;
         objc_setAssociatedObject(singleTap, "info", info, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -427,7 +422,6 @@ typedef enum : NSUInteger {
         if (placeholder && placeholder.length > 0) {
             textView.placeHoldString = placeholder;
             textView.font = self.titleFont;
-            textView.placeHoldTextFont = self.titleFont;
         }
     }
     if ([view isMemberOfClass:[UIImageView class]]) {
@@ -445,10 +439,16 @@ typedef enum : NSUInteger {
 }
 
 #pragma mark--UIGestureRecognizerDelegate
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+//允许多个手势同时执行
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     if([touch.view isKindOfClass:[UITextView class]] ||[touch.view isKindOfClass:[UITextField class]]){
         return NO;
     }
     return YES;
 }
+
 @end

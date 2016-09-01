@@ -25,6 +25,7 @@
 		B4910A191D75310200137CE2 /* icon_weixuanze_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A171D75310200137CE2 /* icon_weixuanze_nor@3x.png */; };
 		B4910A1C1D75311A00137CE2 /* icon_xuanze_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A1A1D75311A00137CE2 /* icon_xuanze_nor@2x.png */; };
 		B4910A1D1D75311A00137CE2 /* icon_xuanze_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A1B1D75311A00137CE2 /* icon_xuanze_nor@3x.png */; };
+		B4910A231D78170800137CE2 /* ConfigurationLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A221D78170800137CE2 /* ConfigurationLayoutHelper.m */; };
 		D5AFAACA3D225DFBAD17D0E3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C21E0A7CC8DC1147888CD5 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,8 @@
 		B4910A171D75310200137CE2 /* icon_weixuanze_nor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_weixuanze_nor@3x.png"; sourceTree = "<group>"; };
 		B4910A1A1D75311A00137CE2 /* icon_xuanze_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_xuanze_nor@2x.png"; sourceTree = "<group>"; };
 		B4910A1B1D75311A00137CE2 /* icon_xuanze_nor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_xuanze_nor@3x.png"; sourceTree = "<group>"; };
+		B4910A211D78170800137CE2 /* ConfigurationLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationLayoutHelper.h; sourceTree = "<group>"; };
+		B4910A221D78170800137CE2 /* ConfigurationLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationLayoutHelper.m; sourceTree = "<group>"; };
 		C7D892EFBE267D36EA155E13 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D0C21E0A7CC8DC1147888CD5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -156,6 +159,8 @@
 				B4910A051D72B11800137CE2 /* ListTableViewController.m */,
 				B4910A071D72B41900137CE2 /* AutoBaseTableViewCell.h */,
 				B4910A081D72B41900137CE2 /* AutoBaseTableViewCell.m */,
+				B4910A211D78170800137CE2 /* ConfigurationLayoutHelper.h */,
+				B4910A221D78170800137CE2 /* ConfigurationLayoutHelper.m */,
 				B49109DD1D729BD100137CE2 /* Assets.xcassets */,
 				B49109DF1D729BD100137CE2 /* LaunchScreen.storyboard */,
 				B49109E21D729BD100137CE2 /* Info.plist */,
@@ -388,6 +393,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4910A231D78170800137CE2 /* ConfigurationLayoutHelper.m in Sources */,
 				B49109D91D729BD100137CE2 /* ViewController.m in Sources */,
 				B49109D61D729BD100137CE2 /* AppDelegate.m in Sources */,
 				B49109D31D729BD100137CE2 /* main.m in Sources */,

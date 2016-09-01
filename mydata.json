@@ -6,6 +6,13 @@
       "cellStyle": "scrollView",
       "titleFont": 14,
       "titleColor": "blackColor",
+      "viewType": "UIView",
+      "xSpacing": 0,
+      "horizontallyAlignment": "left",
+      "width": 1,
+      "ySpacing": 0,
+      "verticalAlignment": "top",
+      "height": 64,
       "layoutDirection": "vertical",
       "subviews": [
         {
@@ -86,42 +93,57 @@
               ]
             }
           ]
-        }
+        },
+        {
+          "viewType": "UIImageView",
+          "xSpacing": 0,
+          "horizontallyAlignment": "center",
+          "width": 1,
+          "ySpacing": 0,
+          "verticalAlignment": "top",
+          "height": 1
+        },
+        {
+          "viewType": "UILabel",
+          "xSpacing": 0,
+          "horizontallyAlignment": "center",
+          "width": 0,
+          "ySpacing": 0,
+          "verticalAlignment": "top",
+          "height": 20,
+          "title": "测试label"
+        },
       ]
     },
     {
       "cellStyle": "TextField",
       "titleFont": 14,
       "titleColor": "blackColor",
+      "viewType": "UIView",
+      "xSpacing": 12,
+      "horizontallyAlignment": "left",
+      "width": 1,
+      "ySpacing": 0,
+      "verticalAlignment": "top",
+      "height": 44,
       "subviews": [
         {
-          "viewType": "UIView",
-          "xSpacing": 12,
+          "viewType": "UILabel",
+          "xSpacing": 0,
           "horizontallyAlignment": "left",
-          "width": 1,
+          "width": 0.28,
           "ySpacing": 0,
           "verticalAlignment": "top",
           "height": 44,
-          "subviews": [
-            {
-              "viewType": "UILabel",
-              "xSpacing": 0,
-              "horizontallyAlignment": "left",
-              "width": 0.28,
-              "ySpacing": 0,
-              "verticalAlignment": "top",
-              "height": 44,
-              "title": "社会信用代码:"
-            },
-            {
-              "viewType": "UITextField",
-              "horizontallyAlignment": "left",
-              "width": 0.72,
-              "verticalAlignment": "top",
-              "height": 44,
-              "placeholder": "请输入社会信用代码"
-            }
-          ]
+          "title": "社会信用代码:"
+        },
+        {
+          "viewType": "UITextField",
+          "horizontallyAlignment": "left",
+          "width": 0.72,
+          "verticalAlignment": "top",
+          "height": 44,
+          "placeholder": "请输入社会信用代码"
         }
       ]
     },
@@ -129,43 +151,39 @@
       "cellStyle": "TextFieldAndLabel",
       "titleFont": 14,
       "titleColor": "blackColor",
+      "viewType": "UIView",
+      "xSpacing": 12,
+      "horizontallyAlignment": "left",
+      "width": 1,
+      "ySpacing": 0,
+      "verticalAlignment": "top",
+      "height": 44,
       "subviews": [
         {
-          "viewType": "UIView",
-          "xSpacing": 12,
+          "viewType": "UILabel",
+          "xSpacing": 0,
           "horizontallyAlignment": "left",
-          "width": 1,
+          "width": 0.28,
           "ySpacing": 0,
           "verticalAlignment": "top",
           "height": 44,
-          "subviews": [
-            {
-              "viewType": "UILabel",
-              "xSpacing": 0,
-              "horizontallyAlignment": "left",
-              "width": 0.28,
-              "ySpacing": 0,
-              "verticalAlignment": "top",
-              "height": 44,
-              "title": "注册资本:"
-            },
-            {
-              "viewType": "UITextField",
-              "horizontallyAlignment": "left",
-              "width": 0.60,
-              "verticalAlignment": "top",
-              "height": 44,
-              "placeholder": "请输入注册资本"
-            },
-            {
-              "viewType": "UILabel",
-              "horizontallyAlignment": "left",
-              "width": 0.12,
-              "verticalAlignment": "top",
-              "height": 44,
-              "title": "万元"
-            }
-          ]
+          "title": "注册资本:"
+        },
+        {
+          "viewType": "UITextField",
+          "horizontallyAlignment": "left",
+          "width": 0.60,
+          "verticalAlignment": "top",
+          "height": 44,
+          "placeholder": "请输入注册资本"
+        },
+        {
+          "viewType": "UILabel",
+          "horizontallyAlignment": "left",
+          "width": 0.12,
+          "verticalAlignment": "top",
+          "height": 44,
+          "title": "万元"
         }
       ]
     },
@@ -173,45 +191,41 @@
       "cellStyle": "datePickerAndSelectButton",
       "titleFont": 14,
       "titleColor": "blackColor",
+      "viewType": "UIView",
+      "xSpacing": 12,
+      "horizontallyAlignment": "left",
+      "width": 1,
+      "ySpacing": 0,
+      "verticalAlignment": "top",
+      "height": 44,
       "subviews": [
         {
-          "viewType": "UIView",
-          "xSpacing": 12,
+          "viewType": "UILabel",
+          "xSpacing": 0,
           "horizontallyAlignment": "left",
-          "width": 1,
+          "width": 0.28,
           "ySpacing": 0,
           "verticalAlignment": "top",
           "height": 44,
-          "subviews": [
-            {
-              "viewType": "UILabel",
-              "xSpacing": 0,
-              "horizontallyAlignment": "left",
-              "width": 0.28,
-              "ySpacing": 0,
-              "verticalAlignment": "top",
-              "height": 44,
-              "title": "营业期限:"
-            },
-            {
-              "viewType": "UIButton",
-              "horizontallyAlignment": "left",
-              "width": 0.55,
-              "verticalAlignment": "top",
-              "placeholder": "请选择营业期限",
-              "height": 44
-            },
-            {
-              "viewType": "UIButton",
-              "horizontallyAlignment": "left",
-              "width": 0.18,
-              "verticalAlignment": "center",
-              "height": 44,
-              "title": " 永久",
-              "image": "xxx",
-              "selectImage": "xxx"
-            }
-          ]
+          "title": "营业期限:"
+        },
+        {
+          "viewType": "UIButton",
+          "horizontallyAlignment": "left",
+          "width": 0.55,
+          "verticalAlignment": "top",
+          "placeholder": "请选择营业期限",
+          "height": 44
+        },
+        {
+          "viewType": "UIButton",
+          "horizontallyAlignment": "left",
+          "width": 0.18,
+          "verticalAlignment": "center",
+          "height": 44,
+          "title": " 永久",
+          "image": "xxx",
+          "selectImage": "xxx"
         }
       ]
     },
@@ -219,36 +233,32 @@
       "cellStyle": "CJUITextView",
       "titleFont": 14,
       "titleColor": "blackColor",
+      "viewType": "UIView",
+      "xSpacing": 12,
+      "horizontallyAlignment": "left",
+      "width": 1,
+      "ySpacing": 0,
+      "verticalAlignment": "top",
+      "height": 54,
       "subviews": [
         {
-          "viewType": "UIView",
-          "xSpacing": 12,
+          "viewType": "UILabel",
+          "xSpacing": 0,
           "horizontallyAlignment": "left",
-          "width": 1,
-          "ySpacing": 0,
+          "width": 0.28,
           "verticalAlignment": "top",
-          "height": 60,
-          "subviews": [
-            {
-              "viewType": "UILabel",
-              "xSpacing": 0,
-              "horizontallyAlignment": "left",
-              "width": 0.28,
-              "verticalAlignment": "top",
-              "height": 44,
-              "title": "经营住所:"
-            },
-            {
-              "viewType": "CJUITextView",
-              "xSpacing": -4,
-              "horizontallyAlignment": "left",
-              "width": 0.72,
-              "ySpacing": 4,
-              "verticalAlignment": "top",
-              "height": 50,
-              "placeholder": "请输入地址"
-            }
-          ]
+          "height": 44,
+          "title": "经营住所:"
+        },
+        {
+          "viewType": "CJUITextView",
+          "xSpacing": -4,
+          "horizontallyAlignment": "left",
+          "width": 0.72,
+          "ySpacing": 4,
+          "verticalAlignment": "top",
+          "height": 50,
+          "placeholder": "请输入地址"
         }
       ]
     },
@@ -256,69 +266,65 @@
       "cellStyle": "towLableView",
       "titleFont": 14,
       "titleColor": "blackColor",
+      "viewType": "UIView",
+      "xSpacing": 12,
+      "horizontallyAlignment": "left",
+      "width": 1,
+      "ySpacing": 0,
+      "verticalAlignment": "top",
+      "height": 82,
       "subviews": [
         {
-          "viewType": "UIView",
-          "xSpacing": 12,
+          "viewType": "UILabel",
+          "xSpacing": 0,
           "horizontallyAlignment": "left",
-          "width": 1,
+          "width": 0.28,
+          "verticalAlignment": "center",
+          "height": 44,
+          "title": "测试label"
+        },
+        {
+          "viewType": "UIImageView",
+          "xSpacing": 0,
+          "horizontallyAlignment": "left",
+          "width": 1.0001,
           "ySpacing": 0,
           "verticalAlignment": "top",
-          "height": 80,
+          "height": 82
+        },
+        {
+          "viewType": "UIView",
+          "horizontallyAlignment": "left",
+          "width": 0.72,
+          "verticalAlignment": "top",
+          "height": 82,
+          "layoutDirection": "vertical",
           "subviews": [
             {
               "viewType": "UILabel",
               "xSpacing": 0,
               "horizontallyAlignment": "left",
-              "width": 0.28,
-              "verticalAlignment": "center",
-              "height": 44,
-              "title": "测试label"
+              "width": 1,
+              "verticalAlignment": "top",
+              "height": 40,
+              "title": "label一"
             },
             {
               "viewType": "UIImageView",
               "xSpacing": 0,
-              "horizontallyAlignment": "left",
-              "width": 1.0001,
+              "horizontallyAlignment": "center",
+              "width": 1,
               "ySpacing": 0,
               "verticalAlignment": "top",
-              "height": 80
+              "height": 1
             },
             {
-              "viewType": "UIView",
+              "viewType": "UIButton",
               "horizontallyAlignment": "left",
-              "width": 0.72,
+              "width": 1,
               "verticalAlignment": "top",
-              "height": 80,
-              "layoutDirection": "vertical",
-              "subviews": [
-                {
-                  "viewType": "UILabel",
-                  "xSpacing": 0,
-                  "horizontallyAlignment": "left",
-                  "width": 1,
-                  "verticalAlignment": "top",
-                  "height": 40,
-                  "title": "label一"
-                },
-                {
-                  "viewType": "UIImageView",
-                  "xSpacing": 0,
-                  "horizontallyAlignment": "left",
-                  "width": 1,
-                  "ySpacing": 0,
-                  "verticalAlignment": "top",
-                  "height": 1
-                },
-                {
-                  "viewType": "UIButton",
-                  "horizontallyAlignment": "left",
-                  "width": 1,
-                  "verticalAlignment": "top",
-                  "height": 40,
-                  "title": "label二"
-                }
-              ]
+              "height": 40,
+              "title": "Button二"
             }
           ]
         }
