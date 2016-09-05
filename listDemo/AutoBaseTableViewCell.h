@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConfigurationLayoutHelper.h"
 
-#define ScreenWidth [[UIScreen mainScreen] bounds].size.width
-#define ScreenHeight [[UIScreen mainScreen] bounds].size.height
 
 typedef void(^viewTapBlock)(UIView *, id);
 
-@interface AutoBaseTableViewCell : UITableViewCell
+@interface AutoBaseTableViewCell : UITableViewCell<ConfigurationLayoutHelperDelegate>
 @property (nonatomic, copy) viewTapBlock tapBlock;
 
 @property (nonatomic, copy) NSString *cellStyle;

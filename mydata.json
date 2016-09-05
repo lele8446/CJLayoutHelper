@@ -3,23 +3,22 @@
   "operation": "ok",
   "data": [
     {
-      "cellStyle": "scrollView",
+      "viewStyleIdentifier": "scrollView",
       "titleFont": 14,
-      "titleColor": "blackColor",
+      "titleColor": "#000000",
       "viewType": "UIView",
       "xSpacing": 0,
       "horizontallyAlignment": "left",
-      "width": 1,
+      "width": "1p",
       "ySpacing": 0,
       "verticalAlignment": "top",
-      "height": 64,
-      "layoutDirection": "vertical",
+      "height": 44,
       "subviews": [
         {
           "viewType": "UIView",
           "xSpacing": 12,
           "horizontallyAlignment": "left",
-          "width": 1,
+          "width": "1p",
           "ySpacing": 0,
           "verticalAlignment": "top",
           "height": 44,
@@ -29,7 +28,7 @@
               "viewType": "UILabel",
               "xSpacing": 0,
               "horizontallyAlignment": "left",
-              "width": 0.28,
+              "width": "0.28p",
               "ySpacing": 0,
               "verticalAlignment": "top",
               "height": 44,
@@ -40,18 +39,20 @@
               "xSpacing": 0,
               "horizontallyAlignment": "left",
               "viewSpacing": 2,
-              "width": 0.72,
+              "width": "0.72P",
               "ySpacing": 0,
               "verticalAlignment": "top",
               "height": 44,
+              "backgroundColor":"#41C3C1",
               "subviews": [
                 {
                   "viewType": "UIButton",
                   "xSpacing": 10,
                   "horizontallyAlignment": "left",
                   "width": 0,
-                  "verticalAlignment": "top",
-                  "height": 44,
+                  "verticalAlignment": "center",
+                  "height": 24,
+                  "backgroundColor":"#DC143C",
                   "title": "◉营业执照"
                 },
                 {
@@ -93,36 +94,17 @@
               ]
             }
           ]
-        },
-        {
-          "viewType": "UIImageView",
-          "xSpacing": 0,
-          "horizontallyAlignment": "center",
-          "width": 1,
-          "ySpacing": 0,
-          "verticalAlignment": "top",
-          "height": 1
-        },
-        {
-          "viewType": "UILabel",
-          "xSpacing": 0,
-          "horizontallyAlignment": "center",
-          "width": 0,
-          "ySpacing": 0,
-          "verticalAlignment": "top",
-          "height": 20,
-          "title": "测试label"
-        },
+        }
       ]
     },
     {
-      "cellStyle": "TextField",
+      "viewStyleIdentifier": "TextField",
       "titleFont": 14,
-      "titleColor": "blackColor",
+      "titleColor": "#000000",
       "viewType": "UIView",
       "xSpacing": 12,
       "horizontallyAlignment": "left",
-      "width": 1,
+      "width": "1p",
       "ySpacing": 0,
       "verticalAlignment": "top",
       "height": 44,
@@ -131,7 +113,7 @@
           "viewType": "UILabel",
           "xSpacing": 0,
           "horizontallyAlignment": "left",
-          "width": 0.28,
+          "width": "0.28P",
           "ySpacing": 0,
           "verticalAlignment": "top",
           "height": 44,
@@ -140,7 +122,7 @@
         {
           "viewType": "UITextField",
           "horizontallyAlignment": "left",
-          "width": 0.72,
+          "width": "0.72p",
           "verticalAlignment": "top",
           "height": 44,
           "placeholder": "请输入社会信用代码"
@@ -148,13 +130,13 @@
       ]
     },
     {
-      "cellStyle": "TextFieldAndLabel",
+      "viewStyleIdentifier": "TextFieldAndLabel",
       "titleFont": 14,
-      "titleColor": "blackColor",
+      "titleColor": "#000000",
       "viewType": "UIView",
       "xSpacing": 12,
       "horizontallyAlignment": "left",
-      "width": 1,
+      "width": "1p",
       "ySpacing": 0,
       "verticalAlignment": "top",
       "height": 44,
@@ -163,7 +145,7 @@
           "viewType": "UILabel",
           "xSpacing": 0,
           "horizontallyAlignment": "left",
-          "width": 0.28,
+          "width": "0.28p",
           "ySpacing": 0,
           "verticalAlignment": "top",
           "height": 44,
@@ -172,7 +154,7 @@
         {
           "viewType": "UITextField",
           "horizontallyAlignment": "left",
-          "width": 0.60,
+          "width": "0.60p",
           "verticalAlignment": "top",
           "height": 44,
           "placeholder": "请输入注册资本"
@@ -180,7 +162,7 @@
         {
           "viewType": "UILabel",
           "horizontallyAlignment": "left",
-          "width": 0.12,
+          "width": "0.12p",
           "verticalAlignment": "top",
           "height": 44,
           "title": "万元"
@@ -188,13 +170,13 @@
       ]
     },
     {
-      "cellStyle": "datePickerAndSelectButton",
+      "viewStyleIdentifier": "datePickerAndSelectButton",
       "titleFont": 14,
-      "titleColor": "blackColor",
+      "titleColor": "#000000",
       "viewType": "UIView",
       "xSpacing": 12,
       "horizontallyAlignment": "left",
-      "width": 1,
+      "width": "1p",
       "ySpacing": 0,
       "verticalAlignment": "top",
       "height": 44,
@@ -203,7 +185,7 @@
           "viewType": "UILabel",
           "xSpacing": 0,
           "horizontallyAlignment": "left",
-          "width": 0.28,
+          "width": "0.28p",
           "ySpacing": 0,
           "verticalAlignment": "top",
           "height": 44,
@@ -212,7 +194,7 @@
         {
           "viewType": "UIButton",
           "horizontallyAlignment": "left",
-          "width": 0.55,
+          "width": "0.55p",
           "verticalAlignment": "top",
           "placeholder": "请选择营业期限",
           "height": 44
@@ -220,7 +202,7 @@
         {
           "viewType": "UIButton",
           "horizontallyAlignment": "left",
-          "width": 0.18,
+          "width": "0.18p",
           "verticalAlignment": "center",
           "height": 44,
           "title": " 永久",
@@ -230,13 +212,13 @@
       ]
     },
     {
-      "cellStyle": "CJUITextView",
+      "viewStyleIdentifier": "CJUITextView",
       "titleFont": 14,
-      "titleColor": "blackColor",
+      "titleColor": "#000000",
       "viewType": "UIView",
       "xSpacing": 12,
       "horizontallyAlignment": "left",
-      "width": 1,
+      "width": "1p",
       "ySpacing": 0,
       "verticalAlignment": "top",
       "height": 54,
@@ -245,7 +227,7 @@
           "viewType": "UILabel",
           "xSpacing": 0,
           "horizontallyAlignment": "left",
-          "width": 0.28,
+          "width": "0.28p",
           "verticalAlignment": "top",
           "height": 44,
           "title": "经营住所:"
@@ -254,7 +236,7 @@
           "viewType": "CJUITextView",
           "xSpacing": -4,
           "horizontallyAlignment": "left",
-          "width": 0.72,
+          "width": "0.72p",
           "ySpacing": 4,
           "verticalAlignment": "top",
           "height": 50,
@@ -263,22 +245,24 @@
       ]
     },
     {
-      "cellStyle": "towLableView",
+      "viewStyleIdentifier": "towLableView",
+      "backgroundColor":"#87CEEB",
       "titleFont": 14,
-      "titleColor": "blackColor",
+      "titleColor": "#000000",
       "viewType": "UIView",
       "xSpacing": 12,
       "horizontallyAlignment": "left",
-      "width": 1,
+      "width": "1p",
       "ySpacing": 0,
       "verticalAlignment": "top",
       "height": 82,
+      "autolayoutHeight": true,
       "subviews": [
         {
           "viewType": "UILabel",
           "xSpacing": 0,
           "horizontallyAlignment": "left",
-          "width": 0.28,
+          "width": "0.28p",
           "verticalAlignment": "center",
           "height": 44,
           "title": "测试label"
@@ -287,41 +271,46 @@
           "viewType": "UIImageView",
           "xSpacing": 0,
           "horizontallyAlignment": "left",
-          "width": 1.0001,
+          "width": 0.5,
           "ySpacing": 0,
           "verticalAlignment": "top",
-          "height": 82
+          "height": "1p",
+          "backgroundColor":"#41C3C1"
         },
         {
           "viewType": "UIView",
+          "backgroundColor":"#D8BFD8",
           "horizontallyAlignment": "left",
-          "width": 0.72,
+          "width": "0.71p",
           "verticalAlignment": "top",
-          "height": 82,
-          "layoutDirection": "vertical",
+          "height": 30,
+          "layoutDirection":"vertical",
+          "autolayoutHeight": true,
           "subviews": [
             {
               "viewType": "UILabel",
               "xSpacing": 0,
               "horizontallyAlignment": "left",
-              "width": 1,
+              "width": "0.95p",
               "verticalAlignment": "top",
-              "height": 40,
-              "title": "label一"
+              "height": 0,
+              "title": "我是动态调整高度的UILabel，我是动态调整高度的UILabel，我是动态调整高度的UILabel，我是动态调整高度的UILabel，我是动态调整高度的UILabel，"
             },
             {
               "viewType": "UIImageView",
               "xSpacing": 0,
               "horizontallyAlignment": "center",
-              "width": 1,
+              "width": "1p",
               "ySpacing": 0,
               "verticalAlignment": "top",
-              "height": 1
+              "height": 0.5,
+              "backgroundColor":"#41C3C1"
             },
             {
               "viewType": "UIButton",
               "horizontallyAlignment": "left",
-              "width": 1,
+              "xSpacing": 10,
+              "width": 80,
               "verticalAlignment": "top",
               "height": 40,
               "title": "Button二"
