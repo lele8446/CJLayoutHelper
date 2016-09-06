@@ -9,6 +9,7 @@
 #import "ListTableViewController.h"
 #import "AutoBaseTableViewCell.h"
 #import "AFNetworking.h"
+#import "ConfigurationTool.h"
 
 @interface ListTableViewController ()
 @property (nonatomic, strong) NSArray *dataArray;
@@ -30,17 +31,30 @@
                                }
                                 success:^(NSURLSessionDataTask *task, id _Nullable responseObject){
                                     self.dataArray = [(NSDictionary*)responseObject objectForKey:@"data"];
-//                                    NSLog(@"data = %@",self.dataArray);
                                     [self.tableView reloadData];
                                 }
                                 failure:^(NSURLSessionDataTask * _Nullable task, NSError *error){
                                     NSLog(@"ERROR = %@",error);
                                 }];
+    
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishClick)];
+    self.navigationItem.rightBarButtonItem = finishItem;
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)finishClick {
+    UITextField *xydmField = [self.view viewWithIdDescription:@"TextField_xydm"];
+    UITextField *zczbField = [self.view viewWithIdDescription:@"TextField_zczb"];
+    UITextView *addressTextView = [self.view viewWithIdDescription:@"CJUITextView_dz"];
+    NSString *description = [NSString stringWithFormat:@"信用代码:%@\n注册资本:%@\n地址:%@",xydmField.text,zczbField.text,addressTextView.text];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"点击完成" message:description preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - Table view data source
@@ -61,48 +75,29 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *info = self.dataArray[indexPath.row];
-    NSString *cellIdentifier = [info objectForKey:@"cellStyle"];
-//    NSLog(@"cellIdentifier = %@",cellIdentifier);
-    AutoBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    AutoBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[ConfigurationLayoutHelper configurationViewStyleIdentifier:info]];
     if (nil == cell) {
-//        NSLog(@"初始化 cellIdentifier = %@",cellIdentifier);
         cell = [[AutoBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault withCellInfo:info];
     }else{
         [cell cellInfo:info];
     }
+    __weak typeof(self)wSelf = self;
     cell.tapBlock = ^(UIView *view, id info){
-        NSLog(@"view = %@",NSStringFromClass([view class]));
-        NSLog(@"info = %@",info);
-        if ([view isMemberOfClass:[UIButton class]]) {
-            if (info[@"selectImage"] && [info[@"selectImage"] length]>0) {
-                UIButton *button = (UIButton *)view;
-                button.selected = !button.selected;
-            }
-        }
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"点击了%@",NSStringFromClass([view class])] message:[self DataTOjsonString:info] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"点击了%@",NSStringFromClass([view class])] message:info preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"style:UIAlertActionStyleDefault handler:nil];
         [alertController addAction:cancelAction];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [wSelf presentViewController:alertController animated:YES completion:nil];
     };
     return cell;
-}
-
--(NSString*)DataTOjsonString:(id)object {
-    NSString *jsonString = nil;
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
-                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
-                                                         error:&error];
-    if (! jsonData) {
-        NSLog(@"Got an error: %@", error);
-    } else {
-        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    }
-    return jsonString;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *info = self.dataArray[indexPath.row];
     return [AutoBaseTableViewCell cellHeightWithInfo:info];
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
 @end

@@ -14,17 +14,17 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - CJTextView (0.0.5)
+  - CJTextView (0.0.6)
   - IQKeyboardManager (3.3.7)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
-  - CJTextView (~> 0.0.5)
+  - CJTextView (~> 0.0.6)
   - IQKeyboardManager (~> 3.3.7)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  CJTextView: b849e1bc271c63b50ff67895761cdf0d1fb34ae3
+  CJTextView: 39a093a1694c207bd1cd4159cc6959250a3045f1
   IQKeyboardManager: 249c3946acf61345c18b038eb50863fe2793e3a8
 
 COCOAPODS: 0.39.0

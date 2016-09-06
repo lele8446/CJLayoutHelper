@@ -16,6 +16,7 @@
       "height": 10,
       "autolayoutHeight": true,
       "layoutDirection": "vertical",
+      "idDescription":"id",
       "subviews": [
         {
           "viewType": "UILabel",
@@ -38,6 +39,7 @@
           "subviews": [
             {
               "viewType": "UILabel",
+              "idDescription":"Button二",
               "backgroundColor": "#41C3C1",
               "xSpacing": 20,
               "horizontallyAlignment": "left",

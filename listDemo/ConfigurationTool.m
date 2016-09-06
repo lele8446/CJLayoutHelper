@@ -7,6 +7,7 @@
 //
 
 #import "ConfigurationTool.h"
+#import <objc/runtime.h>
 
 static inline CGFLOAT_TYPE CGFloat_ceil(CGFLOAT_TYPE cgfloat) {
 #if CGFLOAT_IS_DOUBLE
@@ -99,4 +100,62 @@ static inline CGFLOAT_TYPE CGFloat_ceil(CGFLOAT_TYPE cgfloat) {
     [[NSScanner scannerWithString: fullHex] scanHexInt: &hexComponent];
     return hexComponent / 255.0;
 }
+
++ (NSString *)stringFromInfo:(NSDictionary *)info key:(NSString *)key defaultValue:(NSString *)defaultValue {
+    id obj = [info objectForKey:key];
+    if (CJIsNull(obj)) {
+        if (!CJIsNull(defaultValue)) {
+            return defaultValue;
+        }else{
+            return obj;
+        }
+    }else{
+        if ([obj isKindOfClass:[NSString class]] &&[(NSString *)obj length]>0) {
+            return (NSString *)obj;
+        }else{
+            return @"";
+        }
+    }
+}
+
+@end
+
+
+@implementation UIView (ConfigurationView)
+
+static char idDescriptionStrKey;
+- (void)setIdDescription:(NSString *)idDescription{
+    //OBJC_ASSOCIATION_COPY_NONATOMIC跟属性声明中的retain、assign、copy是一样
+    objc_setAssociatedObject(self, &idDescriptionStrKey, idDescription, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (NSString *)idDescription{
+    return objc_getAssociatedObject(self, &idDescriptionStrKey);
+}
+
+- (nullable __kindof UIView *)viewWithIdDescription:(nullable NSString *)idDescription {
+    return [self viewWithIdDescription:idDescription fromSuperView:self];
+}
+
+- (nullable __kindof UIView *)viewWithIdDescription:(nullable NSString *)idDescription fromSuperView:(UIView *)superView {
+    UIView *view = nil;
+    if (CJIsNull(idDescription) || [idDescription length]==0) {
+        return view;
+    }
+    if ([superView.idDescription isEqualToString:idDescription]) {
+        view = superView;
+    }else{
+        if (superView.subviews.count > 0){
+            for (UIView *childView in superView.subviews) {
+                UIView *theView = [self viewWithIdDescription:idDescription fromSuperView:childView];
+                if (theView && nil != theView) {
+                    view = theView;
+                    break;
+                }
+            }
+        }
+    }
+    return view;
+}
+
 @end

@@ -39,8 +39,7 @@
 }
 
 - (void)cellInfo:(NSDictionary *)info {
-    [ConfigurationLayoutHelper initializeViewWithInfo:info layoutContentView:self.contentView withContentViewWidth:ScreenWidth withContentViewHeight:ScreenHeight];
-    [ConfigurationLayoutHelper sharedManager].myDelegate = self;
+    [ConfigurationLayoutHelper initializeViewWithInfo:info layoutContentView:self.contentView withContentViewWidth:ScreenWidth withContentViewHeight:ScreenHeight withDelegate:self];
 }
 
 + (CGFloat)cellHeightWithInfo:(NSDictionary *)info {
@@ -48,59 +47,50 @@
 }
 
 - (void)configureView:(UIView *)view withInfo:(NSDictionary *)info {
-    //绑定点击控件
-    if (![view isMemberOfClass:[UIView class]] && view.userInteractionEnabled == YES ) {
-        UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapping:)];
-        singleTap.delegate = self;
-        objc_setAssociatedObject(singleTap, "info", info, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        [view addGestureRecognizer:singleTap];
-    }
+//    //绑定点击控件
+//    if (![view isMemberOfClass:[UIView class]] && view.userInteractionEnabled == YES ) {
+//        UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapping:)];
+//        singleTap.delegate = self;
+//        objc_setAssociatedObject(singleTap, "info", info, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//        [view addGestureRecognizer:singleTap];
+//    }
     
-    UIColor *backColor = (info[@"backColor"]&&([info[@"backColor"] length]>0))?[UIColor colorWithRed:0.8074 green:0.8213 blue:0.8391 alpha:1.0]:[UIColor whiteColor];
-    view.backgroundColor = backColor;
-    
+    UIFont *titleFont = [ConfigurationLayoutHelper sharedManager].titleFont;
+    NSString *title = [ConfigurationLayoutHelper sharedManager].titleString;
+    UIColor *titleColor = [ConfigurationLayoutHelper sharedManager].titleColor;
     if ([view isMemberOfClass:[UILabel class]]) {
         UILabel *label = (UILabel *)view;
-        label.text = self.titleString;
-        label.font = self.titleFont;
-        label.textColor = self.titleColor;
+        label.numberOfLines = 0;
+        label.text = title;
+        label.font = titleFont;
+        label.textColor = titleColor;
     }
     if ([view isMemberOfClass:[UIButton class]]) {
         UIButton *button = (UIButton *)view;
         
-        NSString *image = info[@"image"];
-        if (image && image.length > 0) {
-            [button setImage:[UIImage imageNamed:@"icon_weixuanze_nor"] forState:UIControlStateNormal];
-        }
-        NSString *selectImage = info[@"selectImage"];
-        if (selectImage && selectImage.length > 0) {
-            [button setImage:[UIImage imageNamed:@"icon_xuanze_nor"] forState:UIControlStateHighlighted];
-            [button setImage:[UIImage imageNamed:@"icon_xuanze_nor"] forState:UIControlStateSelected];
-        }
-        
-        button.titleLabel.font = self.titleFont;
-        [button setTitleColor:self.titleColor forState:UIControlStateNormal];
-        [button setTitleColor:self.titleColor forState:UIControlStateHighlighted];
-        if (self.titleString && self.titleString.length >0) {
-            [button setTitle:self.titleString forState:UIControlStateNormal];
-            [button setTitle:self.titleString forState:UIControlStateHighlighted];
+        if (title && title.length >0) {
+            button.titleLabel.font = titleFont;
+            [button setTitleColor:titleColor forState:UIControlStateNormal];
+            [button setTitleColor:titleColor forState:UIControlStateHighlighted];
+            [button setTitle:title forState:UIControlStateNormal];
+            [button setTitle:title forState:UIControlStateHighlighted];
             button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         }
         
         NSString *placeholder = info[@"placeholder"]?info[@"placeholder"]:@"";
         if (placeholder && placeholder.length > 0) {
+            button.titleLabel.font = titleFont;
             [button setTitleColor:PlaceholderColor forState:UIControlStateNormal];
             [button setTitleColor:PlaceholderColor forState:UIControlStateHighlighted];
             [button setTitle:placeholder forState:UIControlStateNormal];
             [button setTitle:placeholder forState:UIControlStateHighlighted];
             button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         }
-        
-        
     }
     if ([view isMemberOfClass:[UITextField class]]) {
         UITextField *textField = (UITextField *)view;
-        textField.font = self.titleFont;
+        textField.font = titleFont;
+        textField.textColor = titleColor;
         NSString *placeholder = info[@"placeholder"]?info[@"placeholder"]:@"";
         if (placeholder && placeholder.length > 0) {
             textField.placeholder = placeholder;
@@ -114,38 +104,73 @@
     }
     if ([view isMemberOfClass:[CJUITextView class]]) {
         CJUITextView *textView = (CJUITextView *)view;
+        textView.font = titleFont;
+        textView.textColor = titleColor;
         textView.placeHoldTextColor = PlaceholderColor;
         NSString *placeholder = info[@"placeholder"]?info[@"placeholder"]:@"";
         if (placeholder && placeholder.length > 0) {
             textView.placeHoldString = placeholder;
-            textView.font = self.titleFont;
         }
     }
-    if ([view isMemberOfClass:[UIImageView class]]) {
-        UIImageView *textView = (UIImageView *)view;
-        textView.backgroundColor = [UIColor redColor];
-    }
-
+    
+    [self configurationViewWithIdDescription:info view:view];
 }
 
-- (void)singleTapping:(UITapGestureRecognizer*)tapGesture {
+- (void)configurationViewWithIdDescription:(NSDictionary *)info view:(UIView *)view {
+    if ([view isKindOfClass:[UIButton class]]) {
+        if ([view.idDescription rangeOfString:@"UIScrollView_button"].location != NSNotFound) {
+            UIButton *button = (UIButton *)view;
+            [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        if ([view.idDescription rangeOfString:@"datePicker_button_1"].location != NSNotFound) {
+            UIButton *button1 = (UIButton *)view;
+            objc_setAssociatedObject(button1, "placeholder", info[@"placeholder"], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            [button1 addTarget:self action:@selector(datePickerButton1Click:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        if ([view.idDescription rangeOfString:@"datePicker_button_2"].location != NSNotFound) {
+            UIButton *button2 = (UIButton *)view;
+            [button2 addTarget:self action:@selector(datePickerButton2Click:) forControlEvents:UIControlEventTouchUpInside];
+            [button2 setImage:[UIImage imageNamed:@"icon_weixuanze_nor"] forState:UIControlStateNormal];
+            [button2 setImage:[UIImage imageNamed:@"icon_xuanze_nor"] forState:UIControlStateSelected];
+        }
+    }
+}
+
+- (void)buttonClick:(UIButton *)sender {
     if (self.tapBlock) {
-        NSDictionary *info = objc_getAssociatedObject(tapGesture, "info");
-        self.tapBlock(tapGesture.view,info);
+        self.tapBlock(sender,sender.idDescription);
     }
 }
 
-#pragma mark--UIGestureRecognizerDelegate
-//允许多个手势同时执行
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return YES;
+- (void)datePickerButton1Click:(UIButton *)sender {
+    if (self.tapBlock) {
+        NSString *placeholder = objc_getAssociatedObject(sender, "placeholder");
+        self.tapBlock(sender,placeholder);
+    }
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if([touch.view isKindOfClass:[UITextView class]] ||[touch.view isKindOfClass:[UITextField class]]){
-        return NO;
-    }
-    return YES;
+- (void)datePickerButton2Click:(UIButton *)sender {
+    sender.selected = !sender.selected;
 }
+
+//- (void)singleTapping:(UITapGestureRecognizer*)tapGesture {
+//    if (self.tapBlock) {
+//        NSDictionary *info = objc_getAssociatedObject(tapGesture, "info");
+//        self.tapBlock(tapGesture.view,info);
+//    }
+//}
+//
+//#pragma mark--UIGestureRecognizerDelegate
+////允许多个手势同时执行
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+//    return YES;
+//}
+//
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+//    if([touch.view isKindOfClass:[UITextView class]] ||[touch.view isKindOfClass:[UITextField class]]){
+//        return NO;
+//    }
+//    return YES;
+//}
 
 @end

@@ -32,7 +32,8 @@
               "ySpacing": 0,
               "verticalAlignment": "top",
               "height": 44,
-              "title": "资质类型:"
+              "title": "资质类型:",
+              "titleColor": "#800000"
             },
             {
               "viewType": "UIScrollView",
@@ -43,20 +44,22 @@
               "ySpacing": 0,
               "verticalAlignment": "top",
               "height": 44,
-              "backgroundColor":"#41C3C1",
+              "backgroundColor": "#F5F5F5",
               "subviews": [
                 {
                   "viewType": "UIButton",
+                  "idDescription": "UIScrollView_button_1",
                   "xSpacing": 10,
                   "horizontallyAlignment": "left",
                   "width": 0,
                   "verticalAlignment": "center",
                   "height": 24,
-                  "backgroundColor":"#DC143C",
+                  "backgroundColor": "#FFE4E1",
                   "title": "◉营业执照"
                 },
                 {
                   "viewType": "UIButton",
+                  "idDescription": "UIScrollView_button_2",
                   "xSpacing": 10,
                   "horizontallyAlignment": "left",
                   "width": 0,
@@ -66,6 +69,7 @@
                 },
                 {
                   "viewType": "UIButton",
+                  "idDescription": "UIScrollView_button_3",
                   "xSpacing": 10,
                   "horizontallyAlignment": "left",
                   "width": 0,
@@ -75,6 +79,7 @@
                 },
                 {
                   "viewType": "UIButton",
+                  "idDescription": "UIScrollView_button_4",
                   "xSpacing": 10,
                   "horizontallyAlignment": "left",
                   "width": 0,
@@ -84,6 +89,7 @@
                 },
                 {
                   "viewType": "UIButton",
+                  "idDescription": "UIScrollView_button_5",
                   "xSpacing": 10,
                   "horizontallyAlignment": "left",
                   "width": 0,
@@ -121,6 +127,7 @@
         },
         {
           "viewType": "UITextField",
+          "idDescription": "TextField_xydm",
           "horizontallyAlignment": "left",
           "width": "0.72p",
           "verticalAlignment": "top",
@@ -153,6 +160,7 @@
         },
         {
           "viewType": "UITextField",
+          "idDescription": "TextField_zczb",
           "horizontallyAlignment": "left",
           "width": "0.60p",
           "verticalAlignment": "top",
@@ -193,6 +201,7 @@
         },
         {
           "viewType": "UIButton",
+          "idDescription": "datePicker_button_1",
           "horizontallyAlignment": "left",
           "width": "0.55p",
           "verticalAlignment": "top",
@@ -201,13 +210,12 @@
         },
         {
           "viewType": "UIButton",
+          "idDescription": "datePicker_button_2",
           "horizontallyAlignment": "left",
           "width": "0.18p",
           "verticalAlignment": "center",
           "height": 44,
-          "title": " 永久",
-          "image": "xxx",
-          "selectImage": "xxx"
+          "title":" 永久"
         }
       ]
     },
@@ -234,6 +242,7 @@
         },
         {
           "viewType": "CJUITextView",
+          "idDescription": "CJUITextView_dz",
           "xSpacing": -4,
           "horizontallyAlignment": "left",
           "width": "0.72p",
@@ -246,7 +255,7 @@
     },
     {
       "viewStyleIdentifier": "towLableView",
-      "backgroundColor":"#87CEEB",
+      "backgroundColor": "#87CEEB",
       "titleFont": 14,
       "titleColor": "#000000",
       "viewType": "UIView",
@@ -268,27 +277,28 @@
           "title": "测试label"
         },
         {
-          "viewType": "UIImageView",
+          "viewType": "UIView",
           "xSpacing": 0,
           "horizontallyAlignment": "left",
           "width": 0.5,
           "ySpacing": 0,
           "verticalAlignment": "top",
           "height": "1p",
-          "backgroundColor":"#41C3C1"
+          "backgroundColor": "#000000"
         },
         {
           "viewType": "UIView",
-          "backgroundColor":"#D8BFD8",
+          "backgroundColor": "#D8BFD8",
           "horizontallyAlignment": "left",
           "width": "0.71p",
           "verticalAlignment": "top",
           "height": 30,
-          "layoutDirection":"vertical",
+          "layoutDirection": "vertical",
           "autolayoutHeight": true,
           "subviews": [
             {
               "viewType": "UILabel",
+              "titleFont": 12,
               "xSpacing": 0,
               "horizontallyAlignment": "left",
               "width": "0.95p",
@@ -297,14 +307,14 @@
               "title": "我是动态调整高度的UILabel，我是动态调整高度的UILabel，我是动态调整高度的UILabel，我是动态调整高度的UILabel，我是动态调整高度的UILabel，"
             },
             {
-              "viewType": "UIImageView",
+              "viewType": "UIView",
               "xSpacing": 0,
               "horizontallyAlignment": "center",
               "width": "1p",
               "ySpacing": 0,
               "verticalAlignment": "top",
               "height": 0.5,
-              "backgroundColor":"#41C3C1"
+              "backgroundColor": "#000000"
             },
             {
               "viewType": "UIButton",

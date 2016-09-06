@@ -15,11 +15,6 @@ typedef void(^viewTapBlock)(UIView *, id);
 @interface AutoBaseTableViewCell : UITableViewCell<ConfigurationLayoutHelperDelegate>
 @property (nonatomic, copy) viewTapBlock tapBlock;
 
-@property (nonatomic, copy) NSString *cellStyle;
-@property (nonatomic, copy) NSString *titleString;
-@property (nonatomic, strong) UIFont *titleFont;
-@property (nonatomic, strong) UIColor *titleColor;
-
 - (instancetype)initWithStyle:(UITableViewCellStyle)style withCellInfo:(NSDictionary *)info;
 - (void)cellInfo:(NSDictionary *)info;
 + (CGFloat)cellHeightWithInfo:(NSDictionary *)info;

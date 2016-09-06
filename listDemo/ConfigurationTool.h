@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define CJIsNull(a) (!a || (a)==nil || (a)==NULL || [a isKindOfClass:[NSNull class]])
 #define PlaceholderColor [UIColor colorWithRed:0.7333 green:0.7294 blue:0.7608 alpha:1.0]
 
 #if defined(DEBUG)||defined(_DEBUG)
@@ -133,4 +134,25 @@ static inline VerticalAlignmentType getVerticalAlignment(NSDictionary *info) {
  *  @return
  */
 + (UIColor *)colorWithHexString:(NSString *)hexString;
+
+// 根据key获取NSString
++ (NSString *)stringFromInfo:(NSDictionary *)info key:(NSString *)key defaultValue:(NSString *)defaultValue;
+@end
+
+
+@interface UIView (ConfigurationView)
+/**
+ *  自定义属性，用来描述view的id
+ */
+@property (nonatomic, copy) NSString *idDescription;
+
+/**
+ *  根据idDescription获取view，
+ *  可以是view本身，也可为nil
+ *
+ *  @param idDescription view的id声明
+ *
+ *  @return
+ */
+- (nullable __kindof UIView *)viewWithIdDescription:(nullable NSString *)idDescription;
 @end

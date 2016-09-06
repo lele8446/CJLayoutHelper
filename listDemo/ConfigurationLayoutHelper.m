@@ -7,8 +7,6 @@
 //
 
 #import "ConfigurationLayoutHelper.h"
-#import "ConfigurationTool.h"
-#import "CJUITextView.h"
 #import <objc/runtime.h>
 
 #define Manager [ConfigurationLayoutHelper sharedManager]
@@ -22,19 +20,19 @@
 @property (nonatomic, copy) NSString *viewStyleIdentifier;
 
 /**
- *  当前绘制的view的标题（如果存在的话）
- */
-@property (nonatomic, copy) NSString *titleString;
-
-/**
- *  当前绘制的view的字体，默认取最底层superView的配置信息，如果都没有则默认为：[UIFont systemFontOfSize:14]
- */
-@property (nonatomic, strong) UIFont *titleFont;
-
-/**
  *  需要在上面绘制UI的View
  */
 @property (nonatomic, strong) UIView *layoutContentView;
+
+/**
+ *  最底层superView的字体，默认为：[UIFont systemFontOfSize:14]
+ */
+@property (nonatomic, strong) UIFont *superViewtitleFont;
+
+/**
+ *  最底层superView的字体颜色，默认为：[UIColor blackColor]
+ */
+@property (nonatomic, strong) UIColor *superViewtitleColor;
 
 @end
 
@@ -65,13 +63,21 @@
 
 #pragma mark - 共有方法
 + (NSString *)configurationViewStyleIdentifier:(NSDictionary *)info {
-    Manager.viewStyleIdentifier = (info[@"viewStyleIdentifier"]&&([info[@"viewStyleIdentifier"] length]>0))?info[@"viewStyleIdentifier"]:@"viewStyleIdentifier";
+    Manager.viewStyleIdentifier = [ConfigurationTool stringFromInfo:info key:@"viewStyleIdentifier" defaultValue:@"viewStyleIdentifier"];
     return Manager.viewStyleIdentifier;
 }
 
 + (CGFloat)viewHeightWithInfo:(NSDictionary *)info withContentViewWidth:(CGFloat)contentViewWidth withContentViewHeight:(CGFloat)contentViewHeight {
-    Manager.titleFont = (info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0))?[UIFont systemFontOfSize:[info[@"titleFont"] floatValue]]:Manager.titleFont;
-    Manager.titleString = info[@"title"];
+    //记录最底层view的字体信息
+    Manager.superViewtitleFont = [UIFont systemFontOfSize:(info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0))?[info[@"titleFont"] floatValue]:14];
+    if (info[@"titleColor"]&&([info[@"titleColor"] length]>0)) {
+        Manager.superViewtitleColor = [ConfigurationTool colorWithHexString:info[@"titleColor"]];
+    }else{
+        Manager.superViewtitleColor = [UIColor blackColor];
+    }
+    
+    [self settingDefaultValue:info];
+    
     CGFloat xSpacing = (info[@"xSpacing"])?[info[@"xSpacing"] floatValue]:0;
     //宽度
     CGFloat width = [ConfigurationTool calculateValue:info[@"width"] superValue:contentViewWidth padding:xSpacing];
@@ -81,10 +87,19 @@
     return [self theViewHeight:info superViewHeight:contentViewHeight ySpacing:ySpacing width:width theViewClass:theViewClass];
 }
 
-+ (void)initializeViewWithInfo:(NSDictionary *)info layoutContentView:(UIView *)layoutContentView withContentViewWidth:(CGFloat)contentViewWidth withContentViewHeight:(CGFloat)contentViewHeight {
++ (void)initializeViewWithInfo:(NSDictionary *)info layoutContentView:(UIView *)layoutContentView withContentViewWidth:(CGFloat)contentViewWidth withContentViewHeight:(CGFloat)contentViewHeight withDelegate:(id<ConfigurationLayoutHelperDelegate>)delegate {
     Manager.layoutContentView = layoutContentView;
-    Manager.viewStyleIdentifier = (info[@"viewStyleIdentifier"]&&([info[@"viewStyleIdentifier"] length]>0))?info[@"viewStyleIdentifier"]:@"viewStyleIdentifier";
-    Manager.titleFont = [UIFont systemFontOfSize:(info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0))?[info[@"titleFont"] floatValue]:14];
+    Manager.viewStyleIdentifier = [ConfigurationTool stringFromInfo:info key:@"viewStyleIdentifier" defaultValue:@"viewStyleIdentifier"];
+    Manager.myDelegate = delegate;
+    
+    //记录最底层view的字体信息
+    Manager.superViewtitleFont = [UIFont systemFontOfSize:(info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0))?[info[@"titleFont"] floatValue]:14];
+    if (info[@"titleColor"]&&([info[@"titleColor"] length]>0)) {
+        Manager.superViewtitleColor = [ConfigurationTool colorWithHexString:info[@"titleColor"]];
+    }else{
+        Manager.superViewtitleColor = [UIColor blackColor];
+    }
+    [self settingDefaultValue:info];
     
     //子View布局方向
     LayoutDirection directionLayout = ViewLayoutDirection(info);
@@ -199,8 +214,7 @@
                     ySpacing:(CGFloat)ySpacing
                        width:(CGFloat)width
 {
-    Manager.titleFont = (info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0))?[UIFont systemFontOfSize:[info[@"titleFont"] floatValue]]:Manager.titleFont;
-    Manager.titleString = info[@"title"];
+    [self settingDefaultValue:info];
     CGFloat currentViewHeight = [ConfigurationTool calculateValue:info[@"height"] superValue:superViewHeight padding:ySpacing];
     if (Manager.titleString && Manager.titleString.length >0 && width != 0 && currentViewHeight == 0) {
         CGSize strSize = [ConfigurationTool calculateStringSize:Manager.titleString titleFont:Manager.titleFont width:width height:MAXFLOAT];
@@ -227,8 +241,7 @@
             failure();
         }
     }else {
-        Manager.titleFont = (info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0))?[UIFont systemFontOfSize:[info[@"titleFont"] floatValue]]:Manager.titleFont;
-        Manager.titleString = info[@"title"];
+        [self settingDefaultValue:info];
         CGFloat xSpacing = (info[@"xSpacing"])?[info[@"xSpacing"] floatValue]:0;
         //宽度
         width = [ConfigurationTool calculateValue:info[@"width"] superValue:superViewWidth padding:xSpacing];
@@ -266,7 +279,6 @@
                          NSString *viewClassStr = info[@"viewType"];//view类型
                          NSInteger tag = superView.tag;
                          NSString *tagStr = [NSString stringWithFormat:@"%@_%@_%@_%@",Manager.viewStyleIdentifier,@(tag),@(index),viewClassStr];
-                         
                          currentView = [superView viewWithTag:[tagStr hash]];
                          if (nil == currentView) {
                              currentView = [[NSClassFromString(viewClassStr) alloc]init];
@@ -274,8 +286,6 @@
                              [superView addSubview:currentView];
                          }
                          currentView.translatesAutoresizingMaskIntoConstraints = NO;
-                         
-                         [self handleView:currentView withInfo:info];
                          
                          NSDictionary *metrics = @{@"ySpacing":@(ySpacing),
                                                    @"height":@(height),
@@ -312,6 +322,10 @@
                              //水平方向的约束
                              [self horizontallyAddHorizontallyLayoutConstraint:currentView lastView:lastView superView:superView index:index horizontallyAlignment:horizontallyAlignment xSpacing:xSpacing width:width metrics:metrics];
                          }
+                         if ([currentView isKindOfClass:[UILabel class]]) {
+                             UILabel *label = (UILabel *)currentView;
+                             label.preferredMaxLayoutWidth = width;
+                         }
                          
                          [Manager.layoutContentView updateConstraints];
                          //当view是UIScrollView时立即刷新，以便能够在后面获取准确的contentSize
@@ -320,6 +334,8 @@
                          }else{
                              [Manager.layoutContentView setNeedsLayout];
                          }
+                         
+                         [self handleView:currentView withInfo:info];
                          [self contentSizeOfScrollView:info currentView:currentView width:width height:height];
                          
                      }failure:^(void){
@@ -483,102 +499,36 @@
     }
 }
 
+#pragma mark - ConfigurationLayoutHelperDelegate设置
 + (void)handleView:(UIView *)view withInfo:(NSDictionary *)info {
+    //设置idDescription的值
+    NSString *idDescription = [ConfigurationTool stringFromInfo:info key:@"idDescription" defaultValue:@""];
+    view.idDescription = idDescription;
+    
     if (Manager.myDelegate && [Manager.myDelegate respondsToSelector:@selector(configureView: withInfo:)]) {
         [Manager.myDelegate configureView:view withInfo:info];
     }
-    //绑定点击控件
-    if (![view isMemberOfClass:[UIView class]] && view.userInteractionEnabled == YES ) {
-        UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapping:)];
-        singleTap.delegate = Manager;
-        objc_setAssociatedObject(singleTap, "info", info, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        [view addGestureRecognizer:singleTap];
-    }
+    
+    //通用属性设置
     UIColor *backColor = (info[@"backgroundColor"]&&([info[@"backgroundColor"] length]>0))?[ConfigurationTool colorWithHexString:info[@"backgroundColor"]]:[UIColor whiteColor];
     view.backgroundColor = backColor;
+}
+
++ (void)settingDefaultValue:(NSDictionary *)info {
     
-    UIColor *titleColor = (info[@"titleColor"]&&([info[@"titleColor"] length]>0))?[ConfigurationTool colorWithHexString:info[@"titleColor"]]:[UIColor blackColor];
+    Manager.titleString = info[@"title"];
     
-    if ([view isMemberOfClass:[UILabel class]]) {
-        UILabel *label = (UILabel *)view;
-        label.text = Manager.titleString;
-        label.font = Manager.titleFont;
-        label.numberOfLines = 0;
+    if (info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0)) {
+        Manager.titleFont = [UIFont systemFontOfSize:[info[@"titleFont"] floatValue]];
+    }else{//不存在，取最底层的值
+        Manager.titleFont = Manager.superViewtitleFont;
     }
-    if ([view isMemberOfClass:[UIButton class]]) {
-        UIButton *button = (UIButton *)view;
-        
-        NSString *image = info[@"image"];
-        if (image && image.length > 0) {
-            [button setImage:[UIImage imageNamed:@"icon_weixuanze_nor"] forState:UIControlStateNormal];
-        }
-        NSString *selectImage = info[@"selectImage"];
-        if (selectImage && selectImage.length > 0) {
-            [button setImage:[UIImage imageNamed:@"icon_xuanze_nor"] forState:UIControlStateHighlighted];
-            [button setImage:[UIImage imageNamed:@"icon_xuanze_nor"] forState:UIControlStateSelected];
-        }
-        
-        button.titleLabel.font = Manager.titleFont;
-        [button setTitleColor:titleColor forState:UIControlStateNormal];
-        [button setTitleColor:titleColor forState:UIControlStateHighlighted];
-        if (Manager.titleString && Manager.titleString.length >0) {
-            [button setTitle:Manager.titleString forState:UIControlStateNormal];
-            [button setTitle:Manager.titleString forState:UIControlStateHighlighted];
-            button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        }
-        
-        NSString *placeholder = info[@"placeholder"]?info[@"placeholder"]:@"";
-        if (placeholder && placeholder.length > 0) {
-            [button setTitleColor:PlaceholderColor forState:UIControlStateNormal];
-            [button setTitleColor:PlaceholderColor forState:UIControlStateHighlighted];
-            [button setTitle:placeholder forState:UIControlStateNormal];
-            [button setTitle:placeholder forState:UIControlStateHighlighted];
-            button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        }
-        
-        
-    }
-    if ([view isMemberOfClass:[CJUITextView class]]) {
-        CJUITextView *textView = (CJUITextView *)view;
-        textView.placeHoldTextColor = PlaceholderColor;
-        NSString *placeholder = info[@"placeholder"]?info[@"placeholder"]:@"";
-        if (placeholder && placeholder.length > 0) {
-            textView.placeHoldString = placeholder;
-            textView.font = Manager.titleFont;
-        }
+    
+    if (info[@"titleColor"]&&([info[@"titleColor"] length]>0)) {
+        Manager.titleColor = [ConfigurationTool colorWithHexString:info[@"titleColor"]];
+    }else{
+        Manager.titleColor = Manager.superViewtitleColor;
     }
 }
-
-+ (void)singleTapping:(UITapGestureRecognizer*)tapGesture {
-    //    if (self.tapBlock) {
-    NSDictionary *info = objc_getAssociatedObject(tapGesture, "info");
-    UIView *view = tapGesture.view;
-    NSLog(@"view = %@",NSStringFromClass([view class]));
-    NSLog(@"info = %@",info);
-    if ([view isMemberOfClass:[UIButton class]]) {
-        if (info[@"selectImage"] && [info[@"selectImage"] length]>0) {
-            UIButton *button = (UIButton *)view;
-            button.selected = !button.selected;
-        }
-    }
-    if ([view isMemberOfClass:[UITableView class]]) {
-        UITableView *tableView = (UITableView *)view;
-        NSLog(@"%@",tableView);
-    }
-}
-
-#pragma mark--UIGestureRecognizerDelegate
-//允许多个手势同时执行
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return YES;
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if([touch.view isKindOfClass:[UITextView class]] ||[touch.view isKindOfClass:[UITextField class]]){
-        return NO;
-    }
-    return YES;
-}
-
 
 @end
