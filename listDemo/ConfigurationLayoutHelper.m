@@ -40,10 +40,6 @@
 
 @implementation ConfigurationLayoutHelper
 
-- (void)dealloc {
-    Manager.myDelegate = nil;
-}
-
 #pragma mark - 单例
 + (instancetype)sharedManager {
     static ConfigurationLayoutHelper *instance = nil;
@@ -501,7 +497,56 @@
     UIColor *backColor = (info[@"backgroundColor"]&&([info[@"backgroundColor"] length]>0))?[ConfigurationTool colorWithHexString:info[@"backgroundColor"]]:[UIColor whiteColor];
     view.backgroundColor = backColor;
     
+    UIColor *titleColor = (info[@"titleColor"]&&([info[@"titleColor"] length]>0))?[ConfigurationTool colorWithHexString:info[@"titleColor"]]:[UIColor blackColor];
     
+    if ([view isMemberOfClass:[UILabel class]]) {
+        UILabel *label = (UILabel *)view;
+        label.text = Manager.titleString;
+        label.font = Manager.titleFont;
+        label.numberOfLines = 0;
+    }
+    if ([view isMemberOfClass:[UIButton class]]) {
+        UIButton *button = (UIButton *)view;
+        
+        NSString *image = info[@"image"];
+        if (image && image.length > 0) {
+            [button setImage:[UIImage imageNamed:@"icon_weixuanze_nor"] forState:UIControlStateNormal];
+        }
+        NSString *selectImage = info[@"selectImage"];
+        if (selectImage && selectImage.length > 0) {
+            [button setImage:[UIImage imageNamed:@"icon_xuanze_nor"] forState:UIControlStateHighlighted];
+            [button setImage:[UIImage imageNamed:@"icon_xuanze_nor"] forState:UIControlStateSelected];
+        }
+        
+        button.titleLabel.font = Manager.titleFont;
+        [button setTitleColor:titleColor forState:UIControlStateNormal];
+        [button setTitleColor:titleColor forState:UIControlStateHighlighted];
+        if (Manager.titleString && Manager.titleString.length >0) {
+            [button setTitle:Manager.titleString forState:UIControlStateNormal];
+            [button setTitle:Manager.titleString forState:UIControlStateHighlighted];
+            button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        }
+        
+        NSString *placeholder = info[@"placeholder"]?info[@"placeholder"]:@"";
+        if (placeholder && placeholder.length > 0) {
+            [button setTitleColor:PlaceholderColor forState:UIControlStateNormal];
+            [button setTitleColor:PlaceholderColor forState:UIControlStateHighlighted];
+            [button setTitle:placeholder forState:UIControlStateNormal];
+            [button setTitle:placeholder forState:UIControlStateHighlighted];
+            button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        }
+        
+        
+    }
+    if ([view isMemberOfClass:[CJUITextView class]]) {
+        CJUITextView *textView = (CJUITextView *)view;
+        textView.placeHoldTextColor = PlaceholderColor;
+        NSString *placeholder = info[@"placeholder"]?info[@"placeholder"]:@"";
+        if (placeholder && placeholder.length > 0) {
+            textView.placeHoldString = placeholder;
+            textView.font = Manager.titleFont;
+        }
+    }
 }
 
 + (void)singleTapping:(UITapGestureRecognizer*)tapGesture {
