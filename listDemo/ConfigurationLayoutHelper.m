@@ -8,6 +8,7 @@
 
 #import "ConfigurationLayoutHelper.h"
 #import <objc/runtime.h>
+#import "ConfigurationModel.h"
 
 #define Manager [ConfigurationLayoutHelper sharedManager]
 //根据文本内容动态调整宽度／高度时默认增加的内边距
@@ -63,46 +64,46 @@
 
 #pragma mark - 共有方法
 + (NSString *)configurationViewStyleIdentifier:(NSDictionary *)info {
-    Manager.viewStyleIdentifier = [ConfigurationTool stringFromInfo:info key:@"viewStyleIdentifier" defaultValue:@"viewStyleIdentifier"];
+    Manager.viewStyleIdentifier = [ConfigurationTool stringFromInfo:info[@"layout"] key:@"viewStyleIdentifier" defaultValue:@"viewStyleIdentifier"];
     return Manager.viewStyleIdentifier;
 }
 
 + (CGFloat)viewHeightWithInfo:(NSDictionary *)info withContentViewWidth:(CGFloat)contentViewWidth withContentViewHeight:(CGFloat)contentViewHeight {
     //记录最底层view的字体信息
-    Manager.superViewtitleFont = [UIFont systemFontOfSize:(info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0))?[info[@"titleFont"] floatValue]:14];
-    if (info[@"titleColor"]&&([info[@"titleColor"] length]>0)) {
-        Manager.superViewtitleColor = [ConfigurationTool colorWithHexString:info[@"titleColor"]];
+    Manager.superViewtitleFont = [UIFont systemFontOfSize:(info[@"model"][@"titleFont"]&&([info[@"model"][@"titleFont"] floatValue]>0))?[info[@"model"][@"titleFont"] floatValue]:14];
+    if (info[@"model"][@"titleColor"]&&([info[@"model"][@"titleColor"] length]>0)) {
+        Manager.superViewtitleColor = [ConfigurationTool colorWithHexString:info[@"model"][@"titleColor"]];
     }else{
         Manager.superViewtitleColor = [UIColor blackColor];
     }
     
-    [self settingDefaultValue:info];
+    [self settingDefaultValue:info[@"model"]];
     
-    CGFloat xSpacing = (info[@"xSpacing"])?[info[@"xSpacing"] floatValue]:0;
+    CGFloat xSpacing = (info[@"layout"][@"xSpacing"])?[info[@"layout"][@"xSpacing"] floatValue]:0;
     //宽度
-    CGFloat width = [ConfigurationTool calculateValue:info[@"width"] superValue:contentViewWidth padding:xSpacing];
-    CGFloat ySpacing = (info[@"ySpacing"])?[info[@"ySpacing"] floatValue]:0;
-    NSString *viewClassStr = info[@"viewType"];//view类型
+    CGFloat width = [ConfigurationTool calculateValue:info[@"layout"][@"width"] superValue:contentViewWidth padding:xSpacing];
+    CGFloat ySpacing = (info[@"layout"][@"ySpacing"])?[info[@"layout"][@"ySpacing"] floatValue]:0;
+    NSString *viewClassStr = info[@"layout"][@"viewType"];//view类型
     id theViewClass = NSClassFromString(viewClassStr);
     return [self theViewHeight:info superViewHeight:contentViewHeight ySpacing:ySpacing width:width theViewClass:theViewClass];
 }
 
 + (void)initializeViewWithInfo:(NSDictionary *)info layoutContentView:(UIView *)layoutContentView withContentViewWidth:(CGFloat)contentViewWidth withContentViewHeight:(CGFloat)contentViewHeight withDelegate:(id<ConfigurationLayoutHelperDelegate>)delegate {
     Manager.layoutContentView = layoutContentView;
-    Manager.viewStyleIdentifier = [ConfigurationTool stringFromInfo:info key:@"viewStyleIdentifier" defaultValue:@"viewStyleIdentifier"];
+    Manager.viewStyleIdentifier = [ConfigurationTool stringFromInfo:info[@"layout"] key:@"viewStyleIdentifier" defaultValue:@"viewStyleIdentifier"];
     Manager.myDelegate = delegate;
     
     //记录最底层view的字体信息
-    Manager.superViewtitleFont = [UIFont systemFontOfSize:(info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0))?[info[@"titleFont"] floatValue]:14];
-    if (info[@"titleColor"]&&([info[@"titleColor"] length]>0)) {
-        Manager.superViewtitleColor = [ConfigurationTool colorWithHexString:info[@"titleColor"]];
+    Manager.superViewtitleFont = [UIFont systemFontOfSize:(info[@"model"][@"titleFont"]&&([info[@"model"][@"titleFont"] floatValue]>0))?[info[@"model"][@"titleFont"] floatValue]:14];
+    if (info[@"model"][@"titleColor"]&&([info[@"model"][@"titleColor"] length]>0)) {
+        Manager.superViewtitleColor = [ConfigurationTool colorWithHexString:info[@"model"][@"titleColor"]];
     }else{
         Manager.superViewtitleColor = [UIColor blackColor];
     }
-    [self settingDefaultValue:info];
+    [self settingDefaultValue:info[@"model"]];
     
     //子View布局方向
-    LayoutDirection directionLayout = ViewLayoutDirection(info);
+    LayoutDirection directionLayout = ViewLayoutDirection(info[@"layout"]);
     //绘制UI
     [self enumerateChildViewInfo:info superView:layoutContentView withIndex:0 withSuperViewWidth:contentViewWidth withSuperViewHeight:contentViewHeight layoutDirection:directionLayout];
 }
@@ -214,7 +215,7 @@
                     ySpacing:(CGFloat)ySpacing
                        width:(CGFloat)width
 {
-    [self settingDefaultValue:info];
+    [self settingDefaultValue:info[@"model"]];
     CGFloat currentViewHeight = [ConfigurationTool calculateValue:info[@"height"] superValue:superViewHeight padding:ySpacing];
     if (Manager.titleString && Manager.titleString.length >0 && width != 0 && currentViewHeight == 0) {
         CGSize strSize = [ConfigurationTool calculateStringSize:Manager.titleString titleFont:Manager.titleFont width:width height:MAXFLOAT];
@@ -241,7 +242,7 @@
             failure();
         }
     }else {
-        [self settingDefaultValue:info];
+        [self settingDefaultValue:info[@"model"]];
         CGFloat xSpacing = (info[@"xSpacing"])?[info[@"xSpacing"] floatValue]:0;
         //宽度
         width = [ConfigurationTool calculateValue:info[@"width"] superValue:superViewWidth padding:xSpacing];
@@ -335,7 +336,7 @@
                              [Manager.layoutContentView setNeedsLayout];
                          }
                          
-                         [self handleView:currentView withInfo:info];
+                         [self handleView:currentView withModelInfo:info[@"model"]];
                          [self contentSizeOfScrollView:info currentView:currentView width:width height:height];
                          
                      }failure:^(void){
@@ -500,13 +501,13 @@
 }
 
 #pragma mark - ConfigurationLayoutHelperDelegate设置
-+ (void)handleView:(UIView *)view withInfo:(NSDictionary *)info {
++ (void)handleView:(UIView *)view withModelInfo:(NSDictionary *)info {
     //设置idDescription的值
     NSString *idDescription = [ConfigurationTool stringFromInfo:info key:@"idDescription" defaultValue:@""];
     view.idDescription = idDescription;
     
-    if (Manager.myDelegate && [Manager.myDelegate respondsToSelector:@selector(configureView: withInfo:)]) {
-        [Manager.myDelegate configureView:view withInfo:info];
+    if (Manager.myDelegate && [Manager.myDelegate respondsToSelector:@selector(configureView: withModelInfo:)]) {
+        [Manager.myDelegate configureView:view withModelInfo:info];
     }
     
     //通用属性设置

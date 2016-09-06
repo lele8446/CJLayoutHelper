@@ -13,7 +13,7 @@
 @protocol ConfigurationLayoutHelperDelegate <NSObject>
 
 //配置回调方法
-- (void)configureView:(UIView *)view withInfo:(NSDictionary *)info;
+- (void)configureView:(UIView *)view withModelInfo:(NSDictionary *)info;
 
 @end
 

@@ -46,7 +46,8 @@
     return [ConfigurationLayoutHelper viewHeightWithInfo:info withContentViewWidth:ScreenWidth withContentViewHeight:ScreenHeight];
 }
 
-- (void)configureView:(UIView *)view withInfo:(NSDictionary *)info {
+#pragma mark - ConfigurationLayoutHelperDelegate
+- (void)configureView:(UIView *)view withModelInfo:(NSDictionary *)info {
 //    //绑定点击控件
 //    if (![view isMemberOfClass:[UIView class]] && view.userInteractionEnabled == YES ) {
 //        UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapping:)];

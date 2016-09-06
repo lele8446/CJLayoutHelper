@@ -29,7 +29,7 @@ typedef enum : NSUInteger {
 /**
  *  获取子View的布局方向（默认水平方向 horizontallyLayout）
  */
-static inline LayoutDirection ViewLayoutDirection(NSDictionary *info) {
+static inline LayoutDirection ViewLayoutDirection(nullable NSDictionary *info) {
     LayoutDirection theDirectionLayout = horizontallyLayout;
     NSString *directionString = (info[@"layoutDirection"] && [info[@"layoutDirection"] length]>0)?info[@"layoutDirection"]:@"horizontally";
     if ([directionString isEqualToString:@"horizontally"]) {
