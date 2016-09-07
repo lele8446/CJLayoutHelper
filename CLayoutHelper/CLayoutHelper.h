@@ -73,7 +73,11 @@
  *  @param contentViewHeight 绘制UI的父视图的高度（比如：ScreenHeight）
  *  @param delegate          代理
  */
-+ (void)initializeViewWithInfo:(ConfigurationModel *)info layoutContentView:(UIView *)layoutContentView contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight delegate:(id<CLayoutHelperDelegate>)delegate;
++ (void)initializeViewWithInfo:(ConfigurationModel *)info
+             layoutContentView:(UIView *)layoutContentView
+              contentViewWidth:(CGFloat)contentViewWidth
+             contentViewHeight:(CGFloat)contentViewHeight
+                      delegate:(id<CLayoutHelperDelegate>)delegate;
 
 
 

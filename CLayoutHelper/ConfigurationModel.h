@@ -41,6 +41,7 @@
  */
 @property (nonatomic, strong) NSDictionary *model;
 
+
 /**
  *  初始化model
  *
