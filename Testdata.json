@@ -4,7 +4,7 @@
   "data": [
     {
       "layout": {
-        "viewStyleIdentifier": "scrollView",
+        "viewStyleIdentifier": "scrollViewType",
         "viewType": "UIView",
         "xSpacing": 0,
         "horizontallyAlignment": "left",

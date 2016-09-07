@@ -21,10 +21,10 @@
 		B4910A191D75310200137CE2 /* icon_weixuanze_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A171D75310200137CE2 /* icon_weixuanze_nor@3x.png */; };
 		B4910A1C1D75311A00137CE2 /* icon_xuanze_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A1A1D75311A00137CE2 /* icon_xuanze_nor@2x.png */; };
 		B4910A1D1D75311A00137CE2 /* icon_xuanze_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A1B1D75311A00137CE2 /* icon_xuanze_nor@3x.png */; };
-		B4910A391D7FC30700137CE2 /* ConfigurationLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A341D7FC30700137CE2 /* ConfigurationLayoutHelper.m */; };
-		B4910A3A1D7FC30700137CE2 /* ConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A361D7FC30700137CE2 /* ConfigurationModel.m */; };
-		B4910A3B1D7FC30700137CE2 /* ConfigurationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A381D7FC30700137CE2 /* ConfigurationTool.m */; };
 		B4910A3D1D7FD8B500137CE2 /* Testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = B4910A3C1D7FD8B500137CE2 /* Testdata.json */; };
+		B4910A451D7FE9D000137CE2 /* CLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A401D7FE9D000137CE2 /* CLayoutHelper.m */; };
+		B4910A461D7FE9D000137CE2 /* ConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A421D7FE9D000137CE2 /* ConfigurationModel.m */; };
+		B4910A471D7FE9D000137CE2 /* ConfigurationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A441D7FE9D000137CE2 /* ConfigurationTool.m */; };
 		D5AFAACA3D225DFBAD17D0E3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C21E0A7CC8DC1147888CD5 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -71,13 +71,13 @@
 		B4910A171D75310200137CE2 /* icon_weixuanze_nor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_weixuanze_nor@3x.png"; sourceTree = "<group>"; };
 		B4910A1A1D75311A00137CE2 /* icon_xuanze_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_xuanze_nor@2x.png"; sourceTree = "<group>"; };
 		B4910A1B1D75311A00137CE2 /* icon_xuanze_nor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_xuanze_nor@3x.png"; sourceTree = "<group>"; };
-		B4910A331D7FC30700137CE2 /* ConfigurationLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationLayoutHelper.h; sourceTree = "<group>"; };
-		B4910A341D7FC30700137CE2 /* ConfigurationLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationLayoutHelper.m; sourceTree = "<group>"; };
-		B4910A351D7FC30700137CE2 /* ConfigurationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationModel.h; sourceTree = "<group>"; };
-		B4910A361D7FC30700137CE2 /* ConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationModel.m; sourceTree = "<group>"; };
-		B4910A371D7FC30700137CE2 /* ConfigurationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTool.h; sourceTree = "<group>"; };
-		B4910A381D7FC30700137CE2 /* ConfigurationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTool.m; sourceTree = "<group>"; };
 		B4910A3C1D7FD8B500137CE2 /* Testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Testdata.json; sourceTree = "<group>"; };
+		B4910A3F1D7FE9D000137CE2 /* CLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLayoutHelper.h; sourceTree = "<group>"; };
+		B4910A401D7FE9D000137CE2 /* CLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLayoutHelper.m; sourceTree = "<group>"; };
+		B4910A411D7FE9D000137CE2 /* ConfigurationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationModel.h; sourceTree = "<group>"; };
+		B4910A421D7FE9D000137CE2 /* ConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationModel.m; sourceTree = "<group>"; };
+		B4910A431D7FE9D000137CE2 /* ConfigurationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTool.h; sourceTree = "<group>"; };
+		B4910A441D7FE9D000137CE2 /* ConfigurationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTool.m; sourceTree = "<group>"; };
 		C7D892EFBE267D36EA155E13 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D0C21E0A7CC8DC1147888CD5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -150,7 +150,7 @@
 		B49109D01D729BD100137CE2 /* listDemo */ = {
 			isa = PBXGroup;
 			children = (
-				B4910A321D7FC30700137CE2 /* ConfigurationLayoutHelper */,
+				B4910A3E1D7FE9D000137CE2 /* CLayoutHelper */,
 				B49109D41D729BD100137CE2 /* AppDelegate.h */,
 				B49109D51D729BD100137CE2 /* AppDelegate.m */,
 				B49109D71D729BD100137CE2 /* ViewController.h */,
@@ -199,17 +199,17 @@
 			path = listDemoUITests;
 			sourceTree = "<group>";
 		};
-		B4910A321D7FC30700137CE2 /* ConfigurationLayoutHelper */ = {
+		B4910A3E1D7FE9D000137CE2 /* CLayoutHelper */ = {
 			isa = PBXGroup;
 			children = (
-				B4910A331D7FC30700137CE2 /* ConfigurationLayoutHelper.h */,
-				B4910A341D7FC30700137CE2 /* ConfigurationLayoutHelper.m */,
-				B4910A351D7FC30700137CE2 /* ConfigurationModel.h */,
-				B4910A361D7FC30700137CE2 /* ConfigurationModel.m */,
-				B4910A371D7FC30700137CE2 /* ConfigurationTool.h */,
-				B4910A381D7FC30700137CE2 /* ConfigurationTool.m */,
+				B4910A3F1D7FE9D000137CE2 /* CLayoutHelper.h */,
+				B4910A401D7FE9D000137CE2 /* CLayoutHelper.m */,
+				B4910A411D7FE9D000137CE2 /* ConfigurationModel.h */,
+				B4910A421D7FE9D000137CE2 /* ConfigurationModel.m */,
+				B4910A431D7FE9D000137CE2 /* ConfigurationTool.h */,
+				B4910A441D7FE9D000137CE2 /* ConfigurationTool.m */,
 			);
-			path = ConfigurationLayoutHelper;
+			path = CLayoutHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -399,12 +399,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B4910A391D7FC30700137CE2 /* ConfigurationLayoutHelper.m in Sources */,
 				B49109D91D729BD100137CE2 /* ViewController.m in Sources */,
+				B4910A451D7FE9D000137CE2 /* CLayoutHelper.m in Sources */,
 				B49109D61D729BD100137CE2 /* AppDelegate.m in Sources */,
 				B49109D31D729BD100137CE2 /* main.m in Sources */,
-				B4910A3B1D7FC30700137CE2 /* ConfigurationTool.m in Sources */,
-				B4910A3A1D7FC30700137CE2 /* ConfigurationModel.m in Sources */,
+				B4910A471D7FE9D000137CE2 /* ConfigurationTool.m in Sources */,
+				B4910A461D7FE9D000137CE2 /* ConfigurationModel.m in Sources */,
 				B4910A061D72B11800137CE2 /* ListTableViewController.m in Sources */,
 				B4910A091D72B41900137CE2 /* AutoBaseTableViewCell.m in Sources */,
 			);

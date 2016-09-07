@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ConfigurationLayoutHelper.h"
+#import "CLayoutHelper.h"
 #import "ConfigurationModel.h"
 
 typedef void(^viewTapBlock)(UIView *, id);
 
-@interface AutoBaseTableViewCell : UITableViewCell<ConfigurationLayoutHelperDelegate>
+@interface AutoBaseTableViewCell : UITableViewCell<CLayoutHelperDelegate>
 @property (nonatomic, copy) viewTapBlock tapBlock;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style withCellInfo:(ConfigurationModel *)info;

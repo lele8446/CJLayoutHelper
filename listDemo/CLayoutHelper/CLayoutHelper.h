@@ -1,5 +1,5 @@
 //
-//  ConfigurationLayoutHelper.h
+//  CLayoutHelper.h
 //  listDemo
 //
 //  Created by ChiJinLian on 16/9/1.
@@ -11,16 +11,16 @@
 #import "ConfigurationTool.h"
 #import "ConfigurationModel.h"
 
-@protocol ConfigurationLayoutHelperDelegate <NSObject>
+@protocol CLayoutHelperDelegate <NSObject>
 
 //配置回调
 - (void)configureView:(UIView *)view withModelInfo:(NSDictionary *)info;
 
 @end
 
-@interface ConfigurationLayoutHelper : NSObject
+@interface CLayoutHelper : NSObject
 
-@property(nonatomic, weak) id<ConfigurationLayoutHelperDelegate> myDelegate;
+@property(nonatomic, weak) id<CLayoutHelperDelegate> myDelegate;
 /**
  *  当前绘制的view的标题（如果存在的话）
  */
@@ -73,7 +73,7 @@
  *  @param contentViewHeight 绘制UI的父视图的高度（比如：ScreenHeight）
  *  @param delegate          代理
  */
-+ (void)initializeViewWithInfo:(ConfigurationModel *)info layoutContentView:(UIView *)layoutContentView contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight delegate:(id<ConfigurationLayoutHelperDelegate>)delegate;
++ (void)initializeViewWithInfo:(ConfigurationModel *)info layoutContentView:(UIView *)layoutContentView contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight delegate:(id<CLayoutHelperDelegate>)delegate;
 
 
 

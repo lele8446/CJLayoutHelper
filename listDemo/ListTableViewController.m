@@ -99,7 +99,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ConfigurationModel *info = self.dataArray[indexPath.row];
-    AutoBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[ConfigurationLayoutHelper configurationViewStyleIdentifier:info]];
+    AutoBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[CLayoutHelper configurationViewStyleIdentifier:info]];
     if (nil == cell) {
         cell = [[AutoBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault withCellInfo:info];
     }else{

@@ -19,7 +19,7 @@
 @implementation AutoBaseTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style withCellInfo:(ConfigurationModel *)info {
-    self = [super initWithStyle:style reuseIdentifier:[ConfigurationLayoutHelper configurationViewStyleIdentifier:info]];
+    self = [super initWithStyle:style reuseIdentifier:[CLayoutHelper configurationViewStyleIdentifier:info]];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self cellInfo:info];
@@ -39,11 +39,11 @@
 }
 
 - (void)cellInfo:(ConfigurationModel *)info {
-    [ConfigurationLayoutHelper initializeViewWithInfo:info layoutContentView:self.contentView contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight delegate:self];
+    [CLayoutHelper initializeViewWithInfo:info layoutContentView:self.contentView contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight delegate:self];
 }
 
 + (CGFloat)cellHeightWithInfo:(ConfigurationModel *)info {
-    return [ConfigurationLayoutHelper viewHeightWithInfo:info contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight];
+    return [CLayoutHelper viewHeightWithInfo:info contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight];
 }
 
 #pragma mark - ConfigurationLayoutHelperDelegate
@@ -56,9 +56,9 @@
 //        [view addGestureRecognizer:singleTap];
 //    }
     
-    UIFont *titleFont = [ConfigurationLayoutHelper sharedManager].titleFont;
-    NSString *title = [ConfigurationLayoutHelper sharedManager].titleString;
-    UIColor *titleColor = [ConfigurationLayoutHelper sharedManager].titleColor;
+    UIFont *titleFont = [CLayoutHelper sharedManager].titleFont;
+    NSString *title = [CLayoutHelper sharedManager].titleString;
+    UIColor *titleColor = [CLayoutHelper sharedManager].titleColor;
     if ([view isMemberOfClass:[UILabel class]]) {
         UILabel *label = (UILabel *)view;
         label.numberOfLines = 0;

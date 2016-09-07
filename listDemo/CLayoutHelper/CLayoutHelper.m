@@ -1,20 +1,20 @@
 //
-//  ConfigurationLayoutHelper.m
+//  CLayoutHelper.m
 //  listDemo
 //
 //  Created by ChiJinLian on 16/9/1.
 //  Copyright © 2016年 BitAuto. All rights reserved.
 //
 
-#import "ConfigurationLayoutHelper.h"
+#import "CLayoutHelper.h"
 #import <objc/runtime.h>
 #import "ConfigurationModel.h"
 
-#define Manager [ConfigurationLayoutHelper sharedManager]
+#define Manager [CLayoutHelper sharedManager]
 //根据文本内容动态调整宽度／高度时默认增加的内边距
 #define AutoSizeDefaultPadding 4
 
-@interface ConfigurationLayoutHelper ()<UIGestureRecognizerDelegate>
+@interface CLayoutHelper ()<UIGestureRecognizerDelegate>
 /**
  *  配置文件对应的整体view的标识符
  */
@@ -37,11 +37,11 @@
 
 @end
 
-@implementation ConfigurationLayoutHelper
+@implementation CLayoutHelper
 
 #pragma mark - 单例
 + (instancetype)sharedManager {
-    static ConfigurationLayoutHelper *instance = nil;
+    static CLayoutHelper *instance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
         instance = [[self alloc] init];
@@ -55,7 +55,7 @@
  */
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
     static dispatch_once_t onceToken;
-    static ConfigurationLayoutHelper *instance;
+    static CLayoutHelper *instance;
     dispatch_once(&onceToken, ^{
         instance = [super allocWithZone:zone];
     });
@@ -82,7 +82,7 @@
     return [self theViewHeight:info superViewHeight:contentViewHeight ySpacing:ySpacing width:width theViewClass:theViewClass];
 }
 
-+ (void)initializeViewWithInfo:(ConfigurationModel *)info layoutContentView:(UIView *)layoutContentView contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight delegate:(id<ConfigurationLayoutHelperDelegate>)delegate {
++ (void)initializeViewWithInfo:(ConfigurationModel *)info layoutContentView:(UIView *)layoutContentView contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight delegate:(id<CLayoutHelperDelegate>)delegate {
     Manager.layoutContentView = layoutContentView;
     Manager.viewStyleIdentifier = [ConfigurationTool stringFromInfo:info.layout key:@"viewStyleIdentifier" defaultValue:@"viewStyleIdentifier"];
     Manager.myDelegate = delegate;
