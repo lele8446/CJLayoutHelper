@@ -10,9 +10,16 @@
 
 @interface ConfigurationModel : NSObject
 
-@property (nonatomic, strong) NSDictionary *layout;
+@property (nonatomic, strong) NSMutableDictionary *layout;
 @property (nonatomic, strong) NSDictionary *model;
 
+/**
+ *  初始化model
+ *
+ *  @param info
+ *
+ *  @return 
+ */
 - (instancetype)initConfigurationModelInfo:(NSDictionary *)info;
 
 @end

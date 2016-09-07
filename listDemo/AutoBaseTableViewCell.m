@@ -18,7 +18,7 @@
 
 @implementation AutoBaseTableViewCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style withCellInfo:(NSDictionary *)info {
+- (instancetype)initWithStyle:(UITableViewCellStyle)style withCellInfo:(ConfigurationModel *)info {
     self = [super initWithStyle:style reuseIdentifier:[ConfigurationLayoutHelper configurationViewStyleIdentifier:info]];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -38,12 +38,12 @@
     // Configure the view for the selected state
 }
 
-- (void)cellInfo:(NSDictionary *)info {
-    [ConfigurationLayoutHelper initializeViewWithInfo:info layoutContentView:self.contentView withContentViewWidth:ScreenWidth withContentViewHeight:ScreenHeight withDelegate:self];
+- (void)cellInfo:(ConfigurationModel *)info {
+    [ConfigurationLayoutHelper initializeViewWithInfo:info layoutContentView:self.contentView contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight delegate:self];
 }
 
-+ (CGFloat)cellHeightWithInfo:(NSDictionary *)info {
-    return [ConfigurationLayoutHelper viewHeightWithInfo:info withContentViewWidth:ScreenWidth withContentViewHeight:ScreenHeight];
++ (CGFloat)cellHeightWithInfo:(ConfigurationModel *)info {
+    return [ConfigurationLayoutHelper viewHeightWithInfo:info contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight];
 }
 
 #pragma mark - ConfigurationLayoutHelperDelegate

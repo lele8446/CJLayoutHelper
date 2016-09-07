@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "ConfigurationLayoutHelper.h"
-
+#import "ConfigurationModel.h"
 
 typedef void(^viewTapBlock)(UIView *, id);
 
 @interface AutoBaseTableViewCell : UITableViewCell<ConfigurationLayoutHelperDelegate>
 @property (nonatomic, copy) viewTapBlock tapBlock;
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style withCellInfo:(NSDictionary *)info;
-- (void)cellInfo:(NSDictionary *)info;
-+ (CGFloat)cellHeightWithInfo:(NSDictionary *)info;
+- (instancetype)initWithStyle:(UITableViewCellStyle)style withCellInfo:(ConfigurationModel *)info;
+- (void)cellInfo:(ConfigurationModel *)info;
++ (CGFloat)cellHeightWithInfo:(ConfigurationModel *)info;
 @end

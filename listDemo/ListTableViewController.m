@@ -10,9 +10,10 @@
 #import "AutoBaseTableViewCell.h"
 #import "AFNetworking.h"
 #import "ConfigurationTool.h"
+#import "ConfigurationModel.h"
 
 @interface ListTableViewController ()
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 @end
 
 @implementation ListTableViewController
@@ -20,25 +21,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"配置UI";
+    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishClick)];
+    self.navigationItem.rightBarButtonItem = finishItem;
+    
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     [self.tableView setLayoutMargins:UIEdgeInsetsZero];
+    self.dataArray = [NSMutableArray array];
     
-    [[AFHTTPSessionManager manager]POST:@"http://7xnrwl.com1.z0.glb.clouddn.com/mydata.json"
-                             parameters:nil
-                               progress:^(NSProgress * uploadProgress){
-                                   
-                               }
-                                success:^(NSURLSessionDataTask *task, id _Nullable responseObject){
-                                    self.dataArray = [(NSDictionary*)responseObject objectForKey:@"data"];
-                                    [self.tableView reloadData];
-                                }
-                                failure:^(NSURLSessionDataTask * _Nullable task, NSError *error){
-                                    NSLog(@"ERROR = %@",error);
-                                }];
     
-    UIBarButtonItem *finishItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishClick)];
-    self.navigationItem.rightBarButtonItem = finishItem;
+//    [[AFHTTPSessionManager manager]POST:@"http://7xnrwl.com1.z0.glb.clouddn.com/Testdata.json"
+//                             parameters:nil
+//                               progress:^(NSProgress * uploadProgress){
+//                                   
+//                               }
+//                                success:^(NSURLSessionDataTask *task, id _Nullable responseObject){
+//                                    [self handleData:responseObject];
+//                                }
+//                                failure:^(NSURLSessionDataTask * _Nullable task, NSError *error){
+//                                    NSLog(@"ERROR = %@",error);
+//                                }];
+    
+    
+    
+    NSError*error;
+    //获取文件路径
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"Testdata"ofType:@"json"];
+    
+    //根据文件路径读取数据
+    NSData *jdata = [[NSData alloc]initWithContentsOfFile:filePath];
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jdata options:kNilOptions error:&error];
+    [self handleData:jsonObject];
+}
+
+- (void)handleData:(id)object {
+    NSArray *data = [(NSDictionary*)object objectForKey:@"data"];
+    
+    [data enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+        ConfigurationModel *model = [[ConfigurationModel alloc]initConfigurationModelInfo:obj];
+        [self.dataArray addObject:model];
+    }];
+    
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,7 +98,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *info = self.dataArray[indexPath.row];
+    ConfigurationModel *info = self.dataArray[indexPath.row];
     AutoBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[ConfigurationLayoutHelper configurationViewStyleIdentifier:info]];
     if (nil == cell) {
         cell = [[AutoBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault withCellInfo:info];
@@ -92,7 +116,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *info = self.dataArray[indexPath.row];
+    ConfigurationModel *info = self.dataArray[indexPath.row];
     return [AutoBaseTableViewCell cellHeightWithInfo:info];
 }
 

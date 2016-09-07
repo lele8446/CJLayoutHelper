@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "ConfigurationTool.h"
+#import "ConfigurationModel.h"
 
 @protocol ConfigurationLayoutHelperDelegate <NSObject>
 
-//配置回调方法
+//配置回调
 - (void)configureView:(UIView *)view withModelInfo:(NSDictionary *)info;
 
 @end
@@ -50,29 +51,29 @@
  *
  *  @return 
  */
-+ (NSString *)configurationViewStyleIdentifier:(NSDictionary *)info;
++ (NSString *)configurationViewStyleIdentifier:(ConfigurationModel *)info;
 
 /**
  *  获取所要绘制view的整体高度
  *
  *  @param info
- *  @param contentViewWidth  最底层view的宽度（比如：ScreenWidth）
- *  @param contentViewHeight 最底层view的高度（比如：ScreenHeight）
+ *  @param contentViewWidth  绘制UI的父视图的宽度（比如：ScreenWidth）
+ *  @param contentViewHeight 绘制UI的父视图的高度（比如：ScreenHeight）
  *
  *  @return
  */
-+ (CGFloat)viewHeightWithInfo:(NSDictionary *)info withContentViewWidth:(CGFloat)contentViewWidth withContentViewHeight:(CGFloat)contentViewHeight;
++ (CGFloat)viewHeightWithInfo:(ConfigurationModel *)info contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight;
 
 /**
  *  根据配置文件初始化view
  *
  *  @param info
- *  @param layoutContentView 在哪个view上绘制（最底层view）
- *  @param contentViewWidth  最底层view的宽度（比如：ScreenWidth）
- *  @param contentViewHeight 最底层view的高度（比如：ScreenHeight）
+ *  @param layoutContentView 绘制UI的父视图（在哪个view上绘制）
+ *  @param contentViewWidth  绘制UI的父视图的宽度（比如：ScreenWidth）
+ *  @param contentViewHeight 绘制UI的父视图的高度（比如：ScreenHeight）
  *  @param delegate          代理
  */
-+ (void)initializeViewWithInfo:(NSDictionary *)info layoutContentView:(UIView *)layoutContentView withContentViewWidth:(CGFloat)contentViewWidth withContentViewHeight:(CGFloat)contentViewHeight withDelegate:(id<ConfigurationLayoutHelperDelegate>)delegate;
++ (void)initializeViewWithInfo:(ConfigurationModel *)info layoutContentView:(UIView *)layoutContentView contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight delegate:(id<ConfigurationLayoutHelperDelegate>)delegate;
 
 
 

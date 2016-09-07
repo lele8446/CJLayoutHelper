@@ -29,7 +29,7 @@ typedef enum : NSUInteger {
 /**
  *  获取子View的布局方向（默认水平方向 horizontallyLayout）
  */
-static inline LayoutDirection ViewLayoutDirection(nullable NSDictionary *info) {
+static inline LayoutDirection ViewLayoutDirection(NSDictionary * _Nullable info) {
     LayoutDirection theDirectionLayout = horizontallyLayout;
     NSString *directionString = (info[@"layoutDirection"] && [info[@"layoutDirection"] length]>0)?info[@"layoutDirection"]:@"horizontally";
     if ([directionString isEqualToString:@"horizontally"]) {
@@ -54,14 +54,14 @@ typedef enum : NSUInteger {
 /**
  *  获取水平方向的位置（默认horizontallyLeft）
  */
-static inline HorizontallyAlignmentType getHorizontallyAlignment(NSDictionary *info) {
+static inline HorizontallyAlignmentType getHorizontallyAlignment(NSDictionary * _Nullable info) {
     HorizontallyAlignmentType horizontallyAlignment = horizontallyLeft;
     NSString *horizontallyString = (info[@"horizontallyAlignment"] && [info[@"horizontallyAlignment"] length]>0)?info[@"horizontallyAlignment"]:@"left";
     if ([horizontallyString isEqualToString:@"left"]) {
         horizontallyAlignment = horizontallyLeft;
-    }else if ([horizontallyString isEqualToString:@"center"]) {\
+    }else if ([horizontallyString isEqualToString:@"center"]) {
         horizontallyAlignment = horizontallyCenter;
-    }else if ([horizontallyString isEqualToString:@"right"]) {\
+    }else if ([horizontallyString isEqualToString:@"right"]) {
         horizontallyAlignment = horizontallyRight;
     }
     return horizontallyAlignment;
@@ -79,14 +79,14 @@ typedef enum : NSUInteger {
 /**
  *  获取垂直方向的位置（默认verticalTop）
  */
-static inline VerticalAlignmentType getVerticalAlignment(NSDictionary *info) {
+static inline VerticalAlignmentType getVerticalAlignment(NSDictionary * _Nullable info) {
     VerticalAlignmentType verticalAlignment = verticalTop;
     NSString *verticalString = (info[@"verticalAlignment"] && [info[@"verticalAlignment"] length]>0)?info[@"verticalAlignment"]:@"top";
     if ([verticalString isEqualToString:@"top"]) {
         verticalAlignment = verticalTop;
-    }else if ([verticalString isEqualToString:@"center"]) {\
+    }else if ([verticalString isEqualToString:@"center"]) {
         verticalAlignment = verticalCenter;
-    }else if ([verticalString isEqualToString:@"bottom"]) {\
+    }else if ([verticalString isEqualToString:@"bottom"]) {
         verticalAlignment = verticalBottom;
     }
     return verticalAlignment;
@@ -108,7 +108,7 @@ static inline VerticalAlignmentType getVerticalAlignment(NSDictionary *info) {
  *
  *  @return
  */
-+ (CGFloat)calculateValue:(NSString *)valueStr superValue:(CGFloat)superValue padding:(CGFloat)padding;
++ (CGFloat)calculateValue:(NSString * _Nullable)valueStr superValue:(CGFloat)superValue padding:(CGFloat)padding;
 
 /**
  *  计算NSString的Rect值
@@ -120,8 +120,8 @@ static inline VerticalAlignmentType getVerticalAlignment(NSDictionary *info) {
  *
  *  @return 
  */
-+ (CGSize)calculateStringSize:(NSString *)titleString
-                    titleFont:(UIFont *)titleFont
++ (CGSize)calculateStringSize:(NSString *_Nullable)titleString
+                    titleFont:(UIFont *_Nullable)titleFont
                         width:(CGFloat)width
                        height:(CGFloat)height;
 
@@ -133,10 +133,10 @@ static inline VerticalAlignmentType getVerticalAlignment(NSDictionary *info) {
  *
  *  @return
  */
-+ (UIColor *)colorWithHexString:(NSString *)hexString;
++ (UIColor *_Nullable)colorWithHexString:(NSString *_Nullable)hexString;
 
 // 根据key获取NSString
-+ (NSString *)stringFromInfo:(NSDictionary *)info key:(NSString *)key defaultValue:(NSString *)defaultValue;
++ (NSString *_Nullable)stringFromInfo:(NSDictionary *_Nullable)info key:(NSString *_Nullable)key defaultValue:(NSString *_Nullable)defaultValue;
 @end
 
 
@@ -144,7 +144,7 @@ static inline VerticalAlignmentType getVerticalAlignment(NSDictionary *info) {
 /**
  *  自定义属性，用来描述view的id
  */
-@property (nonatomic, copy) NSString *idDescription;
+@property (nonatomic, copy) NSString *_Nullable idDescription;
 
 /**
  *  根据idDescription获取view，

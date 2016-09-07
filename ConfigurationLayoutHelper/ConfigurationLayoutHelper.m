@@ -63,75 +63,65 @@
 }
 
 #pragma mark - 共有方法
-+ (NSString *)configurationViewStyleIdentifier:(NSDictionary *)info {
-    Manager.viewStyleIdentifier = [ConfigurationTool stringFromInfo:info[@"layout"] key:@"viewStyleIdentifier" defaultValue:@"viewStyleIdentifier"];
++ (NSString *)configurationViewStyleIdentifier:(ConfigurationModel *)info {
+    Manager.viewStyleIdentifier = [ConfigurationTool stringFromInfo:info.layout key:@"viewStyleIdentifier" defaultValue:@"viewStyleIdentifier"];
     return Manager.viewStyleIdentifier;
 }
 
-+ (CGFloat)viewHeightWithInfo:(NSDictionary *)info withContentViewWidth:(CGFloat)contentViewWidth withContentViewHeight:(CGFloat)contentViewHeight {
++ (CGFloat)viewHeightWithInfo:(ConfigurationModel *)info contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight {
     //记录最底层view的字体信息
-    Manager.superViewtitleFont = [UIFont systemFontOfSize:(info[@"model"][@"titleFont"]&&([info[@"model"][@"titleFont"] floatValue]>0))?[info[@"model"][@"titleFont"] floatValue]:14];
-    if (info[@"model"][@"titleColor"]&&([info[@"model"][@"titleColor"] length]>0)) {
-        Manager.superViewtitleColor = [ConfigurationTool colorWithHexString:info[@"model"][@"titleColor"]];
-    }else{
-        Manager.superViewtitleColor = [UIColor blackColor];
-    }
+    [self settingSuperViewValue:info.model];
+    [self settingDefaultValue:info.model];
     
-    [self settingDefaultValue:info[@"model"]];
-    
-    CGFloat xSpacing = (info[@"layout"][@"xSpacing"])?[info[@"layout"][@"xSpacing"] floatValue]:0;
+    CGFloat xSpacing = (info.layout[@"xSpacing"])?[info.layout[@"xSpacing"] floatValue]:0;
     //宽度
-    CGFloat width = [ConfigurationTool calculateValue:info[@"layout"][@"width"] superValue:contentViewWidth padding:xSpacing];
-    CGFloat ySpacing = (info[@"layout"][@"ySpacing"])?[info[@"layout"][@"ySpacing"] floatValue]:0;
-    NSString *viewClassStr = info[@"layout"][@"viewType"];//view类型
+    CGFloat width = [ConfigurationTool calculateValue:info.layout[@"width"] superValue:contentViewWidth padding:xSpacing];
+    CGFloat ySpacing = (info.layout[@"ySpacing"])?[info.layout[@"ySpacing"] floatValue]:0;
+    NSString *viewClassStr = info.layout[@"viewType"];//view类型
     id theViewClass = NSClassFromString(viewClassStr);
     return [self theViewHeight:info superViewHeight:contentViewHeight ySpacing:ySpacing width:width theViewClass:theViewClass];
 }
 
-+ (void)initializeViewWithInfo:(NSDictionary *)info layoutContentView:(UIView *)layoutContentView withContentViewWidth:(CGFloat)contentViewWidth withContentViewHeight:(CGFloat)contentViewHeight withDelegate:(id<ConfigurationLayoutHelperDelegate>)delegate {
++ (void)initializeViewWithInfo:(ConfigurationModel *)info layoutContentView:(UIView *)layoutContentView contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight delegate:(id<ConfigurationLayoutHelperDelegate>)delegate {
     Manager.layoutContentView = layoutContentView;
-    Manager.viewStyleIdentifier = [ConfigurationTool stringFromInfo:info[@"layout"] key:@"viewStyleIdentifier" defaultValue:@"viewStyleIdentifier"];
+    Manager.viewStyleIdentifier = [ConfigurationTool stringFromInfo:info.layout key:@"viewStyleIdentifier" defaultValue:@"viewStyleIdentifier"];
     Manager.myDelegate = delegate;
     
     //记录最底层view的字体信息
-    Manager.superViewtitleFont = [UIFont systemFontOfSize:(info[@"model"][@"titleFont"]&&([info[@"model"][@"titleFont"] floatValue]>0))?[info[@"model"][@"titleFont"] floatValue]:14];
-    if (info[@"model"][@"titleColor"]&&([info[@"model"][@"titleColor"] length]>0)) {
-        Manager.superViewtitleColor = [ConfigurationTool colorWithHexString:info[@"model"][@"titleColor"]];
-    }else{
-        Manager.superViewtitleColor = [UIColor blackColor];
-    }
-    [self settingDefaultValue:info[@"model"]];
+    [self settingSuperViewValue:info.model];
+    [self settingDefaultValue:info.model];
     
     //子View布局方向
-    LayoutDirection directionLayout = ViewLayoutDirection(info[@"layout"]);
+    LayoutDirection directionLayout = ViewLayoutDirection(info.layout);
     //绘制UI
     [self enumerateChildViewInfo:info superView:layoutContentView withIndex:0 withSuperViewWidth:contentViewWidth withSuperViewHeight:contentViewHeight layoutDirection:directionLayout];
 }
 
 #pragma mark - 获取高度相关
 //获取指定视图的高度
-+ (CGFloat)theViewHeight:(NSDictionary *)info superViewHeight:(CGFloat)superViewHeight ySpacing:(CGFloat)ySpacing width:(CGFloat)width theViewClass:(id)theViewClass {
++ (CGFloat)theViewHeight:(ConfigurationModel *)info superViewHeight:(CGFloat)superViewHeight ySpacing:(CGFloat)ySpacing width:(CGFloat)width theViewClass:(id)theViewClass {
     //高度
     CGFloat height = [self currentViewHeight:info superViewHeight:superViewHeight ySpacing:ySpacing width:width];
     UIView *currentView = [[theViewClass alloc]init];
-    LayoutDirection directionLayout = ViewLayoutDirection(info);
+    
+    LayoutDirection directionLayout = ViewLayoutDirection(info.layout);
     //子View是垂直方向布局,判断子view的叠加高度
     if (directionLayout == verticalLayout) {
         CGFloat subviewsHeight = 0;
-        NSArray *subviews = info[@"subviews"];
+        NSArray *subviews = info.layout[@"subviews"];
         //不是UIScrollView且子view是垂直方向布局时，高度＝所有子view高度的和
         if ((![currentView isKindOfClass:[UIScrollView class]])&&(subviews || subviews.count > 0)) {
             for (NSInteger i = 0; i < subviews.count; i++) {
+                ConfigurationModel *childModel = subviews[i];
+                CGFloat childViewXSpacing = (childModel.layout[@"xSpacing"])?[childModel.layout[@"xSpacing"] floatValue]:0;
+                CGFloat childViewWidth = [ConfigurationTool calculateValue:childModel.layout[@"width"] superValue:width padding:childViewXSpacing];
+                CGFloat childViewYSpacing = (childModel.layout[@"ySpacing"])?[childModel.layout[@"ySpacing"] floatValue]:0;
                 
-                CGFloat childViewXSpacing = (subviews[i][@"xSpacing"])?[subviews[i][@"xSpacing"] floatValue]:0;
-                CGFloat childViewWidth = [ConfigurationTool calculateValue:subviews[i][@"width"] superValue:width padding:childViewXSpacing];
-                CGFloat childViewYSpacing = (subviews[i][@"ySpacing"])?[subviews[i][@"ySpacing"] floatValue]:0;
-                
-                BOOL autolayoutHeight = subviews[i][@"autolayoutHeight"]?[info[@"autolayoutHeight"] boolValue]:NO;
+                BOOL autolayoutHeight = childModel.layout[@"autolayoutHeight"]?[childModel.layout[@"autolayoutHeight"] boolValue]:NO;
                 if (autolayoutHeight) {
-                    subviewsHeight = subviewsHeight + [self compareViewHeightWithInfo:subviews[i] width:childViewWidth superViewHeight:height ySpacing:childViewYSpacing];
+                    subviewsHeight = subviewsHeight + [self compareViewHeightWithInfo:childModel width:childViewWidth superViewHeight:height ySpacing:childViewYSpacing];
                 }else{
-                    subviewsHeight = subviewsHeight + [self currentViewHeight:subviews[i] superViewHeight:height ySpacing:childViewYSpacing width:childViewWidth];
+                    subviewsHeight = subviewsHeight + [self currentViewHeight:childModel superViewHeight:height ySpacing:childViewYSpacing width:childViewWidth];
                 }
             }
             height = height>subviewsHeight?height:subviewsHeight;
@@ -139,16 +129,17 @@
     }
     
     //动态调整高度（比如UILable高度随文本动态变化时），遍历子view，取最大值
-    BOOL autolayoutHeight = info[@"autolayoutHeight"]?[info[@"autolayoutHeight"] boolValue]:NO;
+    BOOL autolayoutHeight = info.layout[@"autolayoutHeight"]?[info.layout[@"autolayoutHeight"] boolValue]:NO;
     if (autolayoutHeight) {
-        NSArray *subviews = info[@"subviews"];
+        NSArray *subviews = info.layout[@"subviews"];
         if (subviews || subviews.count > 0) {
             for (NSInteger i = 0; i < subviews.count; i++) {
-                CGFloat childViewXSpacing = (subviews[i][@"xSpacing"])?[subviews[i][@"xSpacing"] floatValue]:0;
+                ConfigurationModel *childModel = subviews[i];
+                CGFloat childViewXSpacing = (childModel.layout[@"xSpacing"])?[childModel.layout[@"xSpacing"] floatValue]:0;
                 //宽度
-                CGFloat childViewWidth = [ConfigurationTool calculateValue:subviews[i][@"width"] superValue:width padding:childViewXSpacing];
-                CGFloat childViewYSpacing = (subviews[i][@"ySpacing"])?[subviews[i][@"ySpacing"] floatValue]:0;
-                CGFloat childViewHeight = [self compareViewHeightWithInfo:subviews[i] width:childViewWidth superViewHeight:height ySpacing:childViewYSpacing];
+                CGFloat childViewWidth = [ConfigurationTool calculateValue:childModel.layout[@"width"] superValue:width padding:childViewXSpacing];
+                CGFloat childViewYSpacing = (childModel.layout[@"ySpacing"])?[childModel.layout[@"ySpacing"] floatValue]:0;
+                CGFloat childViewHeight = [self compareViewHeightWithInfo:childModel width:childViewWidth superViewHeight:height ySpacing:childViewYSpacing];
                 height = childViewHeight>height?childViewHeight:height;
             }
         }
@@ -161,12 +152,12 @@
  *  水平方向布局：获取所有view中的最大高度
  *  垂直方向布局：判断所有子view的叠加高度
  */
-+ (CGFloat)compareViewHeightWithInfo:(NSDictionary *)info
++ (CGFloat)compareViewHeightWithInfo:(ConfigurationModel *)info
                                width:(CGFloat)width
                      superViewHeight:(CGFloat)superViewHeight
                             ySpacing:(CGFloat)ySpacing
 {
-    NSString *viewClassStr = info[@"viewType"];//view类型
+    NSString *viewClassStr = info.layout[@"viewType"];//view类型
     id theViewClass = NSClassFromString(viewClassStr);
     if (!viewClassStr || viewClassStr.length <= 0 || !theViewClass || nil == theViewClass) {
         return 0;
@@ -174,20 +165,20 @@
     
     CGFloat currentViewHeight = [self currentViewHeight:info superViewHeight:superViewHeight ySpacing:ySpacing width:width];
     UIView *currentView = [[theViewClass alloc]init];
-    LayoutDirection directionLayout = ViewLayoutDirection(info);
+    LayoutDirection directionLayout = ViewLayoutDirection(info.layout);
     //子View是垂直方向布局
     if (directionLayout == verticalLayout) {
         CGFloat subviewsHeight = 0;
-        NSArray *subviews = info[@"subviews"];
+        NSArray *subviews = info.layout[@"subviews"];
         //不是UIScrollView且子view是垂直方向布局时，高度＝所有子view高度的和
         if ((![currentView isKindOfClass:[UIScrollView class]])&&(subviews || subviews.count > 0)) {
             for (NSInteger i = 0; i < subviews.count; i++) {
+                ConfigurationModel *childModel = subviews[i];
+                CGFloat childViewXSpacing = (childModel.layout[@"xSpacing"])?[childModel.layout[@"xSpacing"] floatValue]:0;
+                CGFloat childViewWidth = [ConfigurationTool calculateValue:childModel.layout[@"width"] superValue:width padding:childViewXSpacing];
+                CGFloat childViewYSpacing = (childModel.layout[@"ySpacing"])?[childModel.layout[@"ySpacing"] floatValue]:0;
                 
-                CGFloat childViewXSpacing = (subviews[i][@"xSpacing"])?[subviews[i][@"xSpacing"] floatValue]:0;
-                CGFloat childViewWidth = [ConfigurationTool calculateValue:subviews[i][@"width"] superValue:width padding:childViewXSpacing];
-                CGFloat childViewYSpacing = (subviews[i][@"ySpacing"])?[subviews[i][@"ySpacing"] floatValue]:0;
-                
-                subviewsHeight = subviewsHeight + [self currentViewHeight:subviews[i] superViewHeight:currentViewHeight ySpacing:childViewYSpacing width:childViewWidth];
+                subviewsHeight = subviewsHeight + [self currentViewHeight:childModel superViewHeight:currentViewHeight ySpacing:childViewYSpacing width:childViewWidth];
             }
             currentViewHeight = currentViewHeight>subviewsHeight?currentViewHeight:subviewsHeight;
         }
@@ -195,14 +186,15 @@
     
     superViewHeight = currentViewHeight>superViewHeight?currentViewHeight:superViewHeight;
     
-    NSArray *subviews = info[@"subviews"];
+    NSArray *subviews = info.layout[@"subviews"];
     if (subviews || subviews.count > 0) {
         for (NSInteger i = 0; i < subviews.count; i++) {
-            CGFloat childViewXSpacing = (subviews[i][@"xSpacing"])?[subviews[i][@"xSpacing"] floatValue]:0;
+            ConfigurationModel *childModel = subviews[i];
+            CGFloat childViewXSpacing = (childModel.layout[@"xSpacing"])?[childModel.layout[@"xSpacing"] floatValue]:0;
             //宽度
-            CGFloat childViewWidth = [ConfigurationTool calculateValue:subviews[i][@"width"] superValue:width padding:childViewXSpacing];
-            CGFloat childViewYSpacing = (subviews[i][@"ySpacing"])?[subviews[i][@"ySpacing"] floatValue]:0;
-            CGFloat childViewHeight = [self compareViewHeightWithInfo:subviews[i] width:childViewWidth superViewHeight:currentViewHeight ySpacing:childViewYSpacing];
+            CGFloat childViewWidth = [ConfigurationTool calculateValue:childModel.layout[@"width"] superValue:width padding:childViewXSpacing];
+            CGFloat childViewYSpacing = (childModel.layout[@"ySpacing"])?[childModel.layout[@"ySpacing"] floatValue]:0;
+            CGFloat childViewHeight = [self compareViewHeightWithInfo:childModel width:childViewWidth superViewHeight:currentViewHeight ySpacing:childViewYSpacing];
             superViewHeight = childViewHeight>superViewHeight?childViewHeight:superViewHeight;
         }
     }
@@ -210,13 +202,13 @@
 }
 
 //当前view的高度
-+ (CGFloat)currentViewHeight:(NSDictionary *)info
++ (CGFloat)currentViewHeight:(ConfigurationModel *)info
              superViewHeight:(CGFloat)superViewHeight
                     ySpacing:(CGFloat)ySpacing
                        width:(CGFloat)width
 {
-    [self settingDefaultValue:info[@"model"]];
-    CGFloat currentViewHeight = [ConfigurationTool calculateValue:info[@"height"] superValue:superViewHeight padding:ySpacing];
+    [self settingDefaultValue:info.model];
+    CGFloat currentViewHeight = [ConfigurationTool calculateValue:info.layout[@"height"] superValue:superViewHeight padding:ySpacing];
     if (Manager.titleString && Manager.titleString.length >0 && width != 0 && currentViewHeight == 0) {
         CGSize strSize = [ConfigurationTool calculateStringSize:Manager.titleString titleFont:Manager.titleFont width:width height:MAXFLOAT];
         currentViewHeight = strSize.height + AutoSizeDefaultPadding;
@@ -224,7 +216,7 @@
     return currentViewHeight;
 }
 
-+ (void)sizeOfViewWithInfo:(NSDictionary *)info
++ (void)sizeOfViewWithInfo:(ConfigurationModel *)info
             superViewWidth:(CGFloat)superViewWidth
            superViewHeight:(CGFloat)superViewHeight
                    success:(void (^)(CGFloat xSpacing, CGFloat ySpacing, CGFloat width, CGFloat height))success
@@ -232,22 +224,22 @@
 {
     CGFloat width = 0;
     CGFloat height = 0;
-    NSString *viewClassStr = info[@"viewType"];//view类型
+    NSString *viewClassStr = info.layout[@"viewType"];//view类型
     id theViewClass = NSClassFromString(viewClassStr);
     if (!viewClassStr || viewClassStr.length <= 0 || !theViewClass || nil == theViewClass) {
-        NSString *errorStr = [NSString stringWithFormat:@"viewType类型出错，viewType :%@",info[@"viewType"]];
+        NSString *errorStr = [NSString stringWithFormat:@"viewType类型出错，viewType :%@",info.layout[@"viewType"]];
         CJNSLog(@"errorStr = %@",errorStr);
         CJNSLog(@"errorInfo = %@",info);
         if (failure) {
             failure();
         }
     }else {
-        [self settingDefaultValue:info[@"model"]];
-        CGFloat xSpacing = (info[@"xSpacing"])?[info[@"xSpacing"] floatValue]:0;
+        [self settingDefaultValue:info.model];
+        CGFloat xSpacing = (info.layout[@"xSpacing"])?[info.layout[@"xSpacing"] floatValue]:0;
         //宽度
-        width = [ConfigurationTool calculateValue:info[@"width"] superValue:superViewWidth padding:xSpacing];
+        width = [ConfigurationTool calculateValue:info.layout[@"width"] superValue:superViewWidth padding:xSpacing];
         
-        CGFloat ySpacing = (info[@"ySpacing"])?[info[@"ySpacing"] floatValue]:0;
+        CGFloat ySpacing = (info.layout[@"ySpacing"])?[info.layout[@"ySpacing"] floatValue]:0;
         //高度
         height = [self theViewHeight:info superViewHeight:superViewHeight ySpacing:ySpacing width:width theViewClass:theViewClass];
         
@@ -263,7 +255,7 @@
 
 #pragma mark - draw视图
 //遍历绘制所有子view
-+ (void)enumerateChildViewInfo:(NSDictionary *)info
++ (void)enumerateChildViewInfo:(ConfigurationModel *)info
                      superView:(UIView *)superView
                      withIndex:(NSInteger)index
             withSuperViewWidth:(CGFloat)superViewWidth
@@ -271,13 +263,12 @@
                layoutDirection:(LayoutDirection)direction
 {
     __block UIView *currentView = nil;
-    
     [self sizeOfViewWithInfo:info
               superViewWidth:superViewWidth
              superViewHeight:superViewHeight
                      success:^(CGFloat xSpacing, CGFloat ySpacing, CGFloat width, CGFloat height){
                          
-                         NSString *viewClassStr = info[@"viewType"];//view类型
+                         NSString *viewClassStr = info.layout[@"viewType"];//view类型
                          NSInteger tag = superView.tag;
                          NSString *tagStr = [NSString stringWithFormat:@"%@_%@_%@_%@",Manager.viewStyleIdentifier,@(tag),@(index),viewClassStr];
                          currentView = [superView viewWithTag:[tagStr hash]];
@@ -307,9 +298,9 @@
                          }
                          
                          //水平方向的位置
-                         HorizontallyAlignmentType horizontallyAlignment = getHorizontallyAlignment(info);
+                         HorizontallyAlignmentType horizontallyAlignment = getHorizontallyAlignment(info.layout);
                          //垂直方向的位置
-                         VerticalAlignmentType verticalAlignment = getVerticalAlignment(info);
+                         VerticalAlignmentType verticalAlignment = getVerticalAlignment(info.layout);
                          //垂直布局
                          if (direction == verticalLayout) {
                              //垂直方向的约束
@@ -336,7 +327,7 @@
                              [Manager.layoutContentView setNeedsLayout];
                          }
                          
-                         [self handleView:currentView withModelInfo:info[@"model"]];
+                         [self handleView:currentView withModelInfo:info];
                          [self contentSizeOfScrollView:info currentView:currentView width:width height:height];
                          
                      }failure:^(void){
@@ -350,15 +341,21 @@
 }
 
 //判断是否为UIScrollView，并获取contentSize
-+ (void)contentSizeOfScrollView:(NSDictionary *)info
++ (void)contentSizeOfScrollView:(ConfigurationModel *)info
                     currentView:(UIView *)currentView
                           width:(CGFloat)width
                          height:(CGFloat)height
 {
-    NSArray *subviews = info[@"subviews"];
+    NSArray *subviews = info.layout[@"subviews"];
     if (subviews || subviews.count > 0) {
         for (NSInteger i = 0; i < subviews.count; i++) {
-            [self enumerateChildViewInfo:subviews[i] superView:currentView withIndex:i withSuperViewWidth:width withSuperViewHeight:height layoutDirection:ViewLayoutDirection(info)];
+            ConfigurationModel *childModel = subviews[i];
+            [self enumerateChildViewInfo:childModel
+                               superView:currentView
+                               withIndex:i
+                      withSuperViewWidth:width
+                     withSuperViewHeight:height
+                         layoutDirection:ViewLayoutDirection(info.layout)];
             
             //当前view是UIScrollView，并且已经绘制完其中所有的subviews，计算contentSize
             if (([currentView isKindOfClass:[UIScrollView class]])&&(i == subviews.count-1)) {
@@ -373,7 +370,6 @@
             }
         }
     }
-    
 }
 
 #pragma mark - autolayout约束
@@ -501,32 +497,44 @@
 }
 
 #pragma mark - ConfigurationLayoutHelperDelegate设置
-+ (void)handleView:(UIView *)view withModelInfo:(NSDictionary *)info {
++ (void)handleView:(UIView *)view withModelInfo:(ConfigurationModel *)info {
     //设置idDescription的值
-    NSString *idDescription = [ConfigurationTool stringFromInfo:info key:@"idDescription" defaultValue:@""];
+    NSString *idDescription = [ConfigurationTool stringFromInfo:info.model key:@"idDescription" defaultValue:@""];
     view.idDescription = idDescription;
     
     if (Manager.myDelegate && [Manager.myDelegate respondsToSelector:@selector(configureView: withModelInfo:)]) {
-        [Manager.myDelegate configureView:view withModelInfo:info];
+        [Manager.myDelegate configureView:view withModelInfo:info.model];
     }
     
     //通用属性设置
-    UIColor *backColor = (info[@"backgroundColor"]&&([info[@"backgroundColor"] length]>0))?[ConfigurationTool colorWithHexString:info[@"backgroundColor"]]:[UIColor whiteColor];
+    UIColor *backColor = (info.model[@"backgroundColor"]&&([info.model[@"backgroundColor"] length]>0))?[ConfigurationTool colorWithHexString:info.model[@"backgroundColor"]]:[UIColor whiteColor];
     view.backgroundColor = backColor;
 }
 
-+ (void)settingDefaultValue:(NSDictionary *)info {
-    
-    Manager.titleString = info[@"title"];
-    
-    if (info[@"titleFont"]&&([info[@"titleFont"] floatValue]>0)) {
-        Manager.titleFont = [UIFont systemFontOfSize:[info[@"titleFont"] floatValue]];
+#pragma mark - 设置model信息
+//设置最底层view的信息
++ (void)settingSuperViewValue:(NSDictionary *)model {
+    //记录最底层view的字体信息
+    CGFloat fontSize = (model[@"titleFont"] && [model[@"titleFont"] floatValue]>0)?[model[@"titleFont"] floatValue]:14;
+    Manager.superViewtitleFont = [UIFont systemFontOfSize:fontSize];
+    if (model[@"titleColor"]&&([model[@"titleColor"] length]>0)) {
+        Manager.superViewtitleColor = [ConfigurationTool colorWithHexString:model[@"titleColor"]];
+    }else{
+        Manager.superViewtitleColor = [UIColor blackColor];
+    }
+}
+
+//设置model信息
++ (void)settingDefaultValue:(NSDictionary *)model {
+    Manager.titleString = model[@"title"];
+    if (model[@"titleFont"]&&([model[@"titleFont"] floatValue]>0)) {
+        Manager.titleFont = [UIFont systemFontOfSize:[model[@"titleFont"] floatValue]];
     }else{//不存在，取最底层的值
         Manager.titleFont = Manager.superViewtitleFont;
     }
     
-    if (info[@"titleColor"]&&([info[@"titleColor"] length]>0)) {
-        Manager.titleColor = [ConfigurationTool colorWithHexString:info[@"titleColor"]];
+    if (model[@"titleColor"]&&([model[@"titleColor"] length]>0)) {
+        Manager.titleColor = [ConfigurationTool colorWithHexString:model[@"titleColor"]];
     }else{
         Manager.titleColor = Manager.superViewtitleColor;
     }
