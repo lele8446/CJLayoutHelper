@@ -1,7 +1,9 @@
 # CLayoutHelper简介
-CLayoutHelper首先读取特定数据结构的json数据，然后根据解析的数据使用Autolayout布局，自动绘制出所需要的页面视图。
+CLayoutHelper通过读取特定数据结构的json数据，然后根据解析的数据使用Autolayout布局，自动绘制出所需要的页面视图。
 
-CLayoutHelper省去了通过Storyboard、xib或者代码绘制UI的步骤，通过配置json数据，理论上完全可以描绘出任意需要的UI界面。
+CLayoutHelper省去了通过Storyboard、xib或者代码绘制UI的步骤，使用配置数据来描述界面，理论上完全可以描绘出任意需要的UI页面。
+
+对于已有的页面，使用CLayoutHelper也可以随时调整页面布局。
 
 ***
 # CLayoutHelper实现细节
@@ -160,4 +162,4 @@ ViewStyleIdentifier，描述当前配置文件对应的整体view的唯一标识
 @end
 ```
 
-使用时直接将`CLayoutHelper`文件夹添加到项目中即可，更多详情请参考[demo](https://github.com/lele8446/listDemo)
+使用时直接将`CLayoutHelper`文件夹添加到项目中即可，更多详情请参考demo
