@@ -17,6 +17,45 @@ static inline CGFLOAT_TYPE CGFloat_ceil(CGFLOAT_TYPE cgfloat) {
 #endif
 }
 
+LayoutDirection ViewLayoutDirection(NSDictionary * _Nullable info) {
+    LayoutDirection theDirectionLayout = horizontallyLayout;
+    NSString *directionString = (info[@"layoutDirection"] && [info[@"layoutDirection"] length]>0)?[info[@"layoutDirection"] lowercaseString]:@"horizontally";
+    if ([directionString isEqualToString:@"horizontally"]) {
+        theDirectionLayout = horizontallyLayout;
+    }else if ([directionString isEqualToString:@"vertical"]) {
+        theDirectionLayout = verticalLayout;
+    }else{
+        theDirectionLayout = horizontallyLayout;
+    }
+    return theDirectionLayout;
+}
+
+HorizontallyAlignmentType getHorizontallyAlignment(NSDictionary * _Nullable info) {
+    HorizontallyAlignmentType horizontallyAlignment = horizontallyLeft;
+    NSString *horizontallyString = (info[@"horizontallyAlignment"] && [info[@"horizontallyAlignment"] length]>0)?[info[@"horizontallyAlignment"] lowercaseString]:@"left";
+    if ([horizontallyString isEqualToString:@"left"]) {
+        horizontallyAlignment = horizontallyLeft;
+    }else if ([horizontallyString isEqualToString:@"center"]) {
+        horizontallyAlignment = horizontallyCenter;
+    }else if ([horizontallyString isEqualToString:@"right"]) {
+        horizontallyAlignment = horizontallyRight;
+    }
+    return horizontallyAlignment;
+}
+
+VerticalAlignmentType getVerticalAlignment(NSDictionary * _Nullable info) {
+    VerticalAlignmentType verticalAlignment = verticalTop;
+    NSString *verticalString = (info[@"verticalAlignment"] && [info[@"verticalAlignment"] length]>0)?[info[@"verticalAlignment"] lowercaseString]:@"top";
+    if ([verticalString isEqualToString:@"top"]) {
+        verticalAlignment = verticalTop;
+    }else if ([verticalString isEqualToString:@"center"]) {
+        verticalAlignment = verticalCenter;
+    }else if ([verticalString isEqualToString:@"bottom"]) {
+        verticalAlignment = verticalBottom;
+    }
+    return verticalAlignment;
+}
+
 
 @implementation ConfigurationTool
 

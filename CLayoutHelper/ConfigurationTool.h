@@ -29,18 +29,7 @@ typedef enum : NSUInteger {
 /**
  *  获取子View的布局方向（默认水平方向 horizontallyLayout）
  */
-static inline LayoutDirection ViewLayoutDirection(NSDictionary * _Nullable info) {
-    LayoutDirection theDirectionLayout = horizontallyLayout;
-    NSString *directionString = (info[@"layoutDirection"] && [info[@"layoutDirection"] length]>0)?[info[@"layoutDirection"] lowercaseString]:@"horizontally";
-    if ([directionString isEqualToString:@"horizontally"]) {
-        theDirectionLayout = horizontallyLayout;
-    }else if ([directionString isEqualToString:@"vertical"]) {
-        theDirectionLayout = verticalLayout;
-    }else{
-        theDirectionLayout = horizontallyLayout;
-    }
-    return theDirectionLayout;
-}
+LayoutDirection ViewLayoutDirection(NSDictionary * _Nullable info);
 
 /**
  水平方向的位置
@@ -54,18 +43,7 @@ typedef enum : NSUInteger {
 /**
  *  获取水平方向的位置（默认horizontallyLeft）
  */
-static inline HorizontallyAlignmentType getHorizontallyAlignment(NSDictionary * _Nullable info) {
-    HorizontallyAlignmentType horizontallyAlignment = horizontallyLeft;
-    NSString *horizontallyString = (info[@"horizontallyAlignment"] && [info[@"horizontallyAlignment"] length]>0)?[info[@"horizontallyAlignment"] lowercaseString]:@"left";
-    if ([horizontallyString isEqualToString:@"left"]) {
-        horizontallyAlignment = horizontallyLeft;
-    }else if ([horizontallyString isEqualToString:@"center"]) {
-        horizontallyAlignment = horizontallyCenter;
-    }else if ([horizontallyString isEqualToString:@"right"]) {
-        horizontallyAlignment = horizontallyRight;
-    }
-    return horizontallyAlignment;
-}
+HorizontallyAlignmentType getHorizontallyAlignment(NSDictionary * _Nullable info);
 
 /**
  垂直方向的位置
@@ -79,18 +57,8 @@ typedef enum : NSUInteger {
 /**
  *  获取垂直方向的位置（默认verticalTop）
  */
-static inline VerticalAlignmentType getVerticalAlignment(NSDictionary * _Nullable info) {
-    VerticalAlignmentType verticalAlignment = verticalTop;
-    NSString *verticalString = (info[@"verticalAlignment"] && [info[@"verticalAlignment"] length]>0)?[info[@"verticalAlignment"] lowercaseString]:@"top";
-    if ([verticalString isEqualToString:@"top"]) {
-        verticalAlignment = verticalTop;
-    }else if ([verticalString isEqualToString:@"center"]) {
-        verticalAlignment = verticalCenter;
-    }else if ([verticalString isEqualToString:@"bottom"]) {
-        verticalAlignment = verticalBottom;
-    }
-    return verticalAlignment;
-}
+VerticalAlignmentType getVerticalAlignment(NSDictionary * _Nullable info);
+
 
 @interface ConfigurationTool : NSObject
 
@@ -118,7 +86,7 @@ static inline VerticalAlignmentType getVerticalAlignment(NSDictionary * _Nullabl
  *  @param width
  *  @param height
  *
- *  @return 
+ *  @return
  */
 + (CGSize)calculateStringSize:(NSString *_Nullable)titleString
                     titleFont:(UIFont *_Nullable)titleFont
