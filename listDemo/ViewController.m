@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ListTableViewController.h"
+#import "ListViewController.h"
 
 @interface ViewController ()
 
@@ -26,7 +27,7 @@
 }
 
 - (IBAction)pustToList:(id)sender {
-    ListTableViewController *listViewController = [[ListTableViewController alloc]init];
+    ListViewController *listViewController = [[ListViewController alloc]initWithNibName:@"ListViewController" bundle:nil];
     [self.navigationController pushViewController:listViewController animated:YES];
 }
 @end

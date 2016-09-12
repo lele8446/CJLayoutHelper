@@ -16,15 +16,18 @@ PODS:
     - AFNetworking/NSURLSession
   - CJTextView (0.0.6)
   - IQKeyboardManager (3.3.7)
+  - MBProgressHUD (0.9.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
   - CJTextView (~> 0.0.6)
   - IQKeyboardManager (~> 3.3.7)
+  - MBProgressHUD (~> 0.9.2)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   CJTextView: 39a093a1694c207bd1cd4159cc6959250a3045f1
   IQKeyboardManager: 249c3946acf61345c18b038eb50863fe2793e3a8
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
 
 COCOAPODS: 0.39.0

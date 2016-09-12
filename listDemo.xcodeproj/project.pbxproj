@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B442502A1D82F8AC00AA4029 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B44250281D82F8AC00AA4029 /* ListViewController.m */; };
+		B442502B1D82F8AC00AA4029 /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B44250291D82F8AC00AA4029 /* ListViewController.xib */; };
 		B49109D31D729BD100137CE2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B49109D21D729BD100137CE2 /* main.m */; };
 		B49109D61D729BD100137CE2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B49109D51D729BD100137CE2 /* AppDelegate.m */; };
 		B49109D91D729BD100137CE2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B49109D81D729BD100137CE2 /* ViewController.m */; };
@@ -47,6 +49,9 @@
 
 /* Begin PBXFileReference section */
 		AAF9A20A08D05125AB629897 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B44250271D82F8AC00AA4029 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
+		B44250281D82F8AC00AA4029 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
+		B44250291D82F8AC00AA4029 /* ListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
 		B49109CE1D729BD100137CE2 /* listDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = listDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49109D21D729BD100137CE2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B49109D41D729BD100137CE2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -156,6 +161,9 @@
 				B49109D71D729BD100137CE2 /* ViewController.h */,
 				B49109D81D729BD100137CE2 /* ViewController.m */,
 				B49109DA1D729BD100137CE2 /* Main.storyboard */,
+				B44250271D82F8AC00AA4029 /* ListViewController.h */,
+				B44250281D82F8AC00AA4029 /* ListViewController.m */,
+				B44250291D82F8AC00AA4029 /* ListViewController.xib */,
 				B4910A041D72B11800137CE2 /* ListTableViewController.h */,
 				B4910A051D72B11800137CE2 /* ListTableViewController.m */,
 				B4910A071D72B41900137CE2 /* AutoBaseTableViewCell.h */,
@@ -282,7 +290,7 @@
 				TargetAttributes = {
 					B49109CD1D729BD100137CE2 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 2G9KQAD4K5;
+						DevelopmentTeam = XNH4LYVJV3;
 					};
 					B49109E61D729BD100137CE2 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -324,6 +332,7 @@
 				B4910A191D75310200137CE2 /* icon_weixuanze_nor@3x.png in Resources */,
 				B4910A181D75310200137CE2 /* icon_weixuanze_nor@2x.png in Resources */,
 				B49109DE1D729BD100137CE2 /* Assets.xcassets in Resources */,
+				B442502B1D82F8AC00AA4029 /* ListViewController.xib in Resources */,
 				B49109DC1D729BD100137CE2 /* Main.storyboard in Resources */,
 				B4910A1D1D75311A00137CE2 /* icon_xuanze_nor@3x.png in Resources */,
 				B4910A3D1D7FD8B500137CE2 /* Testdata.json in Resources */,
@@ -401,6 +410,7 @@
 			files = (
 				B49109D91D729BD100137CE2 /* ViewController.m in Sources */,
 				B4910A4F1D7FEA7800137CE2 /* CLayoutHelper.m in Sources */,
+				B442502A1D82F8AC00AA4029 /* ListViewController.m in Sources */,
 				B49109D61D729BD100137CE2 /* AppDelegate.m in Sources */,
 				B49109D31D729BD100137CE2 /* main.m in Sources */,
 				B4910A511D7FEA7800137CE2 /* ConfigurationTool.m in Sources */,
@@ -573,7 +583,7 @@
 					"-framework",
 					"\"SystemConfiguration\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CJ.Lian.listDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = listDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -607,7 +617,7 @@
 					"-framework",
 					"\"SystemConfiguration\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = CJ.Lian.listDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = listDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

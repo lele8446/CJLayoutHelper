@@ -119,9 +119,9 @@
                 
                 BOOL autolayoutHeight = childModel.layout[@"autolayoutHeight"]?[childModel.layout[@"autolayoutHeight"] boolValue]:NO;
                 if (autolayoutHeight) {
-                    subviewsHeight = subviewsHeight + [self compareViewHeightWithInfo:childModel width:childViewWidth superViewHeight:height ySpacing:childViewYSpacing];
+                    subviewsHeight = subviewsHeight + [self compareViewHeightWithInfo:childModel width:childViewWidth superViewHeight:height ySpacing:childViewYSpacing] + 2*childViewYSpacing;
                 }else{
-                    subviewsHeight = subviewsHeight + [self currentViewHeight:childModel superViewHeight:height ySpacing:childViewYSpacing width:childViewWidth];
+                    subviewsHeight = subviewsHeight + [self currentViewHeight:childModel superViewHeight:height ySpacing:childViewYSpacing width:childViewWidth] + 2*childViewYSpacing;
                 }
             }
             height = height>subviewsHeight?height:subviewsHeight;
@@ -165,24 +165,24 @@
     
     CGFloat currentViewHeight = [self currentViewHeight:info superViewHeight:superViewHeight ySpacing:ySpacing width:width];
     UIView *currentView = [[theViewClass alloc]init];
-    LayoutDirection directionLayout = ViewLayoutDirection(info.layout);
-    //子View是垂直方向布局
-    if (directionLayout == verticalLayout) {
-        CGFloat subviewsHeight = 0;
-        NSArray *subviews = info.layout[@"subviews"];
-        //不是UIScrollView且子view是垂直方向布局时，高度＝所有子view高度的和
-        if ((![currentView isKindOfClass:[UIScrollView class]])&&(subviews || subviews.count > 0)) {
-            for (NSInteger i = 0; i < subviews.count; i++) {
-                ConfigurationModel *childModel = subviews[i];
-                CGFloat childViewXSpacing = (childModel.layout[@"xSpacing"])?[childModel.layout[@"xSpacing"] floatValue]:0;
-                CGFloat childViewWidth = [ConfigurationTool calculateValue:childModel.layout[@"width"] superValue:width padding:childViewXSpacing];
-                CGFloat childViewYSpacing = (childModel.layout[@"ySpacing"])?[childModel.layout[@"ySpacing"] floatValue]:0;
-                
-                subviewsHeight = subviewsHeight + [self currentViewHeight:childModel superViewHeight:currentViewHeight ySpacing:childViewYSpacing width:childViewWidth];
-            }
-            currentViewHeight = currentViewHeight>subviewsHeight?currentViewHeight:subviewsHeight;
-        }
-    }
+//    LayoutDirection directionLayout = ViewLayoutDirection(info.layout);
+//    //子View是垂直方向布局
+//    if (directionLayout == verticalLayout) {
+//        CGFloat subviewsHeight = 0;
+//        NSArray *subviews = info.layout[@"subviews"];
+//        //不是UIScrollView且子view是垂直方向布局时，高度＝所有子view高度的和
+//        if ((![currentView isKindOfClass:[UIScrollView class]])&&(subviews || subviews.count > 0)) {
+//            for (NSInteger i = 0; i < subviews.count; i++) {
+//                ConfigurationModel *childModel = subviews[i];
+//                CGFloat childViewXSpacing = (childModel.layout[@"xSpacing"])?[childModel.layout[@"xSpacing"] floatValue]:0;
+//                CGFloat childViewWidth = [ConfigurationTool calculateValue:childModel.layout[@"width"] superValue:width padding:childViewXSpacing];
+//                CGFloat childViewYSpacing = (childModel.layout[@"ySpacing"])?[childModel.layout[@"ySpacing"] floatValue]:0;
+//                
+//                subviewsHeight = subviewsHeight + [self currentViewHeight:childModel superViewHeight:currentViewHeight ySpacing:childViewYSpacing width:childViewWidth] + 2*childViewYSpacing;
+//            }
+//            currentViewHeight = currentViewHeight>subviewsHeight?currentViewHeight:subviewsHeight;
+//        }
+//    }
     
     superViewHeight = currentViewHeight>superViewHeight?currentViewHeight:superViewHeight;
     

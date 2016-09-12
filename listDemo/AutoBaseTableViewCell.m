@@ -10,10 +10,6 @@
 #import "CJUITextView.h"
 #import <objc/runtime.h>
 
-
-
-#define ScreenWidth [[UIScreen mainScreen] bounds].size.width
-#define ScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define PlaceholderColor [UIColor colorWithRed:0.7333 green:0.7294 blue:0.7608 alpha:1.0]
 
 @implementation AutoBaseTableViewCell
@@ -127,6 +123,11 @@
             UIButton *button1 = (UIButton *)view;
             objc_setAssociatedObject(button1, "placeholder", info[@"placeholder"], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             [button1 addTarget:self action:@selector(datePickerButton1Click:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        if ([view.idDescription rangeOfString:@"Button二"].location != NSNotFound) {
+            UIButton *button2 = (UIButton *)view;
+            objc_setAssociatedObject(button2, "placeholder", info[@"title"], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            [button2 addTarget:self action:@selector(datePickerButton1Click:) forControlEvents:UIControlEventTouchUpInside];
         }
         if ([view.idDescription rangeOfString:@"datePicker_button_2"].location != NSNotFound) {
             UIButton *button2 = (UIButton *)view;
