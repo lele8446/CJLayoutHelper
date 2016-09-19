@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ConfigurationModel.h"
 
 #define CJIsNull(a) (!a || (a)==nil || (a)==NULL || [a isKindOfClass:[NSNull class]])
 #define PlaceholderColor [UIColor colorWithRed:0.7333 green:0.7294 blue:0.7608 alpha:1.0]
@@ -17,6 +18,38 @@
 #else
 #   define CJNSLog(fmt,...)
 #endif
+
+/**
+ *  根据key获取CGFloat，默认0
+ *
+ *  @param layout
+ *  @param key
+ *
+ *  @return
+ */
+FOUNDATION_EXPORT CGFloat CGFloatForLayoutKey(NSDictionary *_Nullable layout, NSString *_Nullable key);
+
+/**
+ *  根据key获取NSString
+ *
+ *  @param info
+ *  @param key
+ *  @param defaultValue 默认值
+ *  @param lowercase    是否转换为小写
+ *
+ *  @return
+ */
+FOUNDATION_EXPORT NSString *_Nonnull NSStringForInfoKey(NSDictionary *_Nullable info, NSString *_Nullable key, NSString *_Nullable defaultValue, BOOL lowercase);
+
+/**
+ *  根据key获取BOOL，默认NO
+ *
+ *  @param info
+ *  @param key
+ *
+ *  @return
+ */
+FOUNDATION_EXPORT BOOL BOOLForInfoKey(NSDictionary *_Nullable info, NSString *_Nullable key);
 
 /**
  布局方向
@@ -29,54 +62,72 @@ typedef enum : NSUInteger {
 /**
  *  获取子View的布局方向（默认水平方向 horizontallyLayout）
  */
-LayoutDirection ViewLayoutDirection(NSDictionary * _Nullable info);
+FOUNDATION_EXPORT LayoutDirection ViewLayoutDirection(NSDictionary * _Nullable info);
 
 /**
  水平方向的位置
  */
 typedef enum : NSUInteger {
-    horizontallyLeft = 0,//靠左
-    horizontallyCenter,  //居中
-    horizontallyRight    //靠右
+    horizontallyLeftWidth = 0,//left＋width确定
+    horizontallyCenter,       //x＋width确定
+    horizontallyWidthRight,   //width＋right确定
+    horizontallyLeftRight     //left＋right确定
 } HorizontallyAlignmentType;
 
 /**
- *  获取水平方向的位置（默认horizontallyLeft）
+ *  获取水平方向的位置（默认horizontallyLeftWidth）
  */
-HorizontallyAlignmentType getHorizontallyAlignment(NSDictionary * _Nullable info);
+FOUNDATION_EXPORT HorizontallyAlignmentType getHorizontallyAlignment(NSDictionary * _Nullable info);
 
 /**
  垂直方向的位置
  */
 typedef enum : NSUInteger {
-    verticalTop = 0, //居上
-    verticalCenter,  //居中
-    verticalBottom   //居下
+    verticalTopHeight = 0, //top＋height确定
+    verticalCenter,        //y＋height确定
+    verticalHeightBottom,  //height＋bottom确定
+    verticalTopBottom      //top＋bottom确定
 } VerticalAlignmentType;
 
 /**
- *  获取垂直方向的位置（默认verticalTop）
+ *  获取垂直方向的位置（默认verticalTopHeight）
  */
-VerticalAlignmentType getVerticalAlignment(NSDictionary * _Nullable info);
+FOUNDATION_EXPORT VerticalAlignmentType getVerticalAlignment(NSDictionary * _Nullable info);
 
 
 @interface ConfigurationTool : NSObject
 
 /**
- *  计算宽度／高度
+ *  计算宽/高
  *
- *  传入的valueStr有三种情况：
- *         1、"0"     未确定，比如UILable的宽度确定，高度随文本内容动态变化的情况
- *         2、"0.5p"  按superValue的百分比取值； 0.5p = (superValue - 2 * padding)*0.5
- *         3、"44"    取具体数值44
+ *  @param info
+ *  @param directionLayout 当前view的布局方向
+ *  @param superValue      父view的宽/高
+ *  @param isWidth         是否计算宽度，YES 宽度；NO 高度
  *
- *  @param valueStr   需要计算值的字符串
- *  @param superValue 父视图确定的值
- *  @param padding    内边距
+ *  @return 
+ */
++ (CGFloat)calculateValue:(ConfigurationModel *_Nullable)info directionLayout:(LayoutDirection)directionLayout superValue:(CGFloat)superValue isWidth:(BOOL)isWidth;
+
+/**
+ *  计算父view宽度，子view水平方向布局时，减去了其所有子view的内边距
+ *
+ *  @param info
+ *  @param superWidth 父view宽度(未减去其所有子view的内边距)
  *
  *  @return
  */
-+ (CGFloat)calculateValue:(NSString * _Nullable)valueStr superValue:(CGFloat)superValue padding:(CGFloat)padding;
++ (CGFloat)superViewWidthAccordingToPadding:(ConfigurationModel *_Nullable)info superWidth:(CGFloat)superWidth;
+
+/**
+ *  计算父view高度，子view垂直方向布局时，减去了其所有子view的内边距
+ *
+ *  @param info
+ *  @param superWidth 父view高度(未减去其所有子view的内边距)
+ *
+ *  @return
+ */
++ (CGFloat)superViewHeightAccordingToPadding:(ConfigurationModel *_Nullable)info superHeight:(CGFloat)superHeight;
 
 /**
  *  计算NSString的Rect值
@@ -103,8 +154,6 @@ VerticalAlignmentType getVerticalAlignment(NSDictionary * _Nullable info);
  */
 + (UIColor *_Nullable)colorWithHexString:(NSString *_Nullable)hexString;
 
-// 根据key获取NSString
-+ (NSString *_Nullable)stringFromInfo:(NSDictionary *_Nullable)info key:(NSString *_Nullable)key defaultValue:(NSString *_Nullable)defaultValue;
 @end
 
 

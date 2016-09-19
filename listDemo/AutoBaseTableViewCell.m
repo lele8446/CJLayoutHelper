@@ -10,18 +10,19 @@
 #import "CJUITextView.h"
 #import <objc/runtime.h>
 
-
-
-#define ScreenWidth [[UIScreen mainScreen] bounds].size.width
-#define ScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define PlaceholderColor [UIColor colorWithRed:0.7333 green:0.7294 blue:0.7608 alpha:1.0]
+
+@interface AutoBaseTableViewCell ()
+@property (nonatomic, strong) CLayoutHelper *layoutHelper;
+@end
 
 @implementation AutoBaseTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style withCellInfo:(ConfigurationModel *)info {
     self = [super initWithStyle:style reuseIdentifier:[CLayoutHelper configurationViewStyleIdentifier:info]];
     if (self) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.selectionStyle = UITableViewCellSelectionStyleBlue;
+        self.layoutHelper = [[CLayoutHelper alloc]init];
         [self cellInfo:info];
     }
     return self;
@@ -39,11 +40,11 @@
 }
 
 - (void)cellInfo:(ConfigurationModel *)info {
-    [CLayoutHelper initializeViewWithInfo:info layoutContentView:self.contentView contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight delegate:self];
+    [self.layoutHelper initializeViewWithInfo:info layoutContentView:self.contentView contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight delegate:self];
 }
 
 + (CGFloat)cellHeightWithInfo:(ConfigurationModel *)info {
-    return [CLayoutHelper viewHeightWithInfo:info contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight];
+    return [[CLayoutHelper sharedManager] viewHeightWithInfo:info contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight];
 }
 
 #pragma mark - ConfigurationLayoutHelperDelegate
@@ -56,9 +57,9 @@
 //        [view addGestureRecognizer:singleTap];
 //    }
     
-    UIFont *titleFont = [CLayoutHelper sharedManager].titleFont;
-    NSString *title = [CLayoutHelper sharedManager].titleString;
-    UIColor *titleColor = [CLayoutHelper sharedManager].titleColor;
+    UIFont *titleFont = self.layoutHelper.titleFont;
+    NSString *title = self.layoutHelper.titleString;
+    UIColor *titleColor = self.layoutHelper.titleColor;
     if ([view isMemberOfClass:[UILabel class]]) {
         UILabel *label = (UILabel *)view;
         label.numberOfLines = 0;
@@ -127,6 +128,11 @@
             UIButton *button1 = (UIButton *)view;
             objc_setAssociatedObject(button1, "placeholder", info[@"placeholder"], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             [button1 addTarget:self action:@selector(datePickerButton1Click:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        if ([view.idDescription rangeOfString:@"Button二"].location != NSNotFound) {
+            UIButton *button2 = (UIButton *)view;
+            objc_setAssociatedObject(button2, "placeholder", info[@"title"], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            [button2 addTarget:self action:@selector(datePickerButton1Click:) forControlEvents:UIControlEventTouchUpInside];
         }
         if ([view.idDescription rangeOfString:@"datePicker_button_2"].location != NSNotFound) {
             UIButton *button2 = (UIButton *)view;

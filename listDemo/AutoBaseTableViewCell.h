@@ -10,6 +10,9 @@
 #import "CLayoutHelper.h"
 #import "ConfigurationModel.h"
 
+#define ScreenWidth [[UIScreen mainScreen] bounds].size.width
+#define ScreenHeight [[UIScreen mainScreen] bounds].size.height
+
 typedef void(^viewTapBlock)(UIView *, id);
 
 @interface AutoBaseTableViewCell : UITableViewCell<CLayoutHelperDelegate>
