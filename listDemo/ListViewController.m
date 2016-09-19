@@ -12,11 +12,14 @@
 #import "ConfigurationTool.h"
 #import "ConfigurationModel.h"
 #import "MBProgressHUD.h"
+#import "CLayoutHelper.h"
 
 @interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,CLayoutHelperDelegate>
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIView *backView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
+
+@property (nonatomic, strong) CLayoutHelper *layoutHelper;
 @end
 
 @implementation ListViewController
@@ -34,6 +37,8 @@
     [self.tableView setLayoutMargins:UIEdgeInsetsZero];
     self.dataArray = [NSMutableArray array];
     [self showView1];
+    
+    self.layoutHelper = [[CLayoutHelper alloc]init];
 
 }
 
@@ -81,34 +86,48 @@
 
 - (void)showView1 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[AFHTTPSessionManager manager]POST:@"http://7xnrwl.com1.z0.glb.clouddn.com/Testdata.json"
-                             parameters:nil
-                               progress:^(NSProgress * uploadProgress){
-                                   
-                               }
-                                success:^(NSURLSessionDataTask *task, id _Nullable responseObject){
-                                    [self handleData:responseObject];
-                                }
-                                failure:^(NSURLSessionDataTask * _Nullable task, NSError *error){
-                                    NSLog(@"ERROR = %@",error);
-                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                }];
+//    [[AFHTTPSessionManager manager]POST:@"http://7xnrwl.com1.z0.glb.clouddn.com/Testdata.json"
+//                             parameters:nil
+//                               progress:^(NSProgress * uploadProgress){
+//                                   
+//                               }
+//                                success:^(NSURLSessionDataTask *task, id _Nullable responseObject){
+//                                    [self handleData:responseObject];
+//                                }
+//                                failure:^(NSURLSessionDataTask * _Nullable task, NSError *error){
+//                                    NSLog(@"ERROR = %@",error);
+//                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+//                                }];
+    //获取文件路径
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"Testdata"ofType:@"plist"];
+    
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithContentsOfFile:filePath];
+    [self handleData:dictionary];
 }
 
 - (void)showView2 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[AFHTTPSessionManager manager]POST:@"http://7xnrwl.com1.z0.glb.clouddn.com/mydata.json"
-                             parameters:nil
-                               progress:^(NSProgress * uploadProgress){
-                                   
-                               }
-                                success:^(NSURLSessionDataTask *task, id _Nullable responseObject){
-                                    [self handleData2:responseObject];
-                                }
-                                failure:^(NSURLSessionDataTask * _Nullable task, NSError *error){
-                                    NSLog(@"ERROR = %@",error);
-                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                }];
+//    [[AFHTTPSessionManager manager]POST:@"http://7xnrwl.com1.z0.glb.clouddn.com/mydata.json"
+//                             parameters:nil
+//                               progress:^(NSProgress * uploadProgress){
+//                                   
+//                               }
+//                                success:^(NSURLSessionDataTask *task, id _Nullable responseObject){
+//                                    [self handleData2:responseObject];
+//                                }
+//                                failure:^(NSURLSessionDataTask * _Nullable task, NSError *error){
+//                                    NSLog(@"ERROR = %@",error);
+//                                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+//                                }];
+    
+    NSError*error;
+    //获取文件路径
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"mydata"ofType:@"json"];
+    
+    //根据文件路径读取数据
+    NSData *jdata = [[NSData alloc]initWithContentsOfFile:filePath];
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:jdata options:kNilOptions error:&error];
+    [self handleData2:jsonObject];
 }
 
 - (void)handleData:(id)object {
@@ -127,11 +146,8 @@
     NSDictionary *data = [(NSDictionary*)object objectForKey:@"data"];
     
     ConfigurationModel *model = [[ConfigurationModel alloc]initConfigurationModelInfo:data];
-    [CLayoutHelper initializeViewWithInfo:model layoutContentView:self.backView contentViewWidth:ScreenWidth contentViewHeight:ScreenWidth delegate:self];
+    [self.layoutHelper initializeViewWithInfo:model layoutContentView:self.backView contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight delegate:self];
     
-    CGFloat height = [CLayoutHelper viewHeightWithInfo:model contentViewWidth:ScreenWidth contentViewHeight:ScreenWidth];
-    
-    [self.tableView reloadData];
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
@@ -193,9 +209,9 @@
 #pragma mark - ConfigurationLayoutHelperDelegate
 - (void)configureView:(UIView *)view withModelInfo:(NSDictionary *)info {
     
-    UIFont *titleFont = [CLayoutHelper sharedManager].titleFont;
-    NSString *title = [CLayoutHelper sharedManager].titleString;
-    UIColor *titleColor = [CLayoutHelper sharedManager].titleColor;
+    UIFont *titleFont = self.layoutHelper.titleFont;
+    NSString *title = self.layoutHelper.titleString;
+    UIColor *titleColor = self.layoutHelper.titleColor;
 
     if ([view isMemberOfClass:[UILabel class]]) {
         UILabel *label = (UILabel *)view;

@@ -17,7 +17,6 @@
 		B49109E11D729BD100137CE2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B49109DF1D729BD100137CE2 /* LaunchScreen.storyboard */; };
 		B49109EC1D729BD100137CE2 /* listDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B49109EB1D729BD100137CE2 /* listDemoTests.m */; };
 		B49109F71D729BD100137CE2 /* listDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B49109F61D729BD100137CE2 /* listDemoUITests.m */; };
-		B4910A061D72B11800137CE2 /* ListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A051D72B11800137CE2 /* ListTableViewController.m */; };
 		B4910A091D72B41900137CE2 /* AutoBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A081D72B41900137CE2 /* AutoBaseTableViewCell.m */; };
 		B4910A181D75310200137CE2 /* icon_weixuanze_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A161D75310200137CE2 /* icon_weixuanze_nor@2x.png */; };
 		B4910A191D75310200137CE2 /* icon_weixuanze_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A171D75310200137CE2 /* icon_weixuanze_nor@3x.png */; };
@@ -27,6 +26,8 @@
 		B4910A4F1D7FEA7800137CE2 /* CLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A4A1D7FEA7800137CE2 /* CLayoutHelper.m */; };
 		B4910A501D7FEA7800137CE2 /* ConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A4C1D7FEA7800137CE2 /* ConfigurationModel.m */; };
 		B4910A511D7FEA7800137CE2 /* ConfigurationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A4E1D7FEA7800137CE2 /* ConfigurationTool.m */; };
+		B4ADD9EF1D8E8DFD00E572BA /* mydata.json in Resources */ = {isa = PBXBuildFile; fileRef = B4ADD9EE1D8E8DFD00E572BA /* mydata.json */; };
+		B4ADD9F11D8E8EE500E572BA /* Testdata.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4ADD9F01D8E8EE500E572BA /* Testdata.plist */; };
 		D5AFAACA3D225DFBAD17D0E3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C21E0A7CC8DC1147888CD5 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -68,8 +69,6 @@
 		B49109F21D729BD100137CE2 /* listDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = listDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49109F61D729BD100137CE2 /* listDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = listDemoUITests.m; sourceTree = "<group>"; };
 		B49109F81D729BD100137CE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B4910A041D72B11800137CE2 /* ListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewController.h; sourceTree = "<group>"; };
-		B4910A051D72B11800137CE2 /* ListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListTableViewController.m; sourceTree = "<group>"; };
 		B4910A071D72B41900137CE2 /* AutoBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoBaseTableViewCell.h; sourceTree = "<group>"; };
 		B4910A081D72B41900137CE2 /* AutoBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoBaseTableViewCell.m; sourceTree = "<group>"; };
 		B4910A161D75310200137CE2 /* icon_weixuanze_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_weixuanze_nor@2x.png"; sourceTree = "<group>"; };
@@ -83,6 +82,8 @@
 		B4910A4C1D7FEA7800137CE2 /* ConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationModel.m; sourceTree = "<group>"; };
 		B4910A4D1D7FEA7800137CE2 /* ConfigurationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTool.h; sourceTree = "<group>"; };
 		B4910A4E1D7FEA7800137CE2 /* ConfigurationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTool.m; sourceTree = "<group>"; };
+		B4ADD9EE1D8E8DFD00E572BA /* mydata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mydata.json; sourceTree = "<group>"; };
+		B4ADD9F01D8E8EE500E572BA /* Testdata.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Testdata.plist; sourceTree = "<group>"; };
 		C7D892EFBE267D36EA155E13 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D0C21E0A7CC8DC1147888CD5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -164,8 +165,6 @@
 				B44250271D82F8AC00AA4029 /* ListViewController.h */,
 				B44250281D82F8AC00AA4029 /* ListViewController.m */,
 				B44250291D82F8AC00AA4029 /* ListViewController.xib */,
-				B4910A041D72B11800137CE2 /* ListTableViewController.h */,
-				B4910A051D72B11800137CE2 /* ListTableViewController.m */,
 				B4910A071D72B41900137CE2 /* AutoBaseTableViewCell.h */,
 				B4910A081D72B41900137CE2 /* AutoBaseTableViewCell.m */,
 				B49109DD1D729BD100137CE2 /* Assets.xcassets */,
@@ -179,6 +178,8 @@
 		B49109D11D729BD100137CE2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B4ADD9EE1D8E8DFD00E572BA /* mydata.json */,
+				B4ADD9F01D8E8EE500E572BA /* Testdata.plist */,
 				B4910A3C1D7FD8B500137CE2 /* Testdata.json */,
 				B4910A1A1D75311A00137CE2 /* icon_xuanze_nor@2x.png */,
 				B4910A1B1D75311A00137CE2 /* icon_xuanze_nor@3x.png */,
@@ -328,8 +329,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B49109E11D729BD100137CE2 /* LaunchScreen.storyboard in Resources */,
+				B4ADD9F11D8E8EE500E572BA /* Testdata.plist in Resources */,
 				B4910A1C1D75311A00137CE2 /* icon_xuanze_nor@2x.png in Resources */,
 				B4910A191D75310200137CE2 /* icon_weixuanze_nor@3x.png in Resources */,
+				B4ADD9EF1D8E8DFD00E572BA /* mydata.json in Resources */,
 				B4910A181D75310200137CE2 /* icon_weixuanze_nor@2x.png in Resources */,
 				B49109DE1D729BD100137CE2 /* Assets.xcassets in Resources */,
 				B442502B1D82F8AC00AA4029 /* ListViewController.xib in Resources */,
@@ -415,7 +418,6 @@
 				B49109D31D729BD100137CE2 /* main.m in Sources */,
 				B4910A511D7FEA7800137CE2 /* ConfigurationTool.m in Sources */,
 				B4910A501D7FEA7800137CE2 /* ConfigurationModel.m in Sources */,
-				B4910A061D72B11800137CE2 /* ListTableViewController.m in Sources */,
 				B4910A091D72B41900137CE2 /* AutoBaseTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -582,6 +584,9 @@
 					"\"Security\"",
 					"-framework",
 					"\"SystemConfiguration\"",
+					"-ObjC",
+					"-framework",
+					Reveal,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = listDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -616,6 +621,9 @@
 					"\"Security\"",
 					"-framework",
 					"\"SystemConfiguration\"",
+					"-ObjC",
+					"-framework",
+					Reveal,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = listDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

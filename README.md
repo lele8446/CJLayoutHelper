@@ -45,18 +45,19 @@ UIScrollView是UIView1的第二个子view，其存在以水平方向布局的两
 
 ```
 {
-"layout":{
     "viewStyleIdentifier": "scrollViewType",//配置文件对应的整体view的标识符，最外层view特有字段（最外层view时必填）
     "viewType": "UIView",                   //当前view的class，对应UIKit中的类型（必填）
-    "xSpacing": 0,                          //水平方向的间距，对应Leading、Trailing的值（默认0）
-    "horizontallyAlignment": "left",        //水平方向的布局位置，left、center、right（默认left）
-    "width": "1p",                          //宽度：0高度固定，宽度随文本内容动态变化； 0p~1p：数字加p表示取父view宽度的百分比；40表示＝40（必填）
-    "ySpacing": 0,                          //垂直方向的间距，对应Top、Bottom的值（默认0）
-    "verticalAlignment": "top",             //垂直方向的布局位置，top、center、bottom（默认top）
-    "height": 44,                           //高度：0宽度固定，高度随文本内容动态变化； 0p~1p：数字加p表示取父view高度的百分比；44表示＝44（必填）
+    "leftPadding": 0,                       //水平方向左边的间距，对应Leading的值（默认0）
+    "rightPadding": 0,                      //水平方向右边的间距，对应Trailing的值（默认0）
+    "horizontallyAlignment": "leftWidth",   //水平方向的布局位置，leftWidth、center、widthRight、leftRight(同级只有一个子view时才可设置)（默认leftWidth）
+    "width": "1p",                          //宽度：0高度固定，宽度随文本内容动态变化； 0p~1p：数字加p表示取父view宽度的百分比；40表示＝40
+    "topPadding": 0,                        //垂直方向上边的间距，对应Top的值（默认0）
+    "bottomPadding": 0,                     //垂直方向下边的间距，对应Bottom的值（默认0）
+    "verticalAlignment": "topHeight",       //垂直方向的布局位置，topHeight、center、heightBottom、topBottom(同级只有一个子view时才可设置)（默认topHeight）
+    "height": 44,                           //高度：0宽度固定，高度随文本内容动态变化； 0p~1p：数字加p表示取父view高度的百分比；44表示＝44
     "autolayoutHeight":true,                //是否自动调整高度，当子view中包含高度未确定的元素时，值为true，默认false
     "layoutDirection":"vertical",           //含有子view时，子view的布局方向，horizontally、vertical（默认horizontally水平布局）
-    "subviews": []                          //描述子view的数组
+    "subviews": []                          //子view的model数组
    },
 "model":{
     "backgroundColor": "#87CEEB",//背景颜色
@@ -122,7 +123,7 @@ ViewStyleIdentifier，描述当前配置文件对应的整体view的唯一标识
  *
  *  @return
  */
-+ (CGFloat)viewHeightWithInfo:(ConfigurationModel *)info contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight;
+- (CGFloat)viewHeightWithInfo:(ConfigurationModel *)info contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight;
 
  /**
  *  根据配置文件初始化view
@@ -133,7 +134,7 @@ ViewStyleIdentifier，描述当前配置文件对应的整体view的唯一标识
  *  @param contentViewHeight 绘制UI的父视图的高度（比如：ScreenHeight）
  *  @param delegate          代理
  */
-+ (void)initializeViewWithInfo:(ConfigurationModel *)info
+- (void)initializeViewWithInfo:(ConfigurationModel *)info
              layoutContentView:(UIView *)layoutContentView
               contentViewWidth:(CGFloat)contentViewWidth
              contentViewHeight:(CGFloat)contentViewHeight

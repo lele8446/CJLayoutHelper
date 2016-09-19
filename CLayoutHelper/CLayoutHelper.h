@@ -20,7 +20,6 @@
 
 @interface CLayoutHelper : NSObject
 
-@property(nonatomic, weak) id<CLayoutHelperDelegate> myDelegate;
 /**
  *  当前绘制的view的标题（如果存在的话）
  */
@@ -36,12 +35,6 @@
  */
 @property (nonatomic, strong) UIColor *titleColor;
 
-
-/**
- *  单例
- *
- *  @return 
- */
 + (instancetype)sharedManager;
 
 /**
@@ -62,7 +55,9 @@
  *
  *  @return
  */
-+ (CGFloat)viewHeightWithInfo:(ConfigurationModel *)info contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight;
+- (CGFloat)viewHeightWithInfo:(ConfigurationModel *)info
+             contentViewWidth:(CGFloat)contentViewWidth
+            contentViewHeight:(CGFloat)contentViewHeight;
 
 /**
  *  根据配置文件初始化view
@@ -73,7 +68,7 @@
  *  @param contentViewHeight 绘制UI的父视图的高度（比如：ScreenHeight）
  *  @param delegate          代理
  */
-+ (void)initializeViewWithInfo:(ConfigurationModel *)info
+- (void)initializeViewWithInfo:(ConfigurationModel *)info
              layoutContentView:(UIView *)layoutContentView
               contentViewWidth:(CGFloat)contentViewWidth
              contentViewHeight:(CGFloat)contentViewHeight

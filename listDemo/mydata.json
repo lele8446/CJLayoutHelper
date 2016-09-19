@@ -5,38 +5,45 @@
       "layout": {
         "viewStyleIdentifier": "towLableView",
         "viewType": "UIView",
-        "xSpacing": 12,
-        "horizontallyAlignment": "left",
+        "leftPadding": 10,
+        "rightPadding": 10,
+        "horizontallyAlignment": "leftRight",
         "width": "1p",
-        "ySpacing": 0,
-        "verticalAlignment": "top",
-        "height": 2,
+        "verticalAlignment": "topHeight",
+        "topPadding": 0,
+        "bottomPadding": 0,
+        "height": 40,
         "autolayoutHeight": true,
         "layoutDirection": "vertical",
         "subviews": [
           {
             "layout": {
               "viewType": "UIView",
-              "xSpacing": 4,
-              "horizontallyAlignment": "left",
+              "leftPadding": 4,
+              "rightPadding": 0,
+              "horizontallyAlignment": "leftRight",
               "width": "1p",
-              "verticalAlignment": "top",
-              "ySpacing": 4,
-              "height": 30,
+              "verticalAlignment": "topHeight",
+              "topPadding": 4,
+              "bottomPadding": 23,
+              "height": 0,
               "layoutDirection": "vertical",
               "autolayoutHeight": true,
               "subviews": [
                 {
                   "layout": {
                     "viewType": "UILabel",
-                    "xSpacing": 3,
-                    "horizontallyAlignment": "left",
+                    "leftPadding": 0,
+                    "horizontallyAlignment": "leftWidth",
                     "width": "1p",
-                    "verticalAlignment": "top",
+                    "verticalAlignment": "topHeight",
+                    "topPadding": 0,
+                    "bottomPadding": 0,
                     "autolayoutHeight": true,
                     "height": 0
                   },
                   "model": {
+                    "idDescription": "label",
                     "titleFont": 12,
                     "title": "CLayoutHelper绘制步骤如下：1. 根据每一个UI元素对应的不同json数据，计算出left、width、right、top、height、bottom的值（计算时如果是第一个子view其相对位置的视图取superView，其它view相对位置的视图取上一个子view）",
                   }
@@ -44,26 +51,29 @@
                 {
                   "layout": {
                     "viewType": "UIView",
-                    "xSpacing": 0,
-                    "horizontallyAlignment": "center",
+                    "leftPadding": 0,
+                    "horizontallyAlignment": "leftRight",
                     "width": "1p",
-                    "ySpacing": 10,
-                    "verticalAlignment": "top",
-                    "height": 0.5
+                    "topPadding": 0,
+                    "verticalAlignment": "topHeight",
+                    "height": 1.5
                   },
                   "model": {
+                    "idDescription": "黑线",
                     "backgroundColor": "#000000"
                   }
                 }
               ]
             },
             "model": {
+              "idDescription": "底层蓝色view",
               "backgroundColor": "#4169E1"
             }
           }
         ]
       },
       "model": {
+        "idDescription": "最外层粉色view",
         "backgroundColor": "#FFE4E1",
         "titleFont": 14,
         "titleColor": "#000000"
