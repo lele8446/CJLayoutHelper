@@ -163,4 +163,4 @@ ViewStyleIdentifier，描述当前配置文件对应的整体view的唯一标识
 @end
 ```
 
-使用时直接将`CLayoutHelper`文件夹添加到项目中即可，更多详情请参考[demo](https://github.com/lele8446/listDemo)
+使用时直接将`CJLayoutHelper`文件夹添加到项目中即可，更多详情请参考[demo](https://github.com/lele8446/listDemo)
