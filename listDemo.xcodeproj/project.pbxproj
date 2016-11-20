@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		B442502A1D82F8AC00AA4029 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B44250281D82F8AC00AA4029 /* ListViewController.m */; };
 		B442502B1D82F8AC00AA4029 /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B44250291D82F8AC00AA4029 /* ListViewController.xib */; };
+		B445243B1DE1E59D00CC749E /* CJLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B44524361DE1E59D00CC749E /* CJLayoutHelper.m */; };
+		B445243C1DE1E59D00CC749E /* ConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B44524381DE1E59D00CC749E /* ConfigurationModel.m */; };
+		B445243D1DE1E59D00CC749E /* ConfigurationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B445243A1DE1E59D00CC749E /* ConfigurationTool.m */; };
 		B49109D31D729BD100137CE2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B49109D21D729BD100137CE2 /* main.m */; };
 		B49109D61D729BD100137CE2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B49109D51D729BD100137CE2 /* AppDelegate.m */; };
 		B49109D91D729BD100137CE2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B49109D81D729BD100137CE2 /* ViewController.m */; };
@@ -23,9 +26,6 @@
 		B4910A1C1D75311A00137CE2 /* icon_xuanze_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A1A1D75311A00137CE2 /* icon_xuanze_nor@2x.png */; };
 		B4910A1D1D75311A00137CE2 /* icon_xuanze_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A1B1D75311A00137CE2 /* icon_xuanze_nor@3x.png */; };
 		B4910A3D1D7FD8B500137CE2 /* Testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = B4910A3C1D7FD8B500137CE2 /* Testdata.json */; };
-		B4910A4F1D7FEA7800137CE2 /* CLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A4A1D7FEA7800137CE2 /* CLayoutHelper.m */; };
-		B4910A501D7FEA7800137CE2 /* ConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A4C1D7FEA7800137CE2 /* ConfigurationModel.m */; };
-		B4910A511D7FEA7800137CE2 /* ConfigurationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B4910A4E1D7FEA7800137CE2 /* ConfigurationTool.m */; };
 		B4ADD9EF1D8E8DFD00E572BA /* mydata.json in Resources */ = {isa = PBXBuildFile; fileRef = B4ADD9EE1D8E8DFD00E572BA /* mydata.json */; };
 		B4ADD9F11D8E8EE500E572BA /* Testdata.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4ADD9F01D8E8EE500E572BA /* Testdata.plist */; };
 		D5AFAACA3D225DFBAD17D0E3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C21E0A7CC8DC1147888CD5 /* libPods.a */; };
@@ -53,6 +53,12 @@
 		B44250271D82F8AC00AA4029 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		B44250281D82F8AC00AA4029 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		B44250291D82F8AC00AA4029 /* ListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
+		B44524351DE1E59D00CC749E /* CJLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJLayoutHelper.h; sourceTree = "<group>"; };
+		B44524361DE1E59D00CC749E /* CJLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJLayoutHelper.m; sourceTree = "<group>"; };
+		B44524371DE1E59D00CC749E /* ConfigurationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationModel.h; sourceTree = "<group>"; };
+		B44524381DE1E59D00CC749E /* ConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationModel.m; sourceTree = "<group>"; };
+		B44524391DE1E59D00CC749E /* ConfigurationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTool.h; sourceTree = "<group>"; };
+		B445243A1DE1E59D00CC749E /* ConfigurationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTool.m; sourceTree = "<group>"; };
 		B49109CE1D729BD100137CE2 /* listDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = listDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49109D21D729BD100137CE2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B49109D41D729BD100137CE2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -76,12 +82,6 @@
 		B4910A1A1D75311A00137CE2 /* icon_xuanze_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_xuanze_nor@2x.png"; sourceTree = "<group>"; };
 		B4910A1B1D75311A00137CE2 /* icon_xuanze_nor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_xuanze_nor@3x.png"; sourceTree = "<group>"; };
 		B4910A3C1D7FD8B500137CE2 /* Testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Testdata.json; sourceTree = "<group>"; };
-		B4910A491D7FEA7800137CE2 /* CLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLayoutHelper.h; sourceTree = "<group>"; };
-		B4910A4A1D7FEA7800137CE2 /* CLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLayoutHelper.m; sourceTree = "<group>"; };
-		B4910A4B1D7FEA7800137CE2 /* ConfigurationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationModel.h; sourceTree = "<group>"; };
-		B4910A4C1D7FEA7800137CE2 /* ConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationModel.m; sourceTree = "<group>"; };
-		B4910A4D1D7FEA7800137CE2 /* ConfigurationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTool.h; sourceTree = "<group>"; };
-		B4910A4E1D7FEA7800137CE2 /* ConfigurationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTool.m; sourceTree = "<group>"; };
 		B4ADD9EE1D8E8DFD00E572BA /* mydata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mydata.json; sourceTree = "<group>"; };
 		B4ADD9F01D8E8EE500E572BA /* Testdata.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Testdata.plist; sourceTree = "<group>"; };
 		C7D892EFBE267D36EA155E13 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -131,6 +131,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B44524341DE1E59D00CC749E /* CJLayoutHelper */ = {
+			isa = PBXGroup;
+			children = (
+				B44524351DE1E59D00CC749E /* CJLayoutHelper.h */,
+				B44524361DE1E59D00CC749E /* CJLayoutHelper.m */,
+				B44524371DE1E59D00CC749E /* ConfigurationModel.h */,
+				B44524381DE1E59D00CC749E /* ConfigurationModel.m */,
+				B44524391DE1E59D00CC749E /* ConfigurationTool.h */,
+				B445243A1DE1E59D00CC749E /* ConfigurationTool.m */,
+			);
+			path = CJLayoutHelper;
+			sourceTree = "<group>";
+		};
 		B49109C51D729BD100137CE2 = {
 			isa = PBXGroup;
 			children = (
@@ -156,7 +169,7 @@
 		B49109D01D729BD100137CE2 /* listDemo */ = {
 			isa = PBXGroup;
 			children = (
-				B4910A481D7FEA7800137CE2 /* CLayoutHelper */,
+				B44524341DE1E59D00CC749E /* CJLayoutHelper */,
 				B49109D41D729BD100137CE2 /* AppDelegate.h */,
 				B49109D51D729BD100137CE2 /* AppDelegate.m */,
 				B49109D71D729BD100137CE2 /* ViewController.h */,
@@ -207,19 +220,6 @@
 			);
 			path = listDemoUITests;
 			sourceTree = "<group>";
-		};
-		B4910A481D7FEA7800137CE2 /* CLayoutHelper */ = {
-			isa = PBXGroup;
-			children = (
-				B4910A491D7FEA7800137CE2 /* CLayoutHelper.h */,
-				B4910A4A1D7FEA7800137CE2 /* CLayoutHelper.m */,
-				B4910A4B1D7FEA7800137CE2 /* ConfigurationModel.h */,
-				B4910A4C1D7FEA7800137CE2 /* ConfigurationModel.m */,
-				B4910A4D1D7FEA7800137CE2 /* ConfigurationTool.h */,
-				B4910A4E1D7FEA7800137CE2 /* ConfigurationTool.m */,
-			);
-			path = CLayoutHelper;
-			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -412,12 +412,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B49109D91D729BD100137CE2 /* ViewController.m in Sources */,
-				B4910A4F1D7FEA7800137CE2 /* CLayoutHelper.m in Sources */,
 				B442502A1D82F8AC00AA4029 /* ListViewController.m in Sources */,
+				B445243B1DE1E59D00CC749E /* CJLayoutHelper.m in Sources */,
 				B49109D61D729BD100137CE2 /* AppDelegate.m in Sources */,
+				B445243D1DE1E59D00CC749E /* ConfigurationTool.m in Sources */,
+				B445243C1DE1E59D00CC749E /* ConfigurationModel.m in Sources */,
 				B49109D31D729BD100137CE2 /* main.m in Sources */,
-				B4910A511D7FEA7800137CE2 /* ConfigurationTool.m in Sources */,
-				B4910A501D7FEA7800137CE2 /* ConfigurationModel.m in Sources */,
 				B4910A091D72B41900137CE2 /* AutoBaseTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -584,9 +584,6 @@
 					"\"Security\"",
 					"-framework",
 					"\"SystemConfiguration\"",
-					"-ObjC",
-					"-framework",
-					Reveal,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = listDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -621,9 +618,6 @@
 					"\"Security\"",
 					"-framework",
 					"\"SystemConfiguration\"",
-					"-ObjC",
-					"-framework",
-					Reveal,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = listDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
