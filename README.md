@@ -1,13 +1,13 @@
-# CLayoutHelper简介
-CLayoutHelper通过读取特定数据结构的json数据，然后根据解析的数据使用Autolayout布局，自动绘制出所需要的页面视图。
+# CJLayoutHelper简介
+CJLayoutHelper通过读取特定数据结构的json数据，然后根据解析的数据使用Autolayout布局，自动绘制出所需要的页面视图。
 
-CLayoutHelper省去了通过Storyboard、xib或者代码绘制UI的步骤，使用配置数据来描述界面，理论上完全可以描绘出任意需要的UI页面。
+CJLayoutHelper省去了通过Storyboard、xib或者代码绘制UI的步骤，使用配置数据来描述界面，理论上完全可以描绘出任意需要的UI页面。
 
-对于已有的页面，使用CLayoutHelper也可以随时调整页面布局。
+对于已有的页面，使用CJLayoutHelper也可以随时调整页面布局。
 
 ***
-# CLayoutHelper实现细节
-*CLayoutHelper绘制步骤如下：</br>
+# CJLayoutHelper实现细节
+*CJLayoutHelper绘制步骤如下：</br>
 1. 根据每一个UI元素对应的不同json数据，计算出left、width、right、top、height、bottom的值（计算时如果是第一个子view其相对位置的视图取superView，其它view相对位置的视图取上一个子view）；</br>
 2. 判断`viewType`，运用runtime机制初始化出对应的view实例；</br>
 3. 添加对应的Autolayout约束；</br>
@@ -85,12 +85,12 @@ UIScrollView是UIView1的第二个子view，其存在以水平方向布局的两
  */
 - (instancetype)initConfigurationModelInfo:(NSDictionary *)info;
 ```
-### 2. CLayoutHelper
-* CLayoutHelperDelegate代理</br>
+### 2. CJLayoutHelper
+* CJLayoutHelperDelegate代理</br>
  可以在代理回调中根据配置设置不同view的不同属性，比如字体大小、背景颜色、字体颜色等
 
  ```objective-c
- @protocol CLayoutHelperDelegate <NSObject>
+ @protocol CJLayoutHelperDelegate <NSObject>
 
  //配置回调
  - (void)configureView:(UIView *)view withModelInfo:(NSDictionary *)info;
@@ -138,7 +138,7 @@ ViewStyleIdentifier，描述当前配置文件对应的整体view的唯一标识
              layoutContentView:(UIView *)layoutContentView
               contentViewWidth:(CGFloat)contentViewWidth
              contentViewHeight:(CGFloat)contentViewHeight
-                      delegate:(id<CLayoutHelperDelegate>)delegate;
+                      delegate:(id<CJLayoutHelperDelegate>)delegate;
 ```
 
 ### 3. ConfigurationTool
