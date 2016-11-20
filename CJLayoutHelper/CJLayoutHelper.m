@@ -1,12 +1,12 @@
 //
-//  CLayoutHelper.m
+//  CJLayoutHelper.m
 //  listDemo
 //
 //  Created by ChiJinLian on 16/9/1.
 //  Copyright © 2016年 BitAuto. All rights reserved.
 //
 
-#import "CLayoutHelper.h"
+#import "CJLayoutHelper.h"
 #import <objc/runtime.h>
 #import "ConfigurationModel.h"
 
@@ -18,11 +18,9 @@
  */
 static NSString *viewStyleIdentifier;
 
-@interface CLayoutHelper ()<UIGestureRecognizerDelegate>
+@interface CJLayoutHelper ()<UIGestureRecognizerDelegate>
 
-//@property (nonatomic, copy) NSString *viewStyleIdentifier;
-
-@property(nonatomic, weak) id<CLayoutHelperDelegate> delegate;
+@property(nonatomic, weak) id<CJLayoutHelperDelegate> delegate;
 
 /**
  *  需要在上面绘制UI的View
@@ -41,11 +39,11 @@ static NSString *viewStyleIdentifier;
 
 @end
 
-@implementation CLayoutHelper
+@implementation CJLayoutHelper
 
 #pragma mark - 单例
 + (instancetype)sharedManager {
-    static CLayoutHelper *instance = nil;
+    static CJLayoutHelper *instance = nil;
     static dispatch_once_t predicate;
     dispatch_once(&predicate, ^{
         instance = [[self alloc] init];
@@ -59,7 +57,7 @@ static NSString *viewStyleIdentifier;
  */
 + (instancetype)allocWithZone:(struct _NSZone *)zone {
     static dispatch_once_t onceToken;
-    static CLayoutHelper *instance;
+    static CJLayoutHelper *instance;
     dispatch_once(&onceToken, ^{
         instance = [super allocWithZone:zone];
     });
@@ -104,7 +102,7 @@ static NSString *viewStyleIdentifier;
     return [self theViewHeight:info superHeight:superHeight width:width layoutDirection:directionLayout];
 }
 
-- (void)initializeViewWithInfo:(ConfigurationModel *)info layoutContentView:(UIView *)layoutContentView contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight delegate:(id<CLayoutHelperDelegate>)delegate {
+- (void)initializeViewWithInfo:(ConfigurationModel *)info layoutContentView:(UIView *)layoutContentView contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight delegate:(id<CJLayoutHelperDelegate>)delegate {
     
     viewStyleIdentifier = NSStringForInfoKey(info.layout, kViewStyleIdentifier, kViewStyleIdentifier, NO);
     self.layoutContentView = layoutContentView;

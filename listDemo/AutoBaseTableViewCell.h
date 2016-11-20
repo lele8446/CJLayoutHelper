@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CLayoutHelper.h"
+#import "CJLayoutHelper.h"
 #import "ConfigurationModel.h"
 
 #define ScreenWidth [[UIScreen mainScreen] bounds].size.width
@@ -15,7 +15,7 @@
 
 typedef void(^viewTapBlock)(UIView *, id);
 
-@interface AutoBaseTableViewCell : UITableViewCell<CLayoutHelperDelegate>
+@interface AutoBaseTableViewCell : UITableViewCell<CJLayoutHelperDelegate>
 @property (nonatomic, copy) viewTapBlock tapBlock;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style withCellInfo:(ConfigurationModel *)info;

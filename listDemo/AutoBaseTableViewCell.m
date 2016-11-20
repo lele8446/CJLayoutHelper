@@ -13,16 +13,16 @@
 #define PlaceholderColor [UIColor colorWithRed:0.7333 green:0.7294 blue:0.7608 alpha:1.0]
 
 @interface AutoBaseTableViewCell ()
-@property (nonatomic, strong) CLayoutHelper *layoutHelper;
+@property (nonatomic, strong) CJLayoutHelper *layoutHelper;
 @end
 
 @implementation AutoBaseTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style withCellInfo:(ConfigurationModel *)info {
-    self = [super initWithStyle:style reuseIdentifier:[CLayoutHelper configurationViewStyleIdentifier:info]];
+    self = [super initWithStyle:style reuseIdentifier:[CJLayoutHelper configurationViewStyleIdentifier:info]];
     if (self) {
         self.selectionStyle = UITableViewCellSelectionStyleBlue;
-        self.layoutHelper = [[CLayoutHelper alloc]init];
+        self.layoutHelper = [[CJLayoutHelper alloc]init];
         [self cellInfo:info];
     }
     return self;
@@ -44,7 +44,7 @@
 }
 
 + (CGFloat)cellHeightWithInfo:(ConfigurationModel *)info {
-    return [[CLayoutHelper sharedManager] viewHeightWithInfo:info contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight];
+    return [[CJLayoutHelper sharedManager] viewHeightWithInfo:info contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight];
 }
 
 #pragma mark - ConfigurationLayoutHelperDelegate

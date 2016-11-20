@@ -12,14 +12,14 @@
 #import "ConfigurationTool.h"
 #import "ConfigurationModel.h"
 #import "MBProgressHUD.h"
-#import "CLayoutHelper.h"
+#import "CJLayoutHelper.h"
 
-@interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,CLayoutHelperDelegate>
+@interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,CJLayoutHelperDelegate>
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIView *backView;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
-@property (nonatomic, strong) CLayoutHelper *layoutHelper;
+@property (nonatomic, strong) CJLayoutHelper *layoutHelper;
 @end
 
 @implementation ListViewController
@@ -38,7 +38,7 @@
     self.dataArray = [NSMutableArray array];
     [self showView1];
     
-    self.layoutHelper = [[CLayoutHelper alloc]init];
+    self.layoutHelper = [[CJLayoutHelper alloc]init];
 
 }
 
@@ -180,7 +180,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ConfigurationModel *info = self.dataArray[indexPath.row];
-    AutoBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[CLayoutHelper configurationViewStyleIdentifier:info]];
+    AutoBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[CJLayoutHelper configurationViewStyleIdentifier:info]];
     if (nil == cell) {
         cell = [[AutoBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault withCellInfo:info];
     }else{

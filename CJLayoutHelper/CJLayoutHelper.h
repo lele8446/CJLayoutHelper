@@ -1,5 +1,5 @@
 //
-//  CLayoutHelper.h
+//  CJLayoutHelper.h
 //  listDemo
 //
 //  Created by ChiJinLian on 16/9/1.
@@ -11,14 +11,14 @@
 #import "ConfigurationTool.h"
 #import "ConfigurationModel.h"
 
-@protocol CLayoutHelperDelegate <NSObject>
+@protocol CJLayoutHelperDelegate <NSObject>
 
 //配置回调
 - (void)configureView:(UIView *)view withModelInfo:(NSDictionary *)info;
 
 @end
 
-@interface CLayoutHelper : NSObject
+@interface CJLayoutHelper : NSObject
 
 /**
  *  当前绘制的view的标题（如果存在的话）
@@ -72,7 +72,7 @@
              layoutContentView:(UIView *)layoutContentView
               contentViewWidth:(CGFloat)contentViewWidth
              contentViewHeight:(CGFloat)contentViewHeight
-                      delegate:(id<CLayoutHelperDelegate>)delegate;
+                      delegate:(id<CJLayoutHelperDelegate>)delegate;
 
 
 

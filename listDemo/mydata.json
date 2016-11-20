@@ -45,7 +45,7 @@
                   "model": {
                     "idDescription": "label",
                     "titleFont": 12,
-                    "title": "CLayoutHelper绘制步骤如下：1. 根据每一个UI元素对应的不同json数据，计算出left、width、right、top、height、bottom的值（计算时如果是第一个子view其相对位置的视图取superView，其它view相对位置的视图取上一个子view）",
+                    "title": "CJLayoutHelper绘制步骤如下：1. 根据每一个UI元素对应的不同json数据，计算出left、width、right、top、height、bottom的值（计算时如果是第一个子view其相对位置的视图取superView，其它view相对位置的视图取上一个子view）",
                   }
                 },
                 {
