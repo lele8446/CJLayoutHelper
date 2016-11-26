@@ -122,7 +122,7 @@ VerticalAlignmentType getVerticalAlignment(NSDictionary * _Nullable info) {
     return value;
 }
 
-//根据布局方向计算当前Value值
+//根据布局方向计算当前宽度/高度
 + (CGFloat)calculateValue:(ConfigurationModel *)info directionLayout:(LayoutDirection)directionLayout superValue:(CGFloat)superValue isWidth:(BOOL)isWidth {
     CGFloat value = 0;
     if (isWidth) {//计算宽度
@@ -259,7 +259,6 @@ VerticalAlignmentType getVerticalAlignment(NSDictionary * _Nullable info) {
 
 static char idDescriptionStrKey;
 - (void)setIdDescription:(NSString *)idDescription{
-    //OBJC_ASSOCIATION_COPY_NONATOMIC跟属性声明中的retain、assign、copy是一样
     objc_setAssociatedObject(self, &idDescriptionStrKey, idDescription, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 

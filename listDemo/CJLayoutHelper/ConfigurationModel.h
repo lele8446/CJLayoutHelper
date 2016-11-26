@@ -49,11 +49,11 @@ FOUNDATION_EXPORT NSString * const kTopBottom;
     "leftPadding": 0,                       //水平方向左边的间距，对应Leading的值（默认0）
     "rightPadding": 0,                      //水平方向右边的间距，对应Trailing的值（默认0）
     "horizontallyAlignment": "leftWidth",   //水平方向的布局位置，leftWidth、center、widthRight、leftRight(同级只有一个子view时才可设置)（默认leftWidth）
-    "width": "1p",                          //宽度：0高度固定，宽度随文本内容动态变化； 0p~1p：数字加p表示取父view宽度的百分比；40表示＝40
+    "width": "1p",                          //宽度：0表示高度确定，宽度随文本内容动态变化； 0p~1p：数字加p表示取父view宽度的百分比；40表示＝40
     "topPadding": 0,                        //垂直方向上边的间距，对应Top的值（默认0）
     "bottomPadding": 0,                     //垂直方向下边的间距，对应Bottom的值（默认0）
     "verticalAlignment": "topHeight",       //垂直方向的布局位置，topHeight、center、heightBottom、topBottom(同级只有一个子view时才可设置)（默认topHeight）
-    "height": 44,                           //高度：0宽度固定，高度随文本内容动态变化； 0p~1p：数字加p表示取父view高度的百分比；44表示＝44
+    "height": 44,                           //高度：0表示宽度确定，高度随文本内容动态变化； 0p~1p：数字加p表示取父view高度的百分比；44表示＝44
     "autolayoutHeight":true,                //是否自动调整高度，当子view中包含高度未确定的元素时，值为true，默认false
     "layoutDirection":"vertical",           //含有子view时，子view的布局方向，horizontally、vertical（默认horizontally水平布局）
     "subviews": []                          //子view的model数组

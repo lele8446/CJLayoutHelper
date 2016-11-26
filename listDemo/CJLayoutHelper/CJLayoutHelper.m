@@ -41,7 +41,6 @@ static NSString *viewStyleIdentifier;
 
 @implementation CJLayoutHelper
 
-#pragma mark - 单例
 + (instancetype)sharedManager {
     static CJLayoutHelper *instance = nil;
     static dispatch_once_t predicate;
@@ -68,7 +67,7 @@ static NSString *viewStyleIdentifier;
     self.delegate = nil;
 }
 
-#pragma mark - 共有方法
+#pragma mark - PublicMethod
 + (NSString *)configurationViewStyleIdentifier:(ConfigurationModel *)info {
     viewStyleIdentifier = NSStringForInfoKey(info.layout, kViewStyleIdentifier, kViewStyleIdentifier, NO);
     return viewStyleIdentifier;
@@ -135,7 +134,7 @@ static NSString *viewStyleIdentifier;
     [self enumerateChildViewInfo:info superView:layoutContentView withIndex:0 withSuperViewWidth:superWidth withSuperViewHeight:superHeight layoutDirection:directionLayout];
 }
 
-#pragma mark - 获取高度相关
+#pragma mark - ViewHeightMethod
 //获取指定视图的高度
 - (CGFloat)theViewHeight:(ConfigurationModel *)info
              superHeight:(CGFloat)superHeight
@@ -225,7 +224,7 @@ static NSString *viewStyleIdentifier;
 
 
 
-#pragma mark - draw视图
+#pragma mark - drawView
 //遍历绘制所有子view
 - (void)enumerateChildViewInfo:(ConfigurationModel *)info
                      superView:(UIView *)superView
@@ -372,7 +371,7 @@ static NSString *viewStyleIdentifier;
     }
 }
 
-#pragma mark - autolayout约束
+#pragma mark - autolayout
 /**
  *  子View垂直方向布局时添加垂直方向的约束
  *
@@ -522,7 +521,7 @@ static NSString *viewStyleIdentifier;
     }
 }
 
-#pragma mark - ConfigurationLayoutHelperDelegate设置
+#pragma mark - ConfigurationLayoutHelperDelegate
 - (void)handleView:(UIView *)view withModelInfo:(ConfigurationModel *)info {
     //设置idDescription的值
     NSString *idDescription = NSStringForInfoKey(info.model, kIdDescription, @"", NO);
@@ -537,7 +536,7 @@ static NSString *viewStyleIdentifier;
     view.backgroundColor = backColor;
 }
 
-#pragma mark - 设置model信息
+#pragma mark - ModelInfo
 //设置最底层view的信息
 - (void)settingSuperViewValue:(NSDictionary *)model {
     //记录最底层view的字体信息

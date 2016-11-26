@@ -197,8 +197,18 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    ConfigurationModel *info = self.dataArray[indexPath.row];
+//    return [AutoBaseTableViewCell cellHeightWithInfo:info];
+    
     ConfigurationModel *info = self.dataArray[indexPath.row];
-    return [AutoBaseTableViewCell cellHeightWithInfo:info];
+    AutoBaseTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[CJLayoutHelper configurationViewStyleIdentifier:info]];
+    if (nil == cell) {
+        cell = [[AutoBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault withCellInfo:info];
+    }else{
+        [cell cellInfo:info];
+    }
+    CGSize  size = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height + 1;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

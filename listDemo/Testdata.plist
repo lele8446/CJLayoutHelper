@@ -30,7 +30,7 @@
 				<key>autolayoutHeight</key>
 				<true/>
 				<key>layoutDirection</key>
-				<string>vertical</string>
+				<string>horizontally</string>
 				<key>subviews</key>
 				<array>
 					<dict>
@@ -54,6 +54,8 @@
 							<string>topHeight</string>
 							<key>height</key>
 							<string>44</string>
+							<key>layoutDirection</key>
+							<string>vertical</string>
 							<key>subviews</key>
 							<array>
 								<dict>
