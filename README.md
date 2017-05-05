@@ -141,8 +141,8 @@ ViewStyleIdentifier，描述当前配置文件对应的整体view的唯一标识
                       delegate:(id<CJLayoutHelperDelegate>)delegate;
 ```
 
-### 3. ConfigurationTool
-自定义工具类，其中添加了`UIview（ConfigurationView）`分类，增加`idDescription`属性以及`viewWithIdDescription:`方法，可以通过idDescription获取指定view
+### 3. 其他
+CJLayoutCategory中，添加了UIView+ConfigurationView分类，增加`idDescription`属性以及`viewWithIdDescription:`方法，可以通过idDescription获取指定view
 
 ```objective-c
 @interface UIView (ConfigurationView)
