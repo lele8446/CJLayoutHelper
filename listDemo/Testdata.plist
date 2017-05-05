@@ -39,7 +39,7 @@
 							<key>viewType</key>
 							<string>UIView</string>
 							<key>leftPadding</key>
-							<integer>12</integer>
+							<integer>0</integer>
 							<key>rightPadding</key>
 							<integer>0</integer>
 							<key>horizontallyAlignment</key>
@@ -55,7 +55,7 @@
 							<key>height</key>
 							<string>44</string>
 							<key>layoutDirection</key>
-							<string>vertical</string>
+							<string>horizontally</string>
 							<key>subviews</key>
 							<array>
 								<dict>
@@ -64,13 +64,13 @@
 										<key>viewType</key>
 										<string>UILabel</string>
 										<key>leftPadding</key>
-										<integer>0</integer>
+										<integer>12</integer>
 										<key>rightPadding</key>
 										<integer>0</integer>
 										<key>horizontallyAlignment</key>
 										<string>leftWidth</string>
 										<key>width</key>
-										<string>0.28P</string>
+										<string>0.30P</string>
 										<key>topPadding</key>
 										<integer>0</integer>
 										<key>bottomPadding</key>
@@ -82,10 +82,12 @@
 									</dict>
 									<key>model</key>
 									<dict>
-										<key>title</key>
-										<string>资质类型</string>
-										<key>titleColor</key>
-										<string>#800000</string>
+										<key>text</key>
+										<string>资质类型:</string>
+										<key>textColor</key>
+										<string>#FF0000</string>
+										<key>font</key>
+										<string>14</string>
 									</dict>
 								</dict>
 								<dict>
@@ -100,7 +102,7 @@
 										<key>horizontallyAlignment</key>
 										<string>leftWidth</string>
 										<key>width</key>
-										<string>0.72p</string>
+										<string>0.70p</string>
 										<key>topPadding</key>
 										<integer>0</integer>
 										<key>bottomPadding</key>
@@ -111,6 +113,38 @@
 										<string>44</string>
 										<key>subviews</key>
 										<array>
+											<dict>
+												<key>layout</key>
+												<dict>
+													<key>viewType</key>
+													<string>UIButton</string>
+													<key>leftPadding</key>
+													<integer>0</integer>
+													<key>rightPadding</key>
+													<integer>0</integer>
+													<key>horizontallyAlignment</key>
+													<string>leftWidth</string>
+													<key>width</key>
+													<string>0</string>
+													<key>topPadding</key>
+													<integer>0</integer>
+													<key>bottomPadding</key>
+													<integer>0</integer>
+													<key>verticalAlignment</key>
+													<string>center</string>
+													<key>height</key>
+													<string>22</string>
+												</dict>
+												<key>model</key>
+												<dict>
+													<key>text</key>
+													<string>◉营业执照</string>
+													<key>textColor</key>
+													<string>#000000</string>
+													<key>idDescription</key>
+													<string>UIScrollView_button_1</string>
+												</dict>
+											</dict>
 											<dict>
 												<key>layout</key>
 												<dict>
@@ -131,44 +165,12 @@
 													<key>verticalAlignment</key>
 													<string>center</string>
 													<key>height</key>
-													<string>24</string>
+													<string>22</string>
 												</dict>
 												<key>model</key>
 												<dict>
-													<key>backgroundColor</key>
-													<string>#FFE4E1</string>
-													<key>title</key>
-													<string>◉营业执照</string>
-													<key>idDescription</key>
-													<string>UIScrollView_button_1</string>
-												</dict>
-											</dict>
-											<dict>
-												<key>layout</key>
-												<dict>
-													<key>viewType</key>
-													<string>UIButton</string>
-													<key>leftPadding</key>
-													<integer>0</integer>
-													<key>rightPadding</key>
-													<integer>0</integer>
-													<key>horizontallyAlignment</key>
-													<string>leftWidth</string>
-													<key>width</key>
-													<string>0</string>
-													<key>topPadding</key>
-													<integer>0</integer>
-													<key>bottomPadding</key>
-													<integer>0</integer>
-													<key>verticalAlignment</key>
-													<string>topHeight</string>
-													<key>height</key>
-													<string>0</string>
-												</dict>
-												<key>model</key>
-												<dict>
-													<key>title</key>
-													<string>〇品牌授权书</string>
+													<key>text</key>
+													<string>〇品牌授权书 </string>
 													<key>idDescription</key>
 													<string>UIScrollView_button_2</string>
 												</dict>
@@ -191,14 +193,14 @@
 													<key>bottomPadding</key>
 													<integer>0</integer>
 													<key>verticalAlignment</key>
-													<string>topHeight</string>
+													<string>center</string>
 													<key>height</key>
-													<string>44</string>
+													<string>30</string>
 												</dict>
 												<key>model</key>
 												<dict>
-													<key>title</key>
-													<string>〇纳税资质</string>
+													<key>text</key>
+													<string>〇纳税资质 </string>
 													<key>idDescription</key>
 													<string>UIScrollView_button_3</string>
 												</dict>
@@ -221,14 +223,14 @@
 													<key>bottomPadding</key>
 													<integer>0</integer>
 													<key>verticalAlignment</key>
-													<string>topHeight</string>
+													<string>center</string>
 													<key>height</key>
-													<string>44</string>
+													<string>22</string>
 												</dict>
 												<key>model</key>
 												<dict>
-													<key>title</key>
-													<string>〇店头照</string>
+													<key>text</key>
+													<string>〇店头照 </string>
 													<key>idDescription</key>
 													<string>UIScrollView_button_4</string>
 												</dict>
@@ -251,14 +253,14 @@
 													<key>bottomPadding</key>
 													<integer>0</integer>
 													<key>verticalAlignment</key>
-													<string>topHeight</string>
+													<string>center</string>
 													<key>height</key>
-													<string>44</string>
+													<string>22</string>
 												</dict>
 												<key>model</key>
 												<dict>
-													<key>title</key>
-													<string>〇身份证</string>
+													<key>text</key>
+													<string>〇身份证 </string>
 													<key>idDescription</key>
 													<string>UIScrollView_button_5</string>
 												</dict>
@@ -266,31 +268,382 @@
 										</array>
 									</dict>
 									<key>model</key>
-									<dict>
-										<key>backgroundColor</key>
-										<string>#F5F5F5</string>
-									</dict>
+									<dict/>
 								</dict>
 							</array>
 						</dict>
 						<key>model</key>
+						<dict/>
+					</dict>
+				</array>
+			</dict>
+			<key>model</key>
+			<dict>
+				<key>idDescription</key>
+				<string></string>
+			</dict>
+		</dict>
+		<dict>
+			<key>layout</key>
+			<dict>
+				<key>viewStyleIdentifier</key>
+				<string>TextFieldType</string>
+				<key>viewType</key>
+				<string>UIView</string>
+				<key>leftPadding</key>
+				<integer>0</integer>
+				<key>rightPadding</key>
+				<integer>0</integer>
+				<key>horizontallyAlignment</key>
+				<string>leftRight</string>
+				<key>width</key>
+				<string>1p</string>
+				<key>topPadding</key>
+				<integer>0</integer>
+				<key>bottomPadding</key>
+				<integer>0</integer>
+				<key>verticalAlignment</key>
+				<string>topHeight</string>
+				<key>height</key>
+				<string>44</string>
+				<key>autolayoutHeight</key>
+				<false/>
+				<key>layoutDirection</key>
+				<string>horizontally</string>
+				<key>subviews</key>
+				<array>
+					<dict>
+						<key>layout</key>
 						<dict>
-							<key>backgroundColor</key>
-							<string>#F4A460</string>
+							<key>viewType</key>
+							<string>UILabel</string>
+							<key>leftPadding</key>
+							<integer>12</integer>
+							<key>rightPadding</key>
+							<integer>0</integer>
+							<key>horizontallyAlignment</key>
+							<string>leftWidth</string>
+							<key>width</key>
+							<string>0.30P</string>
+							<key>topPadding</key>
+							<integer>0</integer>
+							<key>bottomPadding</key>
+							<integer>0</integer>
+							<key>verticalAlignment</key>
+							<string>topHeight</string>
+							<key>height</key>
+							<string>44</string>
+						</dict>
+						<key>model</key>
+						<dict>
+							<key>text</key>
+							<string>社会信用代码:</string>
+							<key>textColor</key>
+							<string>#000000</string>
+							<key>font</key>
+							<string>14</string>
+						</dict>
+					</dict>
+					<dict>
+						<key>layout</key>
+						<dict>
+							<key>viewType</key>
+							<string>UITextField</string>
+							<key>leftPadding</key>
+							<integer>0</integer>
+							<key>rightPadding</key>
+							<integer>0</integer>
+							<key>horizontallyAlignment</key>
+							<string>leftWidth</string>
+							<key>width</key>
+							<string>0.72P</string>
+							<key>topPadding</key>
+							<integer>0</integer>
+							<key>bottomPadding</key>
+							<integer>0</integer>
+							<key>verticalAlignment</key>
+							<string>topHeight</string>
+							<key>height</key>
+							<string>44</string>
+						</dict>
+						<key>model</key>
+						<dict>
+							<key>idDescription</key>
+							<string>TextField_xydm</string>
+							<key>placeholder</key>
+							<string>请输入社会信用代码</string>
+							<key>font</key>
+							<string>15</string>
 						</dict>
 					</dict>
 				</array>
 			</dict>
 			<key>model</key>
 			<dict>
-				<key>titleFont</key>
-				<integer>14</integer>
-				<key>titleColor</key>
-				<string>#000000</string>
 				<key>idDescription</key>
 				<string></string>
-				<key>backgroundColor</key>
-				<string>#00FF00</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>layout</key>
+			<dict>
+				<key>viewStyleIdentifier</key>
+				<string>TextFieldAndLabelType</string>
+				<key>viewType</key>
+				<string>UIView</string>
+				<key>leftPadding</key>
+				<integer>0</integer>
+				<key>rightPadding</key>
+				<integer>0</integer>
+				<key>horizontallyAlignment</key>
+				<string>leftRight</string>
+				<key>width</key>
+				<string>1p</string>
+				<key>topPadding</key>
+				<integer>0</integer>
+				<key>bottomPadding</key>
+				<integer>0</integer>
+				<key>verticalAlignment</key>
+				<string>topHeight</string>
+				<key>height</key>
+				<string>44</string>
+				<key>autolayoutHeight</key>
+				<false/>
+				<key>layoutDirection</key>
+				<string>horizontally</string>
+				<key>subviews</key>
+				<array>
+					<dict>
+						<key>layout</key>
+						<dict>
+							<key>viewType</key>
+							<string>UILabel</string>
+							<key>leftPadding</key>
+							<integer>12</integer>
+							<key>rightPadding</key>
+							<integer>0</integer>
+							<key>horizontallyAlignment</key>
+							<string>leftWidth</string>
+							<key>width</key>
+							<string>0.30P</string>
+							<key>topPadding</key>
+							<integer>0</integer>
+							<key>bottomPadding</key>
+							<integer>0</integer>
+							<key>verticalAlignment</key>
+							<string>topHeight</string>
+							<key>height</key>
+							<string>44</string>
+						</dict>
+						<key>model</key>
+						<dict>
+							<key>text</key>
+							<string>注册资本:</string>
+							<key>textColor</key>
+							<string>#000000</string>
+							<key>font</key>
+							<string>14</string>
+						</dict>
+					</dict>
+					<dict>
+						<key>layout</key>
+						<dict>
+							<key>viewType</key>
+							<string>UITextField</string>
+							<key>leftPadding</key>
+							<integer>0</integer>
+							<key>rightPadding</key>
+							<integer>0</integer>
+							<key>horizontallyAlignment</key>
+							<string>leftWidth</string>
+							<key>width</key>
+							<string>0.58P</string>
+							<key>topPadding</key>
+							<integer>0</integer>
+							<key>bottomPadding</key>
+							<integer>0</integer>
+							<key>verticalAlignment</key>
+							<string>topHeight</string>
+							<key>height</key>
+							<string>44</string>
+						</dict>
+						<key>model</key>
+						<dict>
+							<key>idDescription</key>
+							<string>TextField_zczb</string>
+							<key>placeholder</key>
+							<string>请输入注册资本</string>
+							<key>font</key>
+							<string>15</string>
+						</dict>
+					</dict>
+					<dict>
+						<key>layout</key>
+						<dict>
+							<key>viewType</key>
+							<string>UILabel</string>
+							<key>leftPadding</key>
+							<integer>0</integer>
+							<key>rightPadding</key>
+							<integer>0</integer>
+							<key>horizontallyAlignment</key>
+							<string>leftWidth</string>
+							<key>width</key>
+							<string>0.12P</string>
+							<key>topPadding</key>
+							<integer>0</integer>
+							<key>bottomPadding</key>
+							<integer>0</integer>
+							<key>verticalAlignment</key>
+							<string>topHeight</string>
+							<key>height</key>
+							<string>44</string>
+						</dict>
+						<key>model</key>
+						<dict>
+							<key>text</key>
+							<string>万元</string>
+							<key>textColor</key>
+							<string>#000000</string>
+							<key>font</key>
+							<string>15</string>
+						</dict>
+					</dict>
+				</array>
+			</dict>
+			<key>model</key>
+			<dict>
+				<key>idDescription</key>
+				<string></string>
+			</dict>
+		</dict>
+		<dict>
+			<key>layout</key>
+			<dict>
+				<key>viewStyleIdentifier</key>
+				<string>datePickerAndSelectButtonType</string>
+				<key>viewType</key>
+				<string>UIView</string>
+				<key>leftPadding</key>
+				<integer>0</integer>
+				<key>rightPadding</key>
+				<integer>0</integer>
+				<key>horizontallyAlignment</key>
+				<string>leftRight</string>
+				<key>width</key>
+				<string>1p</string>
+				<key>topPadding</key>
+				<integer>0</integer>
+				<key>bottomPadding</key>
+				<integer>0</integer>
+				<key>verticalAlignment</key>
+				<string>topHeight</string>
+				<key>height</key>
+				<string>44</string>
+				<key>autolayoutHeight</key>
+				<false/>
+				<key>layoutDirection</key>
+				<string>horizontally</string>
+				<key>subviews</key>
+				<array>
+					<dict>
+						<key>layout</key>
+						<dict>
+							<key>viewType</key>
+							<string>UILabel</string>
+							<key>leftPadding</key>
+							<integer>12</integer>
+							<key>rightPadding</key>
+							<integer>0</integer>
+							<key>horizontallyAlignment</key>
+							<string>leftWidth</string>
+							<key>width</key>
+							<string>0.30P</string>
+							<key>topPadding</key>
+							<integer>0</integer>
+							<key>bottomPadding</key>
+							<integer>0</integer>
+							<key>verticalAlignment</key>
+							<string>topHeight</string>
+							<key>height</key>
+							<string>44</string>
+						</dict>
+						<key>model</key>
+						<dict>
+							<key>text</key>
+							<string>营业期限:</string>
+							<key>textColor</key>
+							<string>#000000</string>
+							<key>font</key>
+							<string>14</string>
+						</dict>
+					</dict>
+					<dict>
+						<key>layout</key>
+						<dict>
+							<key>viewType</key>
+							<string>UIButton</string>
+							<key>leftPadding</key>
+							<integer>0</integer>
+							<key>rightPadding</key>
+							<integer>0</integer>
+							<key>horizontallyAlignment</key>
+							<string>leftWidth</string>
+							<key>width</key>
+							<string>0.50P</string>
+							<key>topPadding</key>
+							<integer>0</integer>
+							<key>bottomPadding</key>
+							<integer>0</integer>
+							<key>verticalAlignment</key>
+							<string>topHeight</string>
+							<key>height</key>
+							<string>44</string>
+						</dict>
+						<key>model</key>
+						<dict>
+							<key>idDescription</key>
+							<string>datePicker_button_1</string>
+							<key>text</key>
+							<string>请选择营业期限</string>
+						</dict>
+					</dict>
+					<dict>
+						<key>layout</key>
+						<dict>
+							<key>viewType</key>
+							<string>UIButton</string>
+							<key>leftPadding</key>
+							<integer>0</integer>
+							<key>rightPadding</key>
+							<integer>0</integer>
+							<key>horizontallyAlignment</key>
+							<string>leftWidth</string>
+							<key>width</key>
+							<string>0.18P</string>
+							<key>topPadding</key>
+							<integer>0</integer>
+							<key>bottomPadding</key>
+							<integer>0</integer>
+							<key>verticalAlignment</key>
+							<string>topHeight</string>
+							<key>height</key>
+							<string>44</string>
+						</dict>
+						<key>model</key>
+						<dict>
+							<key>idDescription</key>
+							<string>datePicker_button_2</string>
+							<key>text</key>
+							<string> 永久</string>
+						</dict>
+					</dict>
+				</array>
+			</dict>
+			<key>model</key>
+			<dict>
+				<key>idDescription</key>
+				<string></string>
 			</dict>
 		</dict>
 	</array>

@@ -36,6 +36,10 @@ NSString * const kTopHeight             = @"topHeight";
 NSString * const kHeightBottom          = @"heightBottom";
 NSString * const kTopBottom             = @"topBottom";
 
+NSString * const kText                  = @"text";
+NSString * const kTextColor             = @"textColor";
+NSString * const kFont                  = @"font";
+NSString * const kBackgroundColor       = @"backgroundColor";
 
 @implementation ConfigurationModel
 

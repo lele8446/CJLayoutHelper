@@ -7,7 +7,6 @@
 //
 
 #import "AutoBaseTableViewCell.h"
-#import "CJUITextView.h"
 #import <objc/runtime.h>
 
 #define PlaceholderColor [UIColor colorWithRed:0.7333 green:0.7294 blue:0.7608 alpha:1.0]
@@ -21,7 +20,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style withCellInfo:(ConfigurationModel *)info {
     self = [super initWithStyle:style reuseIdentifier:[CJLayoutHelper configurationViewStyleIdentifier:info]];
     if (self) {
-        self.selectionStyle = UITableViewCellSelectionStyleBlue;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.layoutHelper = [[CJLayoutHelper alloc]init];
         [self cellInfo:info];
     }
@@ -49,70 +48,24 @@
 
 #pragma mark - ConfigurationLayoutHelperDelegate
 - (void)configureView:(UIView *)view withModelInfo:(NSDictionary *)info {
-//    //绑定点击控件
-//    if (![view isMemberOfClass:[UIView class]] && view.userInteractionEnabled == YES ) {
-//        UITapGestureRecognizer *singleTap =  [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapping:)];
-//        singleTap.delegate = self;
-//        objc_setAssociatedObject(singleTap, "info", info, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//        [view addGestureRecognizer:singleTap];
-//    }
     
-    UIFont *titleFont = self.layoutHelper.titleFont;
-    NSString *title = self.layoutHelper.titleString;
-    UIColor *titleColor = self.layoutHelper.titleColor;
-    if ([view isMemberOfClass:[UILabel class]]) {
+    if ([view isKindOfClass:[UIButton class]]) {
+        UIButton *btn = (UIButton *)view;
+        btn.titleLabel.font = [UIFont systemFontOfSize:15];
+        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        if ([btn.idDescription isEqualToString:@"datePicker_button_2"]) {
+            [btn addTarget:self action:@selector(datePickerButton2Click:) forControlEvents:UIControlEventTouchUpInside];
+            [btn setImage:[UIImage imageNamed:@"icon_weixuanze_nor"] forState:UIControlStateNormal];
+            [btn setImage:[UIImage imageNamed:@"icon_xuanze_nor"] forState:UIControlStateSelected];
+        }
+    }
+    if ([view isKindOfClass:[UITextField class]]) {
+        UITextField *textField = (UITextField *)view;
+        textField.placeholder = info[@"placeholder"];
+    }
+    if ([view isKindOfClass:[UILabel class]] && [view.idDescription isEqualToString:@"label_Text"]) {
         UILabel *label = (UILabel *)view;
         label.numberOfLines = 0;
-        label.text = title;
-        label.font = titleFont;
-        label.textColor = titleColor;
-    }
-    if ([view isMemberOfClass:[UIButton class]]) {
-        UIButton *button = (UIButton *)view;
-        
-        if (title && title.length >0) {
-            button.titleLabel.font = titleFont;
-            [button setTitleColor:titleColor forState:UIControlStateNormal];
-            [button setTitleColor:titleColor forState:UIControlStateHighlighted];
-            [button setTitle:title forState:UIControlStateNormal];
-            [button setTitle:title forState:UIControlStateHighlighted];
-            button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        }
-        
-        NSString *placeholder = info[@"placeholder"]?info[@"placeholder"]:@"";
-        if (placeholder && placeholder.length > 0) {
-            button.titleLabel.font = titleFont;
-            [button setTitleColor:PlaceholderColor forState:UIControlStateNormal];
-            [button setTitleColor:PlaceholderColor forState:UIControlStateHighlighted];
-            [button setTitle:placeholder forState:UIControlStateNormal];
-            [button setTitle:placeholder forState:UIControlStateHighlighted];
-            button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        }
-    }
-    if ([view isMemberOfClass:[UITextField class]]) {
-        UITextField *textField = (UITextField *)view;
-        textField.font = titleFont;
-        textField.textColor = titleColor;
-        NSString *placeholder = info[@"placeholder"]?info[@"placeholder"]:@"";
-        if (placeholder && placeholder.length > 0) {
-            textField.placeholder = placeholder;
-        }
-    }
-    if ([view isMemberOfClass:[UIScrollView class]]) {
-        UIScrollView *scrollView = (UIScrollView *)view;
-        scrollView.showsVerticalScrollIndicator = NO;
-        scrollView.showsHorizontalScrollIndicator = NO;
-        scrollView.scrollsToTop = NO;
-    }
-    if ([view isMemberOfClass:[CJUITextView class]]) {
-        CJUITextView *textView = (CJUITextView *)view;
-        textView.font = titleFont;
-        textView.textColor = titleColor;
-        textView.placeHoldTextColor = PlaceholderColor;
-        NSString *placeholder = info[@"placeholder"]?info[@"placeholder"]:@"";
-        if (placeholder && placeholder.length > 0) {
-            textView.placeHoldString = placeholder;
-        }
     }
     
     [self configurationViewWithIdDescription:info view:view];
@@ -141,6 +94,10 @@
             [button2 setImage:[UIImage imageNamed:@"icon_xuanze_nor"] forState:UIControlStateSelected];
         }
     }
+    if ([view isKindOfClass:[UILabel class]]) {
+        UILabel *label = (UILabel *)view;
+        label.numberOfLines = 0;
+    }
 }
 
 - (void)buttonClick:(UIButton *)sender {
@@ -159,25 +116,5 @@
 - (void)datePickerButton2Click:(UIButton *)sender {
     sender.selected = !sender.selected;
 }
-
-//- (void)singleTapping:(UITapGestureRecognizer*)tapGesture {
-//    if (self.tapBlock) {
-//        NSDictionary *info = objc_getAssociatedObject(tapGesture, "info");
-//        self.tapBlock(tapGesture.view,info);
-//    }
-//}
-//
-//#pragma mark--UIGestureRecognizerDelegate
-////允许多个手势同时执行
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-//    return YES;
-//}
-//
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-//    if([touch.view isKindOfClass:[UITextView class]] ||[touch.view isKindOfClass:[UITextField class]]){
-//        return NO;
-//    }
-//    return YES;
-//}
 
 @end

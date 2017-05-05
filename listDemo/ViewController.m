@@ -8,6 +8,10 @@
 
 #import "ViewController.h"
 #import "ListViewController.h"
+#import <objc/runtime.h>
+#import <objc/message.h>
+#import "NetViewController.h"
+
 
 @interface ViewController ()
 
@@ -17,16 +21,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+
 }
 
 - (IBAction)pustToList:(id)sender {
     ListViewController *listViewController = [[ListViewController alloc]initWithNibName:@"ListViewController" bundle:nil];
     [self.navigationController pushViewController:listViewController animated:YES];
 }
+
+- (IBAction)pustToNetList:(id)sender {
+    NetViewController *listViewController = [[NetViewController alloc]initWithNibName:@"NetViewController" bundle:nil];
+    [self.navigationController pushViewController:listViewController animated:YES];
+}
+
 @end

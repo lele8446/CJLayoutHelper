@@ -1,43 +1,46 @@
 //
-//  ListViewController.m
-//  listDemo
+//  NetViewController.m
+//  YCLayoutHelperDemo
 //
-//  Created by ChiJinLian on 16/9/9.
-//  Copyright © 2016年 BitAuto. All rights reserved.
+//  Created by ChiJinLian on 16/11/30.
+//  Copyright © 2016年 YiChe. All rights reserved.
 //
 
-#import "ListViewController.h"
+#import "NetViewController.h"
 #import "AutoBaseTableViewCell.h"
 #import "ConfigurationTool.h"
 #import "ConfigurationModel.h"
 #import "CJLayoutHelper.h"
+#import "AFHTTPSessionManager.h"
+#import "MBProgressHUD.H"
 
-@interface ListViewController ()<UITableViewDelegate,UITableViewDataSource,CJLayoutHelperDelegate>
+@interface NetViewController ()<UITableViewDelegate,UITableViewDataSource,CJLayoutHelperDelegate>
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet UIView *backView;
+
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, strong) CJLayoutHelper *layoutHelper;
 @end
 
-@implementation ListViewController
+@implementation NetViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    self.navigationItem.title = @"下发配置";
     
-    self.navigationItem.title = @"配置UI";
-    [self creatRightItemWithShare:NO];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"刷新" style:UIBarButtonItemStylePlain target:self action:@selector(showView)];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:item, nil];
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
     [self.tableView setLayoutMargins:UIEdgeInsetsZero];
-    self.dataArray = [NSMutableArray array];
-    [self showView1];
-    
-    self.layoutHelper = [[CJLayoutHelper alloc]init];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
 
+    self.dataArray = [NSMutableArray array];
+    self.layoutHelper = [[CJLayoutHelper alloc]init];
+    
+    [self showView];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -49,59 +52,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)creatRightItemWithShare:(BOOL)shareItem {
-    self.navigationItem.rightBarButtonItem = nil;
-    self.navigationItem.rightBarButtonItems = nil;
-    if (shareItem) {
-        UIBarButtonItem *Item2 = [[UIBarButtonItem alloc]initWithTitle:@"页面2" style:UIBarButtonItemStylePlain target:self action:@selector(ItemClick:)];
-        Item2.tag = 200;
-        self.navigationItem.rightBarButtonItem = Item2;
-    }else{
-        UIBarButtonItem *Item1 = [[UIBarButtonItem alloc]initWithTitle:@"页面1" style:UIBarButtonItemStylePlain target:self action:@selector(ItemClick:)];
-        Item1.tag = 100;
-        UIBarButtonItem *finishItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishClick)];
-        self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:Item1,finishItem, nil];
-    }
-}
 
-- (void)ItemClick:(UIBarButtonItem *)item {
-    if (item.tag == 100) {
-        [self creatRightItemWithShare:YES];
-        self.tableView.hidden = YES;
-        self.backView.hidden = NO;
-        [self.dataArray removeAllObjects];
-        [self.tableView reloadData];
-        [self showView2];
-    }else if (item.tag == 200) {
-        [self creatRightItemWithShare:NO];
-        self.tableView.hidden = NO;
-        self.backView.hidden = YES;
-        for (UIView *view in self.backView.subviews) {
-            [view removeFromSuperview];
-        }
-        [self showView1];
-    }
-}
-
-- (void)showView1 {
-    
-    //获取文件路径
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"Testdata"ofType:@"plist"];
-    
-    NSDictionary *dictionary = [[NSDictionary alloc] initWithContentsOfFile:filePath];
-    [self handleData:dictionary[@"data"]];
-}
-
-- (void)showView2 {
-    
-    NSError *error;
-    //获取文件路径
-    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"mydata"ofType:@"json"];
-    
-    //根据文件路径读取数据
-    NSData *jdata = [[NSData alloc]initWithContentsOfFile:filePath];
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:jdata options:kNilOptions error:&error];
-    [self handleData2:jsonObject];
+- (void)showView {
+    [self.dataArray removeAllObjects];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html", nil];
+    [manager GET:@"https://o44fado6w.qnssl.com/CJLayoutHelperTestdata.json"
+                            parameters:nil
+                              progress:^(NSProgress * uploadProgress){
+                                  
+                              }
+                               success:^(NSURLSessionDataTask *task, id _Nullable responseObject){
+                                   [self handleData:responseObject[@"data"]];
+                                   [MBProgressHUD hideHUDForView:self.view animated:YES];
+                               }
+                               failure:^(NSURLSessionDataTask * _Nullable task, NSError *error){
+                                   NSLog(@"ERROR = %@",error);
+                                   [MBProgressHUD hideHUDForView:self.view animated:YES];
+                               }];
 }
 
 - (void)handleData:(NSArray *)data {
@@ -113,26 +82,7 @@
     [self.tableView reloadData];
 }
 
-- (void)handleData2:(id)object {
-    NSDictionary *data = [(NSDictionary*)object objectForKey:@"data"];
-    
-    ConfigurationModel *model = [[ConfigurationModel alloc]initConfigurationModelInfo:data];
-    [self.layoutHelper initializeViewWithInfo:model layoutContentView:self.backView contentViewWidth:ScreenWidth contentViewHeight:ScreenHeight delegate:self];
-}
-
-- (void)finishClick {
-    [self.view endEditing:YES];
-    UITextField *xydmField = [self.view viewWithIdDescription:@"TextField_xydm"];
-    UITextField *zczbField = [self.view viewWithIdDescription:@"TextField_zczb"];
-    NSString *description = [NSString stringWithFormat:@"信用代码:%@\n注册资本:%@",xydmField.text,zczbField.text];
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"点击完成" message:description preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"style:UIAlertActionStyleDefault handler:nil];
-    [alertController addAction:cancelAction];
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
 #pragma mark - Table view data source
-
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     [cell setSeparatorInset:UIEdgeInsetsZero];
     [cell setLayoutMargins:UIEdgeInsetsZero];

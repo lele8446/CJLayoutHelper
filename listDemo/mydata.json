@@ -20,7 +20,7 @@
             "layout": {
               "viewType": "UIView",
               "leftPadding": 4,
-              "rightPadding": 0,
+              "rightPadding": 4,
               "horizontallyAlignment": "leftRight",
               "width": "1p",
               "verticalAlignment": "topHeight",
@@ -44,8 +44,8 @@
                   },
                   "model": {
                     "idDescription": "label",
-                    "titleFont": 12,
-                    "title": "CJLayoutHelper绘制步骤如下：1. 根据每一个UI元素对应的不同json数据，计算出left、width、right、top、height、bottom的值（计算时如果是第一个子view其相对位置的视图取superView，其它view相对位置的视图取上一个子view）",
+                    "font": 14,
+                    "text": "CJLayoutHelper绘制步骤如下：1. 根据每一个UI元素对应的不同json数据，计算出left、width、right、top、height、bottom的值（计算时如果是第一个子view其相对位置的视图取superView，其它view相对位置的视图取上一个子view）",
                   }
                 },
                 {
@@ -56,7 +56,7 @@
                     "width": "1p",
                     "topPadding": 0,
                     "verticalAlignment": "topHeight",
-                    "height": 1.5
+                    "height": 1
                   },
                   "model": {
                     "idDescription": "黑线",
@@ -74,9 +74,7 @@
       },
       "model": {
         "idDescription": "最外层粉色view",
-        "backgroundColor": "#FFE4E1",
-        "titleFont": 14,
-        "titleColor": "#000000"
+        "backgroundColor": "#FFE4E1"
       }
     }
 }

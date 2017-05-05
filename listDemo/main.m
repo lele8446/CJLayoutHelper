@@ -1,8 +1,8 @@
 //
 //  main.m
-//  listDemo
+//  YCLayoutHelperDemo
 //
-//  Created by YiChe on 16/8/28.
+//  Created by ChiJinLian on 16/11/29.
 //  Copyright © 2016年 YiChe. All rights reserved.
 //
 

@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import "ConfigurationTool.h"
 #import "ConfigurationModel.h"
+#import "UIView+ConfigurationView.h"
+#import "UIColor+ConfigurationColor.h"
 
 @protocol CJLayoutHelperDelegate <NSObject>
 
@@ -20,20 +22,6 @@
 
 @interface CJLayoutHelper : NSObject
 
-/**
- *  当前绘制的view的标题（如果存在的话）
- */
-@property (nonatomic, copy) NSString *titleString;
-
-/**
- *  当前绘制的view的字体，默认取最底层superView的配置信息，如果都没有则默认为：[UIFont systemFontOfSize:14]
- */
-@property (nonatomic, strong) UIFont *titleFont;
-
-/**
- *  当前绘制的view的字体颜色，默认取最底层superView的配置信息，如果都没有则默认为：[UIColor blackColor]
- */
-@property (nonatomic, strong) UIColor *titleColor;
 
 + (instancetype)sharedManager;
 

@@ -144,32 +144,4 @@ FOUNDATION_EXPORT VerticalAlignmentType getVerticalAlignment(NSDictionary * _Nul
                         width:(CGFloat)width
                        height:(CGFloat)height;
 
-/**
- *  根据16进制的NSString，返回一个颜色
- *  默认返回[UIColor blackColor]
- *
- *  @param hexString
- *
- *  @return
- */
-+ (UIColor *_Nullable)colorWithHexString:(NSString *_Nullable)hexString;
-
-@end
-
-
-@interface UIView (ConfigurationView)
-/**
- *  自定义属性，用来描述view的id
- */
-@property (nonatomic, copy) NSString *_Nullable idDescription;
-
-/**
- *  根据idDescription获取view，
- *  可以是view本身，也可为nil
- *
- *  @param idDescription view的id声明
- *
- *  @return
- */
-- (nullable __kindof UIView *)viewWithIdDescription:(nullable NSString *)idDescription;
 @end

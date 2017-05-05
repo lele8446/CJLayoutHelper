@@ -9,6 +9,8 @@
 #import "CJLayoutHelper.h"
 #import <objc/runtime.h>
 #import "ConfigurationModel.h"
+#import <objc/runtime.h>
+#import <objc/message.h>
 
 //根据文本内容动态调整宽度／高度时默认增加的内边距
 #define AutoSizeDefaultPadding 4
@@ -20,6 +22,21 @@ static NSString *viewStyleIdentifier;
 
 @interface CJLayoutHelper ()<UIGestureRecognizerDelegate>
 
+/**
+ *  当前绘制的view的标题（如果存在的话）
+ */
+@property (nonatomic, copy) NSString *text;
+
+/**
+ *  当前绘制的view的字体，默认[UIFont systemFontOfSize:14]
+ */
+@property (nonatomic, strong) UIFont *font;
+
+/**
+ *  当前绘制的view的字体颜色，默认[UIColor blackColor]
+ */
+@property (nonatomic, strong) UIColor *textColor;
+
 @property(nonatomic, weak) id<CJLayoutHelperDelegate> delegate;
 
 /**
@@ -27,15 +44,6 @@ static NSString *viewStyleIdentifier;
  */
 @property (nonatomic, strong) UIView *layoutContentView;
 
-/**
- *  最底层superView的字体，默认为：[UIFont systemFontOfSize:14]
- */
-@property (nonatomic, strong) UIFont *superViewtitleFont;
-
-/**
- *  最底层superView的字体颜色，默认为：[UIColor blackColor]
- */
-@property (nonatomic, strong) UIColor *superViewtitleColor;
 
 @end
 
@@ -75,10 +83,9 @@ static NSString *viewStyleIdentifier;
 }
 
 - (CGFloat)viewHeightWithInfo:(ConfigurationModel *)info contentViewWidth:(CGFloat)contentViewWidth contentViewHeight:(CGFloat)contentViewHeight {
-    //记录最底层view的字体信息
-    [self settingSuperViewValue:info.model];
-    [self settingDefaultValue:info.model];
-
+    
+    [self settingDefaultValue:info];
+    
     CGFloat leftPadding = CGFloatForLayoutKey(info.layout, kLeftPadding);
     CGFloat rightPadding = CGFloatForLayoutKey(info.layout, kRightPadding);
     CGFloat topPadding = CGFloatForLayoutKey(info.layout, kTopPadding);
@@ -107,10 +114,7 @@ static NSString *viewStyleIdentifier;
     viewStyleIdentifier = NSStringForInfoKey(info.layout, kViewStyleIdentifier, kViewStyleIdentifier, NO);
     self.layoutContentView = layoutContentView;
     self.delegate = delegate;
-    
-    //记录最底层view的字体信息
-    [self settingSuperViewValue:info.model];
-    [self settingDefaultValue:info.model];
+    [self settingDefaultValue:info];
     
     //子View布局方向
     LayoutDirection directionLayout = ViewLayoutDirection(info.layout);
@@ -164,7 +168,7 @@ static NSString *viewStyleIdentifier;
                 LayoutDirection childViewdirectionLayout = ViewLayoutDirection(info.layout);
                 //宽度
                 CGFloat childViewWidth = [ConfigurationTool calculateValue:childModel directionLayout:childViewdirectionLayout superValue:currentAccordingToPaddingWidth isWidth:YES];
-
+                
                 CGFloat topPadding = CGFloatForLayoutKey(childModel.layout, kTopPadding);
                 CGFloat bottomPadding = CGFloatForLayoutKey(childModel.layout, kBottomPadding);
                 
@@ -192,7 +196,7 @@ static NSString *viewStyleIdentifier;
                 
                 CGFloat topPadding = CGFloatForLayoutKey(childModel.layout, kTopPadding);
                 CGFloat bottomPadding = CGFloatForLayoutKey(childModel.layout, kBottomPadding);
-
+                
                 CGFloat childViewHeight = [self theViewHeight:childModel superHeight:currentAccordingToPaddingHeight width:childViewWidth layoutDirection:childViewdirectionLayout];
                 
                 childViewHeight = childViewHeight + topPadding + bottomPadding;
@@ -202,9 +206,9 @@ static NSString *viewStyleIdentifier;
         }
     }
     
-    CGFloat topPadding = CGFloatForLayoutKey(info.layout, kTopPadding);
-    CGFloat bottomPadding = CGFloatForLayoutKey(info.layout, kBottomPadding);
-    NSLog(@"view.idDescription = %@, topPadding = %@, bottomPadding = %@, height = %@, width = %@",NSStringForInfoKey(info.model, kIdDescription, @"", NO),@(topPadding),@(bottomPadding),@(height),@(width));
+    //    CGFloat topPadding = CGFloatForLayoutKey(info.layout, kTopPadding);
+    //    CGFloat bottomPadding = CGFloatForLayoutKey(info.layout, kBottomPadding);
+    //    NSLog(@"view.idDescription = %@, topPadding = %@, bottomPadding = %@, height = %@, width = %@",NSStringForInfoKey(info.model, kIdDescription, @"", NO),@(topPadding),@(bottomPadding),@(height),@(width));
     return height;
 }
 
@@ -214,10 +218,10 @@ static NSString *viewStyleIdentifier;
                        width:(CGFloat)width
              layoutDirection:(LayoutDirection)direction
 {
-    [self settingDefaultValue:info.model];
+    [self settingDefaultValue:info];
     CGFloat currentViewHeight = [ConfigurationTool calculateValue:info directionLayout:direction superValue:superViewHeight isWidth:NO];
-    if (self.titleString && self.titleString.length >0 && width != 0 && currentViewHeight == 0) {
-        CGSize strSize = [ConfigurationTool calculateStringSize:self.titleString titleFont:self.titleFont width:width height:MAXFLOAT];
+    if (self.text && self.text.length >0 && width != 0 && currentViewHeight == 0) {
+        CGSize strSize = [ConfigurationTool calculateStringSize:self.text titleFont:self.font width:width height:MAXFLOAT];
         currentViewHeight = strSize.height + AutoSizeDefaultPadding;
     }
     return currentViewHeight;
@@ -250,7 +254,7 @@ static NSString *viewStyleIdentifier;
         currentView = superView;
         [self contentSizeOfScrollView:info currentView:currentView width:superViewWidth height:superViewHeight];
     }else {
-        [self settingDefaultValue:info.model];
+        [self settingDefaultValue:info];
         
         CGFloat leftPadding = CGFloatForLayoutKey(info.layout, kLeftPadding);
         CGFloat rightPadding = CGFloatForLayoutKey(info.layout, kRightPadding);
@@ -262,8 +266,8 @@ static NSString *viewStyleIdentifier;
         //高度
         CGFloat height = [self theViewHeight:info superHeight:superViewHeight width:width layoutDirection:direction];
         
-        if (self.titleString && self.titleString.length >0 && height != 0 && width == 0) {
-            CGSize strSize = [ConfigurationTool calculateStringSize:self.titleString titleFont:self.titleFont width:MAXFLOAT height:height];
+        if (self.text && self.text.length >0 && height != 0 && width == 0) {
+            CGSize strSize = [ConfigurationTool calculateStringSize:self.text titleFont:self.font width:MAXFLOAT height:height];
             width = strSize.width + AutoSizeDefaultPadding;
         }
         
@@ -349,7 +353,7 @@ static NSString *viewStyleIdentifier;
              */
             CGFloat superWithoutPaddingWidth = [ConfigurationTool superViewWidthAccordingToPadding:info superWidth:width];
             CGFloat superWithoutPaddingHeight = [ConfigurationTool superViewHeightAccordingToPadding:info superHeight:height];
-           
+            
             [self enumerateChildViewInfo:childModel
                                superView:currentView
                                withIndex:i
@@ -452,7 +456,7 @@ static NSString *viewStyleIdentifier;
         [self.layoutContentView addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeLeading multiplier:1 constant:leftPadding]];
         [self.layoutContentView addConstraint:[NSLayoutConstraint constraintWithItem:view attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:superView attribute:NSLayoutAttributeTrailing multiplier:1 constant:-rightPadding]];
     }
-
+    
 }
 
 //子View水平方向布局时添加垂直方向的约束
@@ -524,45 +528,71 @@ static NSString *viewStyleIdentifier;
 
 #pragma mark - ConfigurationLayoutHelperDelegate设置
 - (void)handleView:(UIView *)view withModelInfo:(ConfigurationModel *)info {
+    
     //设置idDescription的值
     NSString *idDescription = NSStringForInfoKey(info.model, kIdDescription, @"", NO);
     view.idDescription = idDescription;
+    
+    id currentView = [[[view class] alloc]init];
+    //通用属性设置
+    UIColor *backColor = (info.model[kBackgroundColor]&&([info.model[kBackgroundColor] length]>0))?[UIColor colorWithHexString:info.model[kBackgroundColor]]:[currentView valueForKeyPath:@"backgroundColor"];
+    view.backgroundColor = backColor;
+    
+    if ([view respondsToSelector:@selector(setText:)]) {
+        [view performSelector:@selector(setText:) withObject:self.text];
+    }
+    
+    if ([view respondsToSelector:@selector(setFont:)]) {
+        [view performSelector:@selector(setFont:) withObject:self.font];
+    }
+    
+    if ([view respondsToSelector:@selector(setTextColor:)]) {
+        [view performSelector:@selector(setTextColor:) withObject:self.textColor];
+    }
+    
+    if ([view respondsToSelector:@selector(setTitle:forState:)]) {
+        [view performSelector:@selector(setTitle:forState:) withObject:self.text withObject:UIControlStateNormal];
+        
+//        SEL theSelector = NSSelectorFromString(@"setTitle:forState:");
+//        objc_msgSend(view,theSelector, self.text,UIControlStateHighlighted);
+        
+    }
+    
+    if ([view respondsToSelector:@selector(setTitleColor:forState:)]) {
+        [view performSelector:@selector(setTitleColor:forState:) withObject:self.textColor withObject:UIControlStateNormal];
+//        SEL theSelector = NSSelectorFromString(@"setTitleColor:forState:");
+//        objc_msgSend(view,theSelector, self.textColor,UIControlStateHighlighted);
+    }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(configureView: withModelInfo:)]) {
         [self.delegate configureView:view withModelInfo:info.model];
     }
     
-    //通用属性设置
-    UIColor *backColor = (info.model[@"backgroundColor"]&&([info.model[@"backgroundColor"] length]>0))?[ConfigurationTool colorWithHexString:info.model[@"backgroundColor"]]:[UIColor whiteColor];
-    view.backgroundColor = backColor;
 }
 
 #pragma mark - 设置model信息
-//设置最底层view的信息
-- (void)settingSuperViewValue:(NSDictionary *)model {
-    //记录最底层view的字体信息
-    CGFloat fontSize = (model[@"titleFont"] && [model[@"titleFont"] floatValue]>0)?[model[@"titleFont"] floatValue]:14;
-    self.superViewtitleFont = [UIFont systemFontOfSize:fontSize];
-    if (model[@"titleColor"]&&([model[@"titleColor"] length]>0)) {
-        self.superViewtitleColor = [ConfigurationTool colorWithHexString:model[@"titleColor"]];
-    }else{
-        self.superViewtitleColor = [UIColor blackColor];
-    }
-}
-
 //设置model信息
-- (void)settingDefaultValue:(NSDictionary *)model {
-    self.titleString = model[@"title"]&&[model[@"title"] length]>0?model[@"title"]:@"";
-    if (model[@"titleFont"]&&([model[@"titleFont"] floatValue]>0)) {
-        self.titleFont = [UIFont systemFontOfSize:[model[@"titleFont"] floatValue]];
-    }else{//不存在，取最底层的值
-        self.titleFont = self.superViewtitleFont;
+- (void)settingDefaultValue:(ConfigurationModel *)info {
+    self.text = info.model[kText]&&[info.model[kText] length]>0?info.model[kText]:@"";
+    
+    NSString *viewClassStr = info.layout[kViewType];//view类型
+    Class viewClass = NSClassFromString(viewClassStr);
+    UIView *theSameView = [[viewClass alloc]init];
+    
+    if (info.model[kFont]&&([info.model[kFont] floatValue]>0)) {
+        self.font = [UIFont systemFontOfSize:[info.model[kFont] floatValue]];
+    }else if ([theSameView respondsToSelector:@selector(setFont:)]) {
+        self.font = [theSameView valueForKeyPath:@"font"];
+    }else if ([theSameView isKindOfClass:[UIButton class]]) {
+        self.font = [UIButton new].titleLabel.font;
+    }else{
+        self.font = [UIFont systemFontOfSize:14];
     }
     
-    if (model[@"titleColor"]&&([model[@"titleColor"] length]>0)) {
-        self.titleColor = [ConfigurationTool colorWithHexString:model[@"titleColor"]];
+    if (info.model[kTextColor]&&([info.model[kTextColor] length]>0)) {
+        self.textColor = [UIColor colorWithHexString:info.model[kTextColor]];
     }else{
-        self.titleColor = self.superViewtitleColor;
+        self.textColor = [UIColor blackColor];
     }
 }
 

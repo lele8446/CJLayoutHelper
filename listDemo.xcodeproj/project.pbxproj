@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		B442502A1D82F8AC00AA4029 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B44250281D82F8AC00AA4029 /* ListViewController.m */; };
 		B442502B1D82F8AC00AA4029 /* ListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B44250291D82F8AC00AA4029 /* ListViewController.xib */; };
-		B44524451DE1EEE000CC749E /* CJLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B44524401DE1EEE000CC749E /* CJLayoutHelper.m */; };
-		B44524461DE1EEE000CC749E /* ConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B44524421DE1EEE000CC749E /* ConfigurationModel.m */; };
-		B44524471DE1EEE000CC749E /* ConfigurationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B44524441DE1EEE000CC749E /* ConfigurationTool.m */; };
 		B49109D31D729BD100137CE2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B49109D21D729BD100137CE2 /* main.m */; };
 		B49109D61D729BD100137CE2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B49109D51D729BD100137CE2 /* AppDelegate.m */; };
 		B49109D91D729BD100137CE2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B49109D81D729BD100137CE2 /* ViewController.m */; };
@@ -26,6 +23,13 @@
 		B4910A1C1D75311A00137CE2 /* icon_xuanze_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A1A1D75311A00137CE2 /* icon_xuanze_nor@2x.png */; };
 		B4910A1D1D75311A00137CE2 /* icon_xuanze_nor@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B4910A1B1D75311A00137CE2 /* icon_xuanze_nor@3x.png */; };
 		B4910A3D1D7FD8B500137CE2 /* Testdata.json in Resources */ = {isa = PBXBuildFile; fileRef = B4910A3C1D7FD8B500137CE2 /* Testdata.json */; };
+		B4A294B21EBC51EE003902A5 /* UIColor+ConfigurationColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A294A71EBC51EE003902A5 /* UIColor+ConfigurationColor.m */; };
+		B4A294B31EBC51EE003902A5 /* UIView+ConfigurationView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A294A91EBC51EE003902A5 /* UIView+ConfigurationView.m */; };
+		B4A294B41EBC51EE003902A5 /* CJLayoutHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A294AB1EBC51EE003902A5 /* CJLayoutHelper.m */; };
+		B4A294B61EBC51EE003902A5 /* ConfigurationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A294AF1EBC51EE003902A5 /* ConfigurationModel.m */; };
+		B4A294B71EBC51EE003902A5 /* ConfigurationTool.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A294B11EBC51EE003902A5 /* ConfigurationTool.m */; };
+		B4A294BB1EBC53BF003902A5 /* NetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B4A294B91EBC53BF003902A5 /* NetViewController.m */; };
+		B4A294BC1EBC53BF003902A5 /* NetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B4A294BA1EBC53BF003902A5 /* NetViewController.xib */; };
 		B4ADD9EF1D8E8DFD00E572BA /* mydata.json in Resources */ = {isa = PBXBuildFile; fileRef = B4ADD9EE1D8E8DFD00E572BA /* mydata.json */; };
 		B4ADD9F11D8E8EE500E572BA /* Testdata.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4ADD9F01D8E8EE500E572BA /* Testdata.plist */; };
 		D5AFAACA3D225DFBAD17D0E3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0C21E0A7CC8DC1147888CD5 /* libPods.a */; };
@@ -53,12 +57,6 @@
 		B44250271D82F8AC00AA4029 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
 		B44250281D82F8AC00AA4029 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		B44250291D82F8AC00AA4029 /* ListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListViewController.xib; sourceTree = "<group>"; };
-		B445243F1DE1EEE000CC749E /* CJLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJLayoutHelper.h; sourceTree = "<group>"; };
-		B44524401DE1EEE000CC749E /* CJLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJLayoutHelper.m; sourceTree = "<group>"; };
-		B44524411DE1EEE000CC749E /* ConfigurationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationModel.h; sourceTree = "<group>"; };
-		B44524421DE1EEE000CC749E /* ConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationModel.m; sourceTree = "<group>"; };
-		B44524431DE1EEE000CC749E /* ConfigurationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTool.h; sourceTree = "<group>"; };
-		B44524441DE1EEE000CC749E /* ConfigurationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTool.m; sourceTree = "<group>"; };
 		B49109CE1D729BD100137CE2 /* listDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = listDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B49109D21D729BD100137CE2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B49109D41D729BD100137CE2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -82,6 +80,19 @@
 		B4910A1A1D75311A00137CE2 /* icon_xuanze_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_xuanze_nor@2x.png"; sourceTree = "<group>"; };
 		B4910A1B1D75311A00137CE2 /* icon_xuanze_nor@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_xuanze_nor@3x.png"; sourceTree = "<group>"; };
 		B4910A3C1D7FD8B500137CE2 /* Testdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Testdata.json; sourceTree = "<group>"; };
+		B4A294A61EBC51EE003902A5 /* UIColor+ConfigurationColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ConfigurationColor.h"; sourceTree = "<group>"; };
+		B4A294A71EBC51EE003902A5 /* UIColor+ConfigurationColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ConfigurationColor.m"; sourceTree = "<group>"; };
+		B4A294A81EBC51EE003902A5 /* UIView+ConfigurationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ConfigurationView.h"; sourceTree = "<group>"; };
+		B4A294A91EBC51EE003902A5 /* UIView+ConfigurationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ConfigurationView.m"; sourceTree = "<group>"; };
+		B4A294AA1EBC51EE003902A5 /* CJLayoutHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJLayoutHelper.h; sourceTree = "<group>"; };
+		B4A294AB1EBC51EE003902A5 /* CJLayoutHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJLayoutHelper.m; sourceTree = "<group>"; };
+		B4A294AE1EBC51EE003902A5 /* ConfigurationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationModel.h; sourceTree = "<group>"; };
+		B4A294AF1EBC51EE003902A5 /* ConfigurationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationModel.m; sourceTree = "<group>"; };
+		B4A294B01EBC51EE003902A5 /* ConfigurationTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigurationTool.h; sourceTree = "<group>"; };
+		B4A294B11EBC51EE003902A5 /* ConfigurationTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigurationTool.m; sourceTree = "<group>"; };
+		B4A294B81EBC53BF003902A5 /* NetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetViewController.h; sourceTree = "<group>"; };
+		B4A294B91EBC53BF003902A5 /* NetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetViewController.m; sourceTree = "<group>"; };
+		B4A294BA1EBC53BF003902A5 /* NetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NetViewController.xib; sourceTree = "<group>"; };
 		B4ADD9EE1D8E8DFD00E572BA /* mydata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mydata.json; sourceTree = "<group>"; };
 		B4ADD9F01D8E8EE500E572BA /* Testdata.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Testdata.plist; sourceTree = "<group>"; };
 		C7D892EFBE267D36EA155E13 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -131,19 +142,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B445243E1DE1EEE000CC749E /* CJLayoutHelper */ = {
-			isa = PBXGroup;
-			children = (
-				B445243F1DE1EEE000CC749E /* CJLayoutHelper.h */,
-				B44524401DE1EEE000CC749E /* CJLayoutHelper.m */,
-				B44524411DE1EEE000CC749E /* ConfigurationModel.h */,
-				B44524421DE1EEE000CC749E /* ConfigurationModel.m */,
-				B44524431DE1EEE000CC749E /* ConfigurationTool.h */,
-				B44524441DE1EEE000CC749E /* ConfigurationTool.m */,
-			);
-			path = CJLayoutHelper;
-			sourceTree = "<group>";
-		};
 		B49109C51D729BD100137CE2 = {
 			isa = PBXGroup;
 			children = (
@@ -169,19 +167,14 @@
 		B49109D01D729BD100137CE2 /* listDemo */ = {
 			isa = PBXGroup;
 			children = (
-				B445243E1DE1EEE000CC749E /* CJLayoutHelper */,
+				B4A294A41EBC51EE003902A5 /* CJLayoutHelper */,
 				B49109D41D729BD100137CE2 /* AppDelegate.h */,
 				B49109D51D729BD100137CE2 /* AppDelegate.m */,
-				B49109D71D729BD100137CE2 /* ViewController.h */,
-				B49109D81D729BD100137CE2 /* ViewController.m */,
+				B4A294BD1EBC546A003902A5 /* ViewController */,
+				B4A294BE1EBC548A003902A5 /* View */,
 				B49109DA1D729BD100137CE2 /* Main.storyboard */,
-				B44250271D82F8AC00AA4029 /* ListViewController.h */,
-				B44250281D82F8AC00AA4029 /* ListViewController.m */,
-				B44250291D82F8AC00AA4029 /* ListViewController.xib */,
-				B4910A071D72B41900137CE2 /* AutoBaseTableViewCell.h */,
-				B4910A081D72B41900137CE2 /* AutoBaseTableViewCell.m */,
-				B49109DD1D729BD100137CE2 /* Assets.xcassets */,
 				B49109DF1D729BD100137CE2 /* LaunchScreen.storyboard */,
+				B49109DD1D729BD100137CE2 /* Assets.xcassets */,
 				B49109E21D729BD100137CE2 /* Info.plist */,
 				B49109D11D729BD100137CE2 /* Supporting Files */,
 			);
@@ -219,6 +212,55 @@
 				B49109F81D729BD100137CE2 /* Info.plist */,
 			);
 			path = listDemoUITests;
+			sourceTree = "<group>";
+		};
+		B4A294A41EBC51EE003902A5 /* CJLayoutHelper */ = {
+			isa = PBXGroup;
+			children = (
+				B4A294A51EBC51EE003902A5 /* CJLayoutCategory */,
+				B4A294AA1EBC51EE003902A5 /* CJLayoutHelper.h */,
+				B4A294AB1EBC51EE003902A5 /* CJLayoutHelper.m */,
+				B4A294AE1EBC51EE003902A5 /* ConfigurationModel.h */,
+				B4A294AF1EBC51EE003902A5 /* ConfigurationModel.m */,
+				B4A294B01EBC51EE003902A5 /* ConfigurationTool.h */,
+				B4A294B11EBC51EE003902A5 /* ConfigurationTool.m */,
+			);
+			path = CJLayoutHelper;
+			sourceTree = SOURCE_ROOT;
+		};
+		B4A294A51EBC51EE003902A5 /* CJLayoutCategory */ = {
+			isa = PBXGroup;
+			children = (
+				B4A294A61EBC51EE003902A5 /* UIColor+ConfigurationColor.h */,
+				B4A294A71EBC51EE003902A5 /* UIColor+ConfigurationColor.m */,
+				B4A294A81EBC51EE003902A5 /* UIView+ConfigurationView.h */,
+				B4A294A91EBC51EE003902A5 /* UIView+ConfigurationView.m */,
+			);
+			path = CJLayoutCategory;
+			sourceTree = "<group>";
+		};
+		B4A294BD1EBC546A003902A5 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B49109D71D729BD100137CE2 /* ViewController.h */,
+				B49109D81D729BD100137CE2 /* ViewController.m */,
+				B44250271D82F8AC00AA4029 /* ListViewController.h */,
+				B44250281D82F8AC00AA4029 /* ListViewController.m */,
+				B44250291D82F8AC00AA4029 /* ListViewController.xib */,
+				B4A294B81EBC53BF003902A5 /* NetViewController.h */,
+				B4A294B91EBC53BF003902A5 /* NetViewController.m */,
+				B4A294BA1EBC53BF003902A5 /* NetViewController.xib */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		B4A294BE1EBC548A003902A5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B4910A071D72B41900137CE2 /* AutoBaseTableViewCell.h */,
+				B4910A081D72B41900137CE2 /* AutoBaseTableViewCell.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,6 +378,7 @@
 				B4910A181D75310200137CE2 /* icon_weixuanze_nor@2x.png in Resources */,
 				B49109DE1D729BD100137CE2 /* Assets.xcassets in Resources */,
 				B442502B1D82F8AC00AA4029 /* ListViewController.xib in Resources */,
+				B4A294BC1EBC53BF003902A5 /* NetViewController.xib in Resources */,
 				B49109DC1D729BD100137CE2 /* Main.storyboard in Resources */,
 				B4910A1D1D75311A00137CE2 /* icon_xuanze_nor@3x.png in Resources */,
 				B4910A3D1D7FD8B500137CE2 /* Testdata.json in Resources */,
@@ -412,12 +455,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B49109D91D729BD100137CE2 /* ViewController.m in Sources */,
+				B4A294B31EBC51EE003902A5 /* UIView+ConfigurationView.m in Sources */,
 				B442502A1D82F8AC00AA4029 /* ListViewController.m in Sources */,
-				B44524451DE1EEE000CC749E /* CJLayoutHelper.m in Sources */,
 				B49109D61D729BD100137CE2 /* AppDelegate.m in Sources */,
-				B44524471DE1EEE000CC749E /* ConfigurationTool.m in Sources */,
-				B44524461DE1EEE000CC749E /* ConfigurationModel.m in Sources */,
+				B4A294B61EBC51EE003902A5 /* ConfigurationModel.m in Sources */,
 				B49109D31D729BD100137CE2 /* main.m in Sources */,
+				B4A294BB1EBC53BF003902A5 /* NetViewController.m in Sources */,
+				B4A294B21EBC51EE003902A5 /* UIColor+ConfigurationColor.m in Sources */,
+				B4A294B71EBC51EE003902A5 /* ConfigurationTool.m in Sources */,
+				B4A294B41EBC51EE003902A5 /* CJLayoutHelper.m in Sources */,
 				B4910A091D72B41900137CE2 /* AutoBaseTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
