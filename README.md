@@ -35,7 +35,7 @@ UIScrollView是UIView1的第二个子view，其存在以水平方向布局的两
 
 **对应的json数据结构图:**
 
-![json数据结构](https://o44fado6w.qnssl.com/QQ20160907-1@2x.png?imageView/2/w/400/q/100)
+![json数据结构](https://o44fado6w.qnssl.com/CJLayoutHelper.png?imageView/2/w/400/q/100)
 
 ### 3. 单个UI元素的json数据结构
 每一个UI元素对应一段特定的json数据，json数据由两部分构成：
