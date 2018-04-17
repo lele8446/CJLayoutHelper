@@ -333,7 +333,8 @@
 				TargetAttributes = {
 					B49109CD1D729BD100137CE2 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = XNH4LYVJV3;
+						DevelopmentTeam = 77MMW6NR5H;
+						ProvisioningStyle = Manual;
 					};
 					B49109E61D729BD100137CE2 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -537,7 +538,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -582,7 +583,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -609,7 +610,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 77MMW6NR5H;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -631,9 +634,10 @@
 					"-framework",
 					"\"SystemConfiguration\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = listDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitone.allApp;
+				PRODUCT_NAME = listDemo;
+				PROVISIONING_PROFILE = "4ad2fa1c-d47a-434d-b451-0dd7605ff46c";
+				PROVISIONING_PROFILE_SPECIFIER = crmAppRelease;
 			};
 			name = Debug;
 		};
@@ -643,7 +647,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 77MMW6NR5H;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -665,9 +671,10 @@
 					"-framework",
 					"\"SystemConfiguration\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = listDemo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitone.allApp;
+				PRODUCT_NAME = listDemo;
+				PROVISIONING_PROFILE = "4ad2fa1c-d47a-434d-b451-0dd7605ff46c";
+				PROVISIONING_PROFILE_SPECIFIER = crmAppRelease;
 			};
 			name = Release;
 		};
@@ -677,8 +684,8 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = listDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CJ.Lian.listDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitone.allApp;
+				PRODUCT_NAME = listDemo;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/listDemo.app/listDemo";
 			};
 			name = Debug;
@@ -689,8 +696,8 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = listDemoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CJ.Lian.listDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitone.allApp;
+				PRODUCT_NAME = listDemo;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/listDemo.app/listDemo";
 			};
 			name = Release;
@@ -700,8 +707,8 @@
 			buildSettings = {
 				INFOPLIST_FILE = listDemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CJ.Lian.listDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitone.allApp;
+				PRODUCT_NAME = listDemo;
 				TEST_TARGET_NAME = listDemo;
 			};
 			name = Debug;
@@ -711,8 +718,8 @@
 			buildSettings = {
 				INFOPLIST_FILE = listDemoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = CJ.Lian.listDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitone.allApp;
+				PRODUCT_NAME = listDemo;
 				TEST_TARGET_NAME = listDemo;
 			};
 			name = Release;

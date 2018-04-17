@@ -60,10 +60,10 @@ UIScrollView是UIView1的第二个子view，其存在以水平方向布局的两
     "subviews": []                          //子view的model数组
    },
 "model":{
-    "backgroundColor": "#87CEEB",//背景颜色
-    "title": "标题",              //当前绘制的view的标题（如果存在的话）
-    "titleFont": 14,             //当前绘制的view的字体，默认取最底层superView的配置信息，如果都没有则默认为：[UIFont systemFontOfSize:14]
-    "titleColor": "#000000"      //当前绘制的view的字体颜色，默认取最底层superView的配置信息，如果都没有则默认为：[UIColor blackColor]
+    "backgroundColor": "#87CEEB",//背景颜色
+    "text": "标题",               //当前绘制的view的标题（如果存在的话）
+    "font": 14,                  //当前绘制的view的字体，默认取最底层superView的配置信息，如果都没有则默认为：[UIFont systemFontOfSize:14]
+    "textColor": "#000000"       //当前绘制的view的字体颜色，默认取最底层superView的配置信息，如果都没有则默认为：[UIColor blackColor]
     "idDescription": "CJUITextView_dz", //用来描述当前view的id，需要保证唯一性
     "placeholder": "请输入地址"    //默认提示
    }
