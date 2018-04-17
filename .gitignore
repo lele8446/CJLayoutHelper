@@ -5,6 +5,7 @@
 ## Build generated
 build/
 DerivedData
+Archiving
 
 ## Various settings
 *.pbxuser
@@ -53,3 +54,5 @@ Carthage/Build
 
 fastlane/report.xml
 fastlane/screenshots
+
+.DS_Store
